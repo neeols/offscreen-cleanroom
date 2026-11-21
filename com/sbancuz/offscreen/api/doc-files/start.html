@@ -71,7 +71,7 @@ loadScripts(document, 'script');</script>
 <pre tabindex="0" role="region" aria-label="HelloScreen drawing example"><code class="language-java">import net.minecraft.client.gui.GuiScreen;
 
 public final class HelloScreen extends GuiScreen {
-    &#64;Override
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawRect(0, 0, width, height, 0xFF17232D);
         drawCenteredString(fontRenderer, "Hello from a separate window!",
@@ -162,12 +162,16 @@ final class AppearanceExample {
             .buttons(true, false, true) // Minimize, middle, Close: any combination.
             .resizable(false)
             .opacity(0.65f); // Custom bar only; its text/buttons fade too.
-        Window window = OffscreenAPI.openCustom(() -&gt; new GuiScreen() {}, chrome);
-        if (!OffscreenAPI.isOpen(window)) throw new IllegalStateException(&quot;Window unavailable&quot;);
+        Window window = OffscreenAPI.openCustom(() -&gt; new GuiScreen() {
+        }, chrome);
+        if (!OffscreenAPI.isOpen(window)) throw new IllegalStateException("Window unavailable");
         try {
-            if (!OffscreenAPI.setIcon(window, new ResourceLocation(&quot;my_addon&quot;, &quot;textures/gui/window_icon.png&quot;)))
-                System.out.println(&quot;The platform did not accept the icon&quot;);
-            if (!OffscreenAPI.setOpacity(window, 0.9f)) System.out.println(&quot;Window opacity unavailable&quot;);
+            if (!OffscreenAPI.setIcon(window,
+                new ResourceLocation("my_addon",
+                "textures/gui/window_icon.png")))
+                System.out.println("The platform did not accept the icon");
+            if (!OffscreenAPI.setOpacity(window,
+                0.9f)) System.out.println("Window opacity unavailable");
             return window; // Retain this exact owner in your client controller.
         } catch (IOException | RuntimeException | Error failure) {
             OffscreenAPI.close(window);
@@ -186,11 +190,18 @@ import net.minecraft.util.ResourceLocation
 fun openStyledWindow(): Window {
     val chrome = WindowChrome.defaults().colors(0xFF253441.toInt(), 0xFFFFFF)
         .buttons(true, false, true).resizable(false).opacity(0.65f)
-    val window = requireNotNull(OffscreenAPI.openCustom({ object : GuiScreen() {} }, chrome))
+    val window = requireNotNull(OffscreenAPI.openCustom({
+        object : GuiScreen() {
+        }
+    },
+        chrome))
     return try {
-        if (!OffscreenAPI.setIcon(window, ResourceLocation(&quot;my_addon&quot;, &quot;textures/gui/window_icon.png&quot;)))
-            println(&quot;The platform did not accept the icon&quot;)
-        if (!OffscreenAPI.setOpacity(window, 0.9f)) println(&quot;Window opacity unavailable&quot;)
+        if (!OffscreenAPI.setIcon(window,
+            ResourceLocation("my_addon",
+            "textures/gui/window_icon.png")))
+            println("The platform did not accept the icon")
+        if (!OffscreenAPI.setOpacity(window,
+            0.9f)) println("Window opacity unavailable")
         window
     } catch (failure: Throwable) {
         OffscreenAPI.close(window)
@@ -209,11 +220,14 @@ def openStyledWindow() {
     def chrome = WindowChrome.defaults().colors(0xFF253441 as int, 0xFFFFFF)
         .buttons(true, false, true).resizable(false).opacity(0.65f)
     def window = OffscreenAPI.openCustom({ new GuiScreen() {} } as Supplier, chrome)
-    if (!OffscreenAPI.isOpen(window)) throw new IllegalStateException(&#x27;Window unavailable&#x27;)
+    if (!OffscreenAPI.isOpen(window)) throw new IllegalStateException('Window unavailable')
     try {
-        if (!OffscreenAPI.setIcon(window, new ResourceLocation(&#x27;my_addon&#x27;, &#x27;textures/gui/window_icon.png&#x27;)))
-            println(&#x27;The platform did not accept the icon&#x27;)
-        if (!OffscreenAPI.setOpacity(window, 0.9f)) println(&#x27;Window opacity unavailable&#x27;)
+        if (!OffscreenAPI.setIcon(window,
+            new ResourceLocation('my_addon',
+            'textures/gui/window_icon.png')))
+            println('The platform did not accept the icon')
+        if (!OffscreenAPI.setOpacity(window,
+            0.9f)) println('Window opacity unavailable')
         return window
     } catch (Throwable failure) {
         OffscreenAPI.close(window)
@@ -231,11 +245,14 @@ def openStyledWindow(): Window =
     val chrome = WindowChrome.defaults().colors(0xFF253441, 0xFFFFFF)
         .buttons(true, false, true).resizable(false).opacity(0.65f)
     val window = OffscreenAPI.openCustom(() =&gt; new GuiScreen() {}, chrome)
-    if !OffscreenAPI.isOpen(window) then throw new IllegalStateException(&quot;Window unavailable&quot;)
+    if !OffscreenAPI.isOpen(window) then throw new IllegalStateException("Window unavailable")
     try
-        if !OffscreenAPI.setIcon(window, new ResourceLocation(&quot;my_addon&quot;, &quot;textures/gui/window_icon.png&quot;)) then
-            println(&quot;The platform did not accept the icon&quot;)
-        if !OffscreenAPI.setOpacity(window, 0.9f) then println(&quot;Window opacity unavailable&quot;)
+        if !OffscreenAPI.setIcon(window,
+            new ResourceLocation("my_addon",
+            "textures/gui/window_icon.png")) then
+            println("The platform did not accept the icon")
+        if !OffscreenAPI.setOpacity(window,
+            0.9f) then println("Window opacity unavailable")
         window
     catch
         case failure: Throwable =&gt;
@@ -250,15 +267,15 @@ import mods.offscreencleanroom.Window;
 function openStyledWindow() as Window {
     val chrome = Windows.chrome().colors(-14339007, 16777215)
         .buttons(true, false, true).resizable(false).opacity(0.65);
-    val screen = Windows.screen(&quot;My window&quot;, 640, 400);
-    screen.text(&quot;Content stays separate from the title bar&quot;, 12, 12, -1);
+    val screen = Windows.screen("My window", 640, 400);
+    screen.text("Content stays separate from the title bar", 12, 12, -1);
     val window = Windows.openCustom(screen, chrome);
-    if (!window.icon(&quot;my_addon:textures/gui/window_icon.png&quot;))
-        print(&quot;Icon unavailable; keeping the current icon&quot;);
-    if (!window.opacity(0.9)) print(&quot;Window opacity unavailable&quot;);
+    if (!window.icon("my_addon:textures/gui/window_icon.png"))
+        print("Icon unavailable; keeping the current icon");
+    if (!window.opacity(0.9)) print("Window opacity unavailable");
     return window; // Retain this handle; client teardown calls window.close().
 }
-// Unlike Java&#x27;s checked IOException, an unreadable script icon returns false and is logged.
+// Unlike Java's checked IOException, an unreadable script icon returns false and is logged.
 // Ordinary Windows.open(screen) keeps native Windows/OS chrome.</code></pre>
 <p>Java/Kotlin/Groovy/Scala resource loading can throw an I/O error; the examples close the newly created owner before propagating it. CraftTweaker’s icon method returns false and logs unreadable resources so scripts can retain their previous icon. A native setter returning false means the platform did not accept that feature; it is not a successful configuration. Native creation failures propagate before a handle is returned. Keep all these calls on the client thread.</p></div>
 <h2 id="start-font-motion">Formatted captions and motion</h2><p>A custom title bar can use the same formatted font as your addon, including a renderer supplied by Chromatic Codes. Offscreen passes full strings to a generic measuring/drawing bridge and does not require that mod. The hook covers the title and every control label. Default control ink automatically contrasts with the bar tint. See <a href="animations.html#caption-font">the five-language caption recipe</a> and <a href="animations.html">window and per-element animations</a>. To add a picture, video or sound, follow <a href="media.html">the media guide</a>.</p>
@@ -277,9 +294,9 @@ screens when installed; it does not make arbitrary unsynchronized containers saf
 <p>This defines screen content without opening a desktop window. The native examples extend Minecraft’s GuiScreen; the ZenScript version describes the same static content.</p>
 <pre data-language="java" tabindex="0" role="region" aria-label="Create a local screen — java"><code class="language-java">import net.minecraft.client.gui.GuiScreen;
 public final class HelloScreen extends GuiScreen {
-    &#64;Override public void drawScreen(int x, int y, float partialTicks) {
+    @Override public void drawScreen(int x, int y, float partialTicks) {
         drawRect(0, 0, width, height, 0xFF17232D);
-        drawCenteredString(fontRenderer, &quot;Hello&quot;, width / 2, 24, 0xFFFFFF);
+        drawCenteredString(fontRenderer, "Hello", width / 2, 24, 0xFFFFFF);
         super.drawScreen(x, y, partialTicks);
     }
 }</code>
@@ -288,16 +305,16 @@ public final class HelloScreen extends GuiScreen {
 class HelloScreen : GuiScreen() {
     override fun drawScreen(x: Int, y: Int, partialTicks: Float) {
         drawRect(0, 0, width, height, 0xFF17232D.toInt())
-        drawCenteredString(fontRenderer, &quot;Hello&quot;, width / 2, 24, 0xFFFFFF)
+        drawCenteredString(fontRenderer, "Hello", width / 2, 24, 0xFFFFFF)
         super.drawScreen(x, y, partialTicks)
     }
 }</code>
 </pre>
 <pre data-language="groovy" tabindex="0" role="region" aria-label="Create a local screen — groovy"><code class="language-groovy">import net.minecraft.client.gui.GuiScreen
 class HelloScreen extends GuiScreen {
-    &#64;Override void drawScreen(int x, int y, float partialTicks) {
+    @Override void drawScreen(int x, int y, float partialTicks) {
         drawRect(0, 0, width, height, 0xFF17232D as int)
-        drawCenteredString(fontRenderer, &#x27;Hello&#x27;, (width / 2) as int, 24, 0xFFFFFF)
+        drawCenteredString(fontRenderer, 'Hello', (width / 2) as int, 24, 0xFFFFFF)
         super.drawScreen(x, y, partialTicks)
     }
 }</code>
@@ -306,12 +323,12 @@ class HelloScreen extends GuiScreen {
 class HelloScreen extends GuiScreen:
   override def drawScreen(x: Int, y: Int, partialTicks: Float): Unit =
     net.minecraft.client.gui.Gui.drawRect(0, 0, width, height, 0xFF17232D)
-    drawCenteredString(fontRenderer, &quot;Hello&quot;, width / 2, 24, 0xFFFFFF)
+    drawCenteredString(fontRenderer, "Hello", width / 2, 24, 0xFFFFFF)
     super.drawScreen(x, y, partialTicks)</code>
 </pre>
 <pre data-language="zenscript" tabindex="0" role="region" aria-label="Create a local screen — zenscript"><code class="language-zenscript">import mods.offscreencleanroom.Windows;
-val hello = Windows.screen(&quot;Hello&quot;, 640, 480).background(-15260883);
-hello.text(&quot;Hello&quot;, 24, 24, -1);</code>
+val hello = Windows.screen("Hello", 640, 480).background(-15260883);
+hello.text("Hello", 24, 24, -1);</code>
 </pre>
 <p>Coordinates inside a hosted screen are Minecraft GUI units. Window sizes are logical desktop units and may differ on scaled displays. Each open needs a fresh backing screen; a screen declaration can be reused.</p>
 </div>
@@ -321,7 +338,7 @@ hello.text(&quot;Hello&quot;, 24, 24, -1);</code>
 <pre data-language="java" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
 var window = OffscreenAPI.open(HelloScreen::new);
 if (OffscreenAPI.isOpen(window)) {
-    window.setTitle(&quot;Tools&quot;);
+    window.setTitle("Tools");
     window.resize(960, 640);
     window.setClearColor(0xFF17232D);
 }
@@ -329,27 +346,27 @@ if (OffscreenAPI.isOpen(window)) {
 OffscreenAPI.close(window);</code>
 </pre>
 <pre data-language="kotlin" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
-val window = openWindow(&quot;Tools&quot;, 960, 640) { HelloScreen() }
+val window = openWindow("Tools", 960, 640) { HelloScreen() }
 window.setClearColor(0xFF17232D.toInt())
 // Later, from the client thread:
 OffscreenAPI.close(window)</code>
 </pre>
 <pre data-language="groovy" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — groovy"><code class="language-groovy">def windows = mods.offscreencleanroom.windows
-def window = windows.open({ new HelloScreen() }, &#x27;Tools&#x27;, 960, 640)
+def window = windows.open({ new HelloScreen() }, 'Tools', 960, 640)
 windows.configure(window) { current -&gt; current.setClearColor(0xFF17232D as int) }
-// Later; reload also closes only this registry&#x27;s windows:
+// Later; reload also closes only this registry's windows:
 windows.close(window)</code>
 </pre>
 <pre data-language="scala" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
 import com.sbancuz.offscreen.api.OffscreenAPI
-val window = open(&quot;Tools&quot;, 960, 640)(new HelloScreen)
+val window = open("Tools", 960, 640)(new HelloScreen)
 window.setClearColor(0xFF17232D)
 // Later, from the client thread:
 OffscreenAPI.close(window)</code>
 </pre>
 <pre data-language="zenscript" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — zenscript"><code class="language-zenscript">// Inside a client GUI/input callback, after declaring hello:
 val window = hello.open();
-window.title(&quot;Tools&quot;);
+window.title("Tools");
 window.resize(960, 640);
 window.clearColor(-15260883);
 // Later, while retaining this exact handle:
@@ -371,7 +388,11 @@ int depth = OffscreenAPI.getScreenDepth(window);</code>
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 window.pushScreen { HelloScreen() }
 val returned = OffscreenAPI.pop(window)
-window.replaceScreen(HostUIFactory { screen -&gt; VanillaUI(screen as HelloScreen) }) { HelloScreen() }
+window.replaceScreen(HostUIFactory {
+    screen -&gt; VanillaUI(screen as HelloScreen)
+}) {
+    HelloScreen()
+}
 val depth = window.screenDepth</code>
 </pre>
 <pre data-language="groovy" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — groovy"><code class="language-groovy">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
@@ -388,10 +409,10 @@ val returned = OffscreenAPI.pop(window)
 window.replaceScreen(screen =&gt; new VanillaUI(screen.asInstanceOf[HelloScreen]))(new HelloScreen)
 val depth = window.getScreenDepth()</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — zenscript"><code class="language-zenscript">val child = Windows.screen(&quot;Details&quot;, 480, 320);
+<pre data-language="zenscript" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — zenscript"><code class="language-zenscript">val child = Windows.screen("Details", 480, 320);
 window.push(child);
 val returned = window.back();
-window.replace(Windows.screen(&quot;New root&quot;, 640, 480));
+window.replace(Windows.screen("New root", 640, 480));
 val depth = window.depth;</code>
 </pre>
 <p>ZenScript’s Escape action returns to the parent, then closes at the root; a consumed key event can override it. Do not replace a synchronized factory root with a local screen: the server protocol owns that root.</p>
@@ -400,7 +421,7 @@ val depth = window.depth;</code>
 <ul>
 <li><a href="integrations.html">Modular<wbr>UI and HEI</a>: server state and overlay ownership.</li>
 <li><a href="troubleshooting.html">Troubleshooting</a>: installation, input, dimensions, and limits.</li>
-<li><a href="languages.html">Languages</a>: Kotlin, GroovyScript, Scala 3, and CraftTweaker.</li>
+<li><a href="languages.html">API recipes</a>: Kotlin, GroovyScript, Scala 3, and CraftTweaker.</li>
 <li><a href="../OffscreenAPI.html">Offscreen<wbr>API</a>: titles, colors, lookup, and navigation.</li>
 <li><a href="../UIRegistry.html">UIRegistry</a>: register a screen adapter.</li>
 <li><a href="../HostUI.html">Host<wbr>UI</a>: implement drawing, input, and disposal.</li>

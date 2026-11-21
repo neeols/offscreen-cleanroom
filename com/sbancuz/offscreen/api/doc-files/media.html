@@ -54,15 +54,15 @@ loadScripts(document, 'script');</script>
 <span class="skip-nav" id="skip-navbar-top"></span></nav>
 </header>
 <div class="main-grid">
-<main role="main"><div class="av-guide" data-languages="java kotlin groovy scala zenscript"><h1 id="show-images-video-and-audio-heading">Show images, video and audio</h1><p class="av-lead">Display an image, play a video, or add audio to your window. Packaged Minecraft images can be drawn directly. For a file or stream, open a <code>MediaPlayer</code>, update it from client callbacks, and close it when its screen finishes.</p><section class="av-call-guide"><h2 id="media-call-sequence">Calls used in the examples</h2><table><caption>Calls used in this guide</caption><thead><tr><th scope="col">Call or setting</th><th scope="col">Arguments</th><th scope="col">What it does</th></tr></thead><tbody><tr><td><code><a href="../client/media/MediaPlayer.html">MediaPlayer</a>.<a href="../client/media/MediaPlayer.html#open(com.sbancuz.offscreen.api.client.media.MediaSource,com.sbancuz.offscreen.api.client.media.MediaSource.Kind,com.sbancuz.offscreen.api.client.media.MediaOptions,com.sbancuz.offscreen.api.client.media.MediaDecoder)">open</a>(source, kind, options, decoder)</code></td><td>Media source; media kind; playback options; decoder</td><td>Use the built-in decoder for supported images/audio, or an explicitly installed FFmpeg executable for video and animated images.</td></tr><tr><td><code><a href="../client/media/MediaPlayer.html#volume(double)">volume</a>(value)</code></td><td>Playback volume</td><td>The example uses 0.25 for quieter audio.</td></tr><tr><td><code><a href="../client/media/MediaPlayer.html#play()">play</a>() / <a href="../client/media/MediaPlayer.html#pause()">pause</a>() / <a href="../client/media/MediaPlayer.html#seek(double)">seek</a>(seconds)</code></td><td>Playback action; seek position in seconds</td><td>Start or resume the clock, pause it, or move to another point.</td></tr><tr><td><code><a href="../client/media/MediaPlayer.html#draw(double,double,double,double,float)">draw</a>(x, y, width, height, opacity)</code></td><td>Destination rectangle and opacity</td><td>Draw from the client render callback. A false result lets your screen show loading or failure feedback.</td></tr></tbody></table><p><strong>When you finish:</strong> Call update from client tick/render callbacks, including for audio-only playback. Close the player in screen disposal, or attach it to its window with ownVisual. Packaged Minecraft textures belong to the texture manager and must not be deleted by the screen.</p></section><nav aria-label="Media recipes"><a href="#media-texture">Image from your addon</a> · <a href="#media-image">Still image</a> · <a href="#media-gif">Animated GIF</a> · <a href="#media-playback">Video</a> · <a href="#media-custom-audio">Custom audio player</a></nav><div class="av-example-group" data-example="media-texture"><h2 id="media-texture">Display an image</h2><p>Put a 256 × 256 PNG at <code>src/main/resources/assets/<wbr>example/<wbr>textures/<wbr>gui/<wbr>logo.png</code>. The example reads the full 256 × 256 source image and draws it in a 64 × 64 rectangle in Minecraft GUI units. To display it in Java, Kotlin, Scala or GroovyScript, call the drawing method from your screen’s render callback on the client thread. In CraftTweaker, add the image to the screen declaration. Minecraft’s texture manager owns this cached texture, so do not delete it when the window closes. For a file chosen at runtime, use the still-image player below. Animated GIFs need the separate playback recipe.</p><pre data-language="java" tabindex="0" role="region" aria-label="Packaged image: java"><code class="language-java">import net.minecraft.client.Minecraft;
+<main role="main"><div class="av-guide" data-languages="java kotlin groovy scala zenscript"><h1 id="show-images-video-and-audio-heading">Show images, video and audio</h1><p class="av-lead">Display an image, play a video, or add audio to your window. Packaged Minecraft images can be drawn directly. For a file or stream, open a <code>MediaPlayer</code>, update it from client callbacks, and close it when its screen finishes.</p><nav aria-label="Media recipes"><a href="#media-texture">Image from your addon</a> · <a href="#media-image">Still image</a> · <a href="#media-gif">Animated GIF</a> · <a href="#media-playback">Video</a> · <a href="#media-custom-audio">Custom audio player</a></nav><div class="av-example-group" data-example="media-texture"><h2 id="media-texture">Display an image</h2><p>Put a 256 × 256 PNG at <code>src/main/resources/assets/<wbr>example/<wbr>textures/<wbr>gui/<wbr>logo.png</code>. The example reads the full 256 × 256 source image and draws it in a 64 × 64 rectangle in Minecraft GUI units. To display it in Java, Kotlin, Scala or GroovyScript, call the drawing method from your screen’s render callback on the client thread. In CraftTweaker, add the image to the screen declaration. Minecraft’s texture manager owns this cached texture, so do not delete it when the window closes. For a file chosen at runtime, use the still-image player below. Animated GIFs need the separate playback recipe.</p><pre data-language="java" tabindex="0" role="region" aria-label="Packaged image: java"><code class="language-java">import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 
 final class PackagedImage {
     private static final ResourceLocation LOGO =
-            new ResourceLocation(&quot;example&quot;, &quot;textures/gui/logo.png&quot;);
+            new ResourceLocation("example", "textures/gui/logo.png");
 
-    // Called from your screen&#x27;s render callback. The source image is 256 x 256.
+    // Called from your screen's render callback. The source image is 256 x 256.
     static void draw(int x, int y) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(LOGO);
         Gui.drawScaledCustomSizeModalRect(x, y, 0, 0, 256, 256, 64, 64, 256, 256);
@@ -73,7 +73,7 @@ import net.minecraft.client.gui.Gui
 import net.minecraft.util.ResourceLocation
 
 object PackagedImageKotlin {
-    private val logo = ResourceLocation(&quot;example&quot;, &quot;textures/gui/logo.png&quot;)
+    private val logo = ResourceLocation("example", "textures/gui/logo.png")
 
     fun draw(x: Int, y: Int) {
         Minecraft.getMinecraft().textureManager.bindTexture(logo)
@@ -86,9 +86,9 @@ import net.minecraft.util.ResourceLocation;
 
 class PackagedImageGroovy {
     private static final ResourceLocation LOGO =
-            new ResourceLocation(&quot;example&quot;, &quot;textures/gui/logo.png&quot;);
+            new ResourceLocation("example", "textures/gui/logo.png");
 
-    // Called from your screen&#x27;s render callback. The source image is 256 x 256.
+    // Called from your screen's render callback. The source image is 256 x 256.
     static void draw(int x, int y) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(LOGO);
         Gui.drawScaledCustomSizeModalRect(x, y, 0, 0, 256, 256, 64, 64, 256, 256);
@@ -99,7 +99,7 @@ import net.minecraft.client.gui.Gui
 import net.minecraft.util.ResourceLocation
 
 object PackagedImageScala:
-  private val logo = new ResourceLocation(&quot;example&quot;, &quot;textures/gui/logo.png&quot;)
+  private val logo = new ResourceLocation("example", "textures/gui/logo.png")
 
   def draw(x: Int, y: Int): Unit =
     Minecraft.getMinecraft().getTextureManager().bindTexture(logo)
@@ -109,8 +109,8 @@ import mods.offscreencleanroom.Windows;
 import mods.offscreencleanroom.Window;
 
 function openImageWindow() as Window {
-    val screen = Windows.screen(&quot;Logo&quot;, 160, 120);
-    screen.image(&quot;example:textures/gui/logo.png&quot;, 24, 24, 64, 64);
+    val screen = Windows.screen("Logo", 160, 120);
+    screen.image("example:textures/gui/logo.png", 24, 24, 64, 64);
     return Windows.open(screen);
 }
 </code></pre></div><h2 id="media-decoder">Choose a decoder</h2><p><code>MediaDecoders.builtin()</code> uses installed ImageIO readers for still images and Java Sound providers for audio. Video and animated images need a video decoder. <code>MediaDecoders.ffmpeg(path)</code> uses an explicitly configured FFmpeg executable for images, animated images, video and audio. Offscreen does not bundle or download that executable. Its supported formats depend on the codecs enabled in that build; see <a href="https://ffmpeg.org/ffmpeg-formats.html">FFmpeg's format reference</a>. Other decoders can implement <code>MediaDecoder</code> without changing the player API.</p><p>A filename extension is not a guarantee of a codec. Unsupported, corrupt or missing media produces <code>FAILED</code> with a retained cause. The player never silently claims that an unknown format was decoded. DRM-protected media and interactive formats such as HTML are not generic video streams.</p><div class="av-example-group" data-example="media-playback"><h2 id="media-playback">Play a video</h2><p>Client setup: retain a player for this screen instance. The decoding worker prepares it; <code>play()</code> starts the playback clock. Drawing returns false while loading or after failure, so your screen can show useful feedback. Call <code>update()</code> in a client tick/render callback even for audio-only players so end/loop handling runs. Window readiness and media readiness are separate.</p><pre data-language="java" tabindex="0" role="region" aria-label="Media playback — java"><code class="language-java">import java.nio.file.Path;
@@ -122,18 +122,32 @@ final class MediaRecipe {
     // Client setup: ffmpeg and clip are paths chosen by your addon/user.
     MediaRecipe(Window window, Path ffmpeg, Path clip) {
         video = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
-                MediaSource.Kind.VIDEO, MediaOptions.defaults(), MediaDecoders.ffmpeg(ffmpeg)));
+                MediaSource.Kind.VIDEO,
+                    MediaOptions.defaults(),
+                    MediaDecoders.ffmpeg(ffmpeg)));
         video.volume(.25);
         video.play();
     }
     // Render callback: false means no frame is available; draw your loading/error label then.
-    boolean draw(int width, int height) { return video.draw(0, 0, width, height, 1); }
-    void pause() { video.pause(); }
-    void resume() { video.play(); }
-    void jumpTo(double seconds) { video.seek(seconds); }
-    MediaPlayer.Status status() { return video.status(); }
+    boolean draw(int width, int height) {
+        return video.draw(0, 0, width, height, 1);
+    }
+    void pause() {
+        video.pause();
+    }
+    void resume() {
+        video.play();
+    }
+    void jumpTo(double seconds) {
+        video.seek(seconds);
+    }
+    MediaPlayer.Status status() {
+        return video.status();
+    }
     // Client teardown: the window also closes this exact player if you leave it installed.
-    void dispose() { video.close(); }
+    void dispose() {
+        video.close();
+    }
 }
 </code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Media playback — kotlin"><code class="language-kotlin">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
@@ -142,9 +156,17 @@ import com.sbancuz.offscreen.window.Window
 class MediaKotlin(window: Window, ffmpeg: Path, clip: Path) {
     private val video = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
         MediaSource.Kind.VIDEO, MediaOptions.defaults(), MediaDecoders.ffmpeg(ffmpeg)))
-    init { video.volume(.25); video.play() }
+    init {
+        video.volume(.25);
+        video.play()
+    }
     // Client render callback: show your loading/error label when this returns false.
-    fun draw(width: Int, height: Int) = video.draw(0.0, 0.0, width.toDouble(), height.toDouble(), 1f)
+    fun draw(width: Int,
+        height: Int) = video.draw(0.0,
+        0.0,
+        width.toDouble(),
+        height.toDouble(),
+        1f)
     fun pause() { video.pause() }
     fun resume() { video.play() }
     fun jumpTo(seconds: Double) { video.seek(seconds) }
@@ -159,7 +181,9 @@ class MediaGroovy {
     final MediaPlayer video
     MediaGroovy(Window window, Path ffmpeg, Path clip) {
         video = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
-            MediaSource.Kind.VIDEO, MediaOptions.defaults(), MediaDecoders.ffmpeg(ffmpeg)))
+            MediaSource.Kind.VIDEO,
+                MediaOptions.defaults(),
+                MediaDecoders.ffmpeg(ffmpeg)))
         video.volume(.25)
         video.play()
     }
@@ -192,7 +216,7 @@ import mods.offscreencleanroom.MediaPlayer;
 
 // Call from a client action after you have a window and configured file/executable paths.
 function openVideo(window as Window, ffmpeg as string, clip as string) as MediaPlayer {
-    val video = Media.open(window, Media.file(clip), &quot;video&quot;, ffmpeg,
+    val video = Media.open(window, Media.file(clip), "video", ffmpeg,
         Media.options(640, 360, 30, true, false));
     video.volume(0.25);
     video.play();
@@ -202,14 +226,22 @@ function openVideo(window as Window, ffmpeg as string, clip as string) as MediaP
 function drawVideo(video as MediaPlayer, width as int, height as int) as bool {
     return video.draw(0, 0, width, height, 1);
 }
-function pauseVideo(video as MediaPlayer) { video.pause(); }
-function resumeVideo(video as MediaPlayer) { video.play(); }
-function jumpTo(video as MediaPlayer, seconds as double) { video.seek(seconds); }
-function inspectVideo(video as MediaPlayer) {
-    if (video.error != &quot;&quot;) print(video.error);
-    if (video.audioError != &quot;&quot;) print(video.audioError);
+function pauseVideo(video as MediaPlayer) {
+    video.pause();
 }
-function disposeVideo(video as MediaPlayer) { video.close(); }
+function resumeVideo(video as MediaPlayer) {
+    video.play();
+}
+function jumpTo(video as MediaPlayer, seconds as double) {
+    video.seek(seconds);
+}
+function inspectVideo(video as MediaPlayer) {
+    if (video.error != "") print(video.error);
+    if (video.audioError != "") print(video.audioError);
+}
+function disposeVideo(video as MediaPlayer) {
+    video.close();
+}
 </code></pre></div><div class="av-example-group" data-example="media-image"><h2 id="media-image">Display an image from a file</h2><p>Keep one player per screen. ImageIO decodes the image in the background; draw it in your screen’s render callback. A false draw result means the texture is not available yet: show a loading label, or the retained error if loading failed. Close it from screen teardown. This recipe uses the built-in decoder and needs no FFmpeg executable.</p><pre data-language="java" tabindex="0" role="region" aria-label="Display an image from a file: java"><code class="language-java">import java.nio.file.Path;
 import com.sbancuz.offscreen.api.client.media.*;
 import com.sbancuz.offscreen.window.Window;
@@ -219,14 +251,22 @@ final class StillImage {
     // The source path belongs to this screen instance.
     StillImage(Window window, Path clip) {
         image = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
-                MediaSource.Kind.IMAGE, MediaOptions.defaults(), MediaDecoders.builtin()));
+                MediaSource.Kind.IMAGE,
+                    MediaOptions.defaults(),
+                    MediaDecoders.builtin()));
         image.play();
     }
     // Render callback: false means no frame is available; draw your loading/error label then.
-    boolean draw(int width, int height) { return image.draw(0, 0, width, height, 1); }
-    MediaPlayer.Status status() { return image.status(); }
+    boolean draw(int width, int height) {
+        return image.draw(0, 0, width, height, 1);
+    }
+    MediaPlayer.Status status() {
+        return image.status();
+    }
     // Client teardown: the window also closes this exact player if you leave it installed.
-    void dispose() { image.close(); }
+    void dispose() {
+        image.close();
+    }
 }
 </code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Display an image from a file: kotlin"><code class="language-kotlin">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
@@ -236,7 +276,12 @@ class StillImageKotlin(window: Window, clip: Path) {
     private val image = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
         MediaSource.Kind.IMAGE, MediaOptions.defaults(), MediaDecoders.builtin()))
     // Client render callback: show your loading/error label when this returns false.
-    fun draw(width: Int, height: Int) = image.draw(0.0, 0.0, width.toDouble(), height.toDouble(), 1f)
+    fun draw(width: Int,
+        height: Int) = image.draw(0.0,
+        0.0,
+        width.toDouble(),
+        height.toDouble(),
+        1f)
     fun status(): MediaPlayer.Status = image.status()
     fun dispose() { image.close() }
 }
@@ -273,7 +318,7 @@ import mods.offscreencleanroom.MediaPlayer;
 
 // Call from a client action after you have a window and configured file/executable paths.
 function openImage(window as Window, clip as string) as MediaPlayer {
-    val image = Media.open(window, Media.file(clip), &quot;image&quot;, &quot;&quot;,
+    val image = Media.open(window, Media.file(clip), "image", "",
         Media.options(640, 360, 1, false, false));
     image.play();
     return image;
@@ -283,9 +328,11 @@ function drawImage(image as MediaPlayer, width as int, height as int) as bool {
     return image.draw(0, 0, width, height, 1);
 }
 function inspectImage(image as MediaPlayer) {
-    if (image.error != &quot;&quot;) print(image.error);
+    if (image.error != "") print(image.error);
 }
-function disposeImage(image as MediaPlayer) { image.close(); }
+function disposeImage(image as MediaPlayer) {
+    image.close();
+}
 </code></pre></div><div class="av-example-group" data-example="media-gif"><h2 id="media-gif">Play an animated GIF</h2><p>Treat the GIF as VIDEO so its frame timestamps are played, rather than reading only its first still frame. This uses an existing FFmpeg executable, disables audio and loops. Draw from the client render callback; close the player when the screen is disposed. Pause and seek apply to this player independently of other windows.</p><pre data-language="java" tabindex="0" role="region" aria-label="Play an animated GIF: java"><code class="language-java">import java.nio.file.Path;
 import com.sbancuz.offscreen.api.client.media.*;
 import com.sbancuz.offscreen.window.Window;
@@ -295,17 +342,41 @@ final class AnimatedGif {
     // The source path belongs to this screen instance.
     AnimatedGif(Window window, Path ffmpeg, Path clip) {
         animation = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
-                MediaSource.Kind.VIDEO, new MediaOptions(640, 360, 24, false, true, 256 * 1024 * 1024), MediaDecoders.ffmpeg(ffmpeg)));
+                MediaSource.Kind.VIDEO,
+                    new MediaOptions(640,
+                    360,
+                    24,
+                    false,
+                    true,
+                    256 * 1024 * 1024),
+                    MediaDecoders.ffmpeg(ffmpeg)));
         animation.play();
     }
     // Render callback: false means no frame is available; draw your loading/error label then.
-    boolean draw(int width, int height) { return animation.draw(0, 0, width, height, 1); }
-    void pause() { animation.pause(); }
-    void resume() { animation.play(); }
-    void jumpTo(double seconds) { animation.seek(seconds); }
-    MediaPlayer.Status status() { return animation.status(); }
+    boolean draw(int width,
+        int height) {
+        return animation.draw(0,
+        0,
+        width,
+        height,
+        1);
+    }
+    void pause() {
+        animation.pause();
+    }
+    void resume() {
+        animation.play();
+    }
+    void jumpTo(double seconds) {
+        animation.seek(seconds);
+    }
+    MediaPlayer.Status status() {
+        return animation.status();
+    }
     // Client teardown: the window also closes this exact player if you leave it installed.
-    void dispose() { animation.close(); }
+    void dispose() {
+        animation.close();
+    }
 }
 </code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Play an animated GIF: kotlin"><code class="language-kotlin">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
@@ -313,9 +384,21 @@ import com.sbancuz.offscreen.window.Window
 
 class AnimatedGifKotlin(window: Window, ffmpeg: Path, clip: Path) {
     private val animation = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
-        MediaSource.Kind.VIDEO, MediaOptions(640, 360, 24, false, true, 256 * 1024 * 1024), MediaDecoders.ffmpeg(ffmpeg)))
+        MediaSource.Kind.VIDEO,
+            MediaOptions(640,
+            360,
+            24,
+            false,
+            true,
+            256 * 1024 * 1024),
+            MediaDecoders.ffmpeg(ffmpeg)))
     // Client render callback: show your loading/error label when this returns false.
-    fun draw(width: Int, height: Int) = animation.draw(0.0, 0.0, width.toDouble(), height.toDouble(), 1f)
+    fun draw(width: Int,
+        height: Int) = animation.draw(0.0,
+        0.0,
+        width.toDouble(),
+        height.toDouble(),
+        1f)
     fun pause() { animation.pause() }
     fun resume() { animation.play() }
     fun jumpTo(seconds: Double) { animation.seek(seconds) }
@@ -330,7 +413,14 @@ class AnimatedGifGroovy {
     final MediaPlayer animation
     AnimatedGifGroovy(Window window, Path ffmpeg, Path clip) {
         animation = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
-            MediaSource.Kind.VIDEO, new MediaOptions(640, 360, 24, false, true, 256 * 1024 * 1024), MediaDecoders.ffmpeg(ffmpeg)))
+            MediaSource.Kind.VIDEO,
+                new MediaOptions(640,
+                360,
+                24,
+                false,
+                true,
+                256 * 1024 * 1024),
+                MediaDecoders.ffmpeg(ffmpeg)))
         animation.play()
     }
     boolean draw(int width, int height) { animation.draw(0, 0, width, height, 1f) }
@@ -346,7 +436,14 @@ import com.sbancuz.offscreen.window.Window
 
 final class AnimatedGifScala(window: Window, ffmpeg: Path, clip: Path):
   private val animation = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
-    MediaSource.Kind.VIDEO, new MediaOptions(640, 360, 24, false, true, 256 * 1024 * 1024), MediaDecoders.ffmpeg(ffmpeg)))
+    MediaSource.Kind.VIDEO,
+        new MediaOptions(640,
+        360,
+        24,
+        false,
+        true,
+        256 * 1024 * 1024),
+        MediaDecoders.ffmpeg(ffmpeg)))
   animation.play()
   def draw(width: Int, height: Int): Boolean = animation.draw(0, 0, width, height, 1f)
   def pause(): Unit = animation.pause()
@@ -361,7 +458,7 @@ import mods.offscreencleanroom.MediaPlayer;
 
 // Call from a client action after you have a window and configured file/executable paths.
 function openGif(window as Window, ffmpeg as string, clip as string) as MediaPlayer {
-    val animation = Media.open(window, Media.file(clip), &quot;animation&quot;, ffmpeg,
+    val animation = Media.open(window, Media.file(clip), "animation", ffmpeg,
         Media.options(640, 360, 24, false, true));
     animation.play();
     return animation;
@@ -370,14 +467,23 @@ function openGif(window as Window, ffmpeg as string, clip as string) as MediaPla
 function drawGif(animation as MediaPlayer, width as int, height as int) as bool {
     return animation.draw(0, 0, width, height, 1);
 }
-function pauseAnimation(animation as MediaPlayer) { animation.pause(); }
-function resumeAnimation(animation as MediaPlayer) { animation.play(); }
-function jumpTo(animation as MediaPlayer, seconds as double) { animation.seek(seconds); }
-function inspectAnimation(animation as MediaPlayer) {
-    if (animation.error != &quot;&quot;) print(animation.error);
-    if (animation.audioError != &quot;&quot;) print(animation.audioError);
+function pauseAnimation(animation as MediaPlayer) {
+    animation.pause();
 }
-function disposeAnimation(animation as MediaPlayer) { animation.close(); }
+function resumeAnimation(animation as MediaPlayer) {
+    animation.play();
+}
+function jumpTo(animation as MediaPlayer,
+    seconds as double) {
+    animation.seek(seconds);
+}
+function inspectAnimation(animation as MediaPlayer) {
+    if (animation.error != "") print(animation.error);
+    if (animation.audioError != "") print(animation.audioError);
+}
+function disposeAnimation(animation as MediaPlayer) {
+    animation.close();
+}
 </code></pre></div><div class="av-example-group" data-example="media-custom-audio"><h2 id="media-custom-audio">Create a custom audio player</h2><p>Build a compact audio interface with play/pause, ten-second seeking, mute and a volume bar. The bar controls volume, not playback progress; the decoder does not provide a reliable duration for every source. This layout needs at least 300 × 100 logical pixels. Java, Kotlin, Scala and Groovy install a GuiScreen in the window you pass to the constructor; VanillaUI connects its drawing and mouse input to that window. CraftTweaker declares the same drawing and input callbacks on its screen. Keep the returned window and close it during teardown. The player is closed both by screen disposal and its owning window, safely. Check the retained error when “Audio unavailable” is shown. The screen runs on the client thread; audio decoding and output run in the background.</p><pre data-language="java" tabindex="0" role="region" aria-label="Minimal audio player: java"><code class="language-java">import java.nio.file.Path;
 import com.sbancuz.offscreen.api.client.media.*;
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI;
@@ -391,19 +497,26 @@ final class MinimalAudio extends GuiScreen {
 
     MinimalAudio(Window window, Path ffmpeg, Path clip) {
         audio = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
-                MediaSource.Kind.AUDIO, MediaOptions.defaults(), MediaDecoders.ffmpeg(ffmpeg)));
+                MediaSource.Kind.AUDIO,
+                    MediaOptions.defaults(),
+                    MediaDecoders.ffmpeg(ffmpeg)));
         audio.volume(volume);
         audio.play();
         window.setUI(new VanillaUI(this));
     }
 
-    &#64;Override public void drawScreen(int x, int y, float partial) {
+    @Override public void drawScreen(int x, int y, float partial) {
         audio.update();
         var status = audio.status();
         drawRect(0, 0, width, height, 0xFF10141C);
         drawString(fontRenderer, status.failure() == null
-                ? status.state() + &quot; / &quot; + (int) status.seconds() + &quot; s&quot; : &quot;Audio unavailable&quot;, 12, 12, 0xFFE5EDF7);
-        String[] labels = {status.state() == MediaPlayer.State.PLAYING ? &quot;Pause&quot; : &quot;Play&quot;, &quot;-10 s&quot;, &quot;+10 s&quot;, muted ? &quot;Unmute&quot; : &quot;Mute&quot;};
+                ? status.state() + " / " + (int) status.seconds() + " s" : "Audio unavailable",
+                    12,
+                    12,
+                    0xFFE5EDF7);
+        String[] labels = {
+            status.state() == MediaPlayer.State.PLAYING ? "Pause" : "Play", "-10 s", "+10 s", muted ? "Unmute" : "Mute"
+        };
         for (int i = 0; i &lt; labels.length; i++) {
             int left = 12 + i * 70;
             drawRect(left, 34, left + 62, 58, 0xFF263346);
@@ -413,7 +526,7 @@ final class MinimalAudio extends GuiScreen {
         drawRect(12, 76, 12 + (int) (272 * volume), 80, 0xFF77C8E8);
     }
 
-    &#64;Override protected void mouseClicked(int x, int y, int button) {
+    @Override protected void mouseClicked(int x, int y, int button) {
         if (button != 0) return;
         if (y &gt;= 70 &amp;&amp; y &lt; 88 &amp;&amp; x &gt;= 12 &amp;&amp; x &lt; 284) {
             volume = (x - 12) / 272.0;
@@ -421,15 +534,26 @@ final class MinimalAudio extends GuiScreen {
         } else if (y &gt;= 34 &amp;&amp; y &lt; 58 &amp;&amp; x &gt;= 12 &amp;&amp; x &lt; 284) {
             int action = (x - 12) / 70;
             if ((x - 12) % 70 &gt;= 62) return;
-            if (action == 0) { if (audio.status().state() == MediaPlayer.State.PLAYING) audio.pause(); else audio.play(); }
+            if (action == 0) {
+                if (audio.status()
+                .state() == MediaPlayer.State.PLAYING) audio.pause();
+                else audio.play();
+            }
             if (action == 1) audio.seek(Math.max(0, audio.status().seconds() - 10));
             if (action == 2) audio.seek(audio.status().seconds() + 10);
-            if (action == 3) { muted = !muted; audio.muted(muted); }
+            if (action == 3) {
+                muted = !muted;
+                audio.muted(muted);
+            }
         }
     }
 
-    &#64;Override public void onGuiClosed() { audio.close(); }
-    &#64;Override public boolean doesGuiPauseGame() { return false; }
+    @Override public void onGuiClosed() {
+        audio.close();
+    }
+    @Override public boolean doesGuiPauseGame() {
+        return false;
+    }
 }
 </code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Minimal audio player: kotlin"><code class="language-kotlin">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
@@ -454,9 +578,12 @@ class MinimalAudioKotlin(window: Window, ffmpeg: Path, clip: Path) : GuiScreen()
         val status = audio.status()
         drawRect(0, 0, width, height, 0xFF10141C.toInt())
         drawString(fontRenderer, if (status.failure() == null)
-            &quot;${status.state()} / ${status.seconds().toInt()} s&quot; else &quot;Audio unavailable&quot;, 12, 12, 0xFFE5EDF7.toInt())
-        val labels = arrayOf(if (status.state() == MediaPlayer.State.PLAYING) &quot;Pause&quot; else &quot;Play&quot;,
-            &quot;-10 s&quot;, &quot;+10 s&quot;, if (muted) &quot;Unmute&quot; else &quot;Mute&quot;)
+            "${status.state()} / ${status.seconds().toInt()} s" else "Audio unavailable",
+                12,
+                12,
+                0xFFE5EDF7.toInt())
+        val labels = arrayOf(if (status.state() == MediaPlayer.State.PLAYING) "Pause" else "Play",
+            "-10 s", "+10 s", if (muted) "Unmute" else "Mute")
         labels.forEachIndexed { i, label -&gt;
             val left = 12 + i * 70
             drawRect(left, 34, left + 62, 58, 0xFF263346.toInt())
@@ -474,10 +601,14 @@ class MinimalAudioKotlin(window: Window, ffmpeg: Path, clip: Path) : GuiScreen()
         } else if (y in 34 until 58 &amp;&amp; x in 12 until 284) {
             if ((x - 12) % 70 &gt;= 62) return
             when ((x - 12) / 70) {
-                0 -&gt; if (audio.status().state() == MediaPlayer.State.PLAYING) audio.pause() else audio.play()
+                0 -&gt; if (audio.status()
+                    .state() == MediaPlayer.State.PLAYING) audio.pause() else audio.play()
                 1 -&gt; audio.seek(maxOf(0.0, audio.status().seconds() - 10))
                 2 -&gt; audio.seek(audio.status().seconds() + 10)
-                3 -&gt; { muted = !muted; audio.muted(muted) }
+                3 -&gt; {
+                    muted = !muted;
+                    audio.muted(muted)
+                }
             }
         }
     }
@@ -498,19 +629,24 @@ class MinimalAudioGroovy extends GuiScreen {
 
     MinimalAudioGroovy(Window window, Path ffmpeg, Path clip) {
         audio = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
-                MediaSource.Kind.AUDIO, MediaOptions.defaults(), MediaDecoders.ffmpeg(ffmpeg)));
+                MediaSource.Kind.AUDIO,
+                    MediaOptions.defaults(),
+                    MediaDecoders.ffmpeg(ffmpeg)));
         audio.volume(volume);
         audio.play();
         window.setUI(new VanillaUI(this));
     }
 
-    &#64;Override public void drawScreen(int x, int y, float partial) {
+    @Override public void drawScreen(int x, int y, float partial) {
         audio.update();
         def status = audio.status();
         drawRect(0, 0, width, height, (int) 0xFF10141C);
         drawString(fontRenderer, status.failure() == null
-                ? status.state() + &quot; / &quot; + (int) status.seconds() + &quot; s&quot; : &quot;Audio unavailable&quot;, 12, 12, (int) 0xFFE5EDF7);
-        String[] labels = [status.state() == MediaPlayer.State.PLAYING ? &quot;Pause&quot; : &quot;Play&quot;, &quot;-10 s&quot;, &quot;+10 s&quot;, muted ? &quot;Unmute&quot; : &quot;Mute&quot;] as String[];
+                ? status.state() + " / " + (int) status.seconds() + " s" : "Audio unavailable",
+                    12,
+                    12,
+                    (int) 0xFFE5EDF7);
+        String[] labels = [status.state() == MediaPlayer.State.PLAYING ? "Pause" : "Play", "-10 s", "+10 s", muted ? "Unmute" : "Mute"] as String[];
         for (int i = 0; i &lt; labels.length; i++) {
             int left = 12 + i * 70;
             drawRect(left, 34, left + 62, 58, (int) 0xFF263346);
@@ -520,7 +656,7 @@ class MinimalAudioGroovy extends GuiScreen {
         drawRect(12, 76, 12 + (int) (272 * volume), 80, (int) 0xFF77C8E8);
     }
 
-    &#64;Override protected void mouseClicked(int x, int y, int button) {
+    @Override protected void mouseClicked(int x, int y, int button) {
         if (button != 0) return;
         if (y &gt;= 70 &amp;&amp; y &lt; 88 &amp;&amp; x &gt;= 12 &amp;&amp; x &lt; 284) {
             volume = (x - 12) / 272.0;
@@ -528,15 +664,26 @@ class MinimalAudioGroovy extends GuiScreen {
         } else if (y &gt;= 34 &amp;&amp; y &lt; 58 &amp;&amp; x &gt;= 12 &amp;&amp; x &lt; 284) {
             int action = (x - 12) / 70;
             if ((x - 12) % 70 &gt;= 62) return;
-            if (action == 0) { if (audio.status().state() == MediaPlayer.State.PLAYING) audio.pause(); else audio.play(); }
+            if (action == 0) {
+                if (audio.status()
+                .state() == MediaPlayer.State.PLAYING) audio.pause();
+                else audio.play();
+            }
             if (action == 1) audio.seek(Math.max(0, audio.status().seconds() - 10));
             if (action == 2) audio.seek(audio.status().seconds() + 10);
-            if (action == 3) { muted = !muted; audio.muted(muted); }
+            if (action == 3) {
+                muted = !muted;
+                audio.muted(muted);
+            }
         }
     }
 
-    &#64;Override public void onGuiClosed() { audio.close(); }
-    &#64;Override public boolean doesGuiPauseGame() { return false; }
+    @Override public void onGuiClosed() {
+        audio.close();
+    }
+    @Override public boolean doesGuiPauseGame() {
+        return false;
+    }
 }
 </code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Minimal audio player: scala"><code class="language-scala">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
@@ -544,7 +691,9 @@ import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.gui.GuiScreen
 
-final class MinimalAudioScala(window: Window, ffmpeg: Path, clip: Path) extends GuiScreen:
+final class MinimalAudioScala(window: Window,
+    ffmpeg: Path,
+    clip: Path) extends GuiScreen:
   private val audio = window.ownVisual(MediaPlayer.open(MediaSource.file(clip),
     MediaSource.Kind.AUDIO, MediaOptions.defaults(), MediaDecoders.ffmpeg(ffmpeg)))
   private var volume = 0.5
@@ -557,17 +706,21 @@ final class MinimalAudioScala(window: Window, ffmpeg: Path, clip: Path) extends 
     audio.update()
     val status = audio.status()
     net.minecraft.client.gui.Gui.drawRect(0, 0, width, height, 0xFF10141C)
-    val message = if status.failure() == null then s&quot;${status.state()} / ${status.seconds().toInt} s&quot; else &quot;Audio unavailable&quot;
+    val message = if status.failure() == null then s"${status.state()} / ${status.seconds().toInt} s" else "Audio unavailable"
     drawString(fontRenderer, message, 12, 12, 0xFFE5EDF7)
-    val labels = Array(if status.state() == MediaPlayer.State.PLAYING then &quot;Pause&quot; else &quot;Play&quot;,
-      &quot;-10 s&quot;, &quot;+10 s&quot;, if muted then &quot;Unmute&quot; else &quot;Mute&quot;)
+    val labels = Array(if status.state() == MediaPlayer.State.PLAYING then "Pause" else "Play",
+      "-10 s", "+10 s", if muted then "Unmute" else "Mute")
     labels.zipWithIndex.foreach { (label, i) =&gt;
       val left = 12 + i * 70
       net.minecraft.client.gui.Gui.drawRect(left, 34, left + 62, 58, 0xFF263346)
       drawString(fontRenderer, label, left + 6, 42, 0xFFE5EDF7)
     }
     net.minecraft.client.gui.Gui.drawRect(12, 76, 284, 80, 0xFF263346)
-    net.minecraft.client.gui.Gui.drawRect(12, 76, 12 + (272 * volume).toInt, 80, 0xFF77C8E8)
+    net.minecraft.client.gui.Gui.drawRect(12,
+        76,
+        12 + (272 * volume).toInt,
+        80,
+        0xFF77C8E8)
 
   override protected def mouseClicked(x: Int, y: Int, button: Int): Unit =
     if button == 0 then
@@ -576,7 +729,8 @@ final class MinimalAudioScala(window: Window, ffmpeg: Path, clip: Path) extends 
         audio.volume(volume)
       else if y &gt;= 34 &amp;&amp; y &lt; 58 &amp;&amp; x &gt;= 12 &amp;&amp; x &lt; 284 &amp;&amp; (x - 12) % 70 &lt; 62 then
         (x - 12) / 70 match
-          case 0 =&gt; if audio.status().state() == MediaPlayer.State.PLAYING then audio.pause() else audio.play()
+          case 0 =&gt; if audio.status()
+              .state() == MediaPlayer.State.PLAYING then audio.pause() else audio.play()
           case 1 =&gt; audio.seek(math.max(0, audio.status().seconds() - 10))
           case 2 =&gt; audio.seek(audio.status().seconds() + 10)
           case 3 =&gt; muted = !muted; audio.muted(muted)
@@ -590,54 +744,62 @@ import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.Media;
 
 function openAudio(ffmpeg as string, clip as string) as Window {
-    val screen = Windows.screen(&quot;Audio&quot;, 300, 100);
+    val screen = Windows.screen("Audio", 300, 100);
     val window = Windows.open(screen);
-    val audio = Media.open(window, Media.file(clip), &quot;audio&quot;, ffmpeg,
+    val audio = Media.open(window, Media.file(clip), "audio", ffmpeg,
         Media.options(1, 1, 1, true, false));
     audio.volume(0.5);
     audio.play();
-    screen.on(&quot;draw&quot;, function(e) {
+    screen.on("draw", function(e) {
         audio.update();
-        if (!e.state.flag(&quot;initialized&quot;)) {
-            e.state.integer(&quot;volume&quot;, 136);
-            e.state.flag(&quot;initialized&quot;, true);
+        if (!e.state.flag("initialized")) {
+            e.state.integer("volume", 136);
+            e.state.flag("initialized", true);
         }
         e.rect(0, 0, e.width, e.height, 0xFF10141C);
-        e.text(audio.error == &quot;&quot; ? audio.state + &quot; / &quot; + audio.position as int + &quot; s&quot; : &quot;Audio unavailable&quot;,
+        e.text(audio.error == "" ? audio.state + " / " + audio.position as int + " s" : "Audio unavailable",
             12, 12, 0xFFE5EDF7, false);
-        val labels = [audio.state == &quot;PLAYING&quot; ? &quot;Pause&quot; : &quot;Play&quot;, &quot;-10 s&quot;, &quot;+10 s&quot;,
-            e.state.flag(&quot;muted&quot;) ? &quot;Unmute&quot; : &quot;Mute&quot;] as string[];
+        val labels = [audio.state == "PLAYING" ? "Pause" : "Play", "-10 s", "+10 s",
+            e.state.flag("muted") ? "Unmute" : "Mute"] as string[];
         for i in 0 .. 4 {
             val left = 12 + i * 70;
             e.rect(left, 34, 62, 24, 0xFF263346);
             e.text(labels[i], left + 6, 42, 0xFFE5EDF7, false);
         }
         e.rect(12, 76, 272, 4, 0xFF263346);
-        e.rect(12, 76, e.state.integer(&quot;volume&quot;), 4, 0xFF77C8E8);
+        e.rect(12, 76, e.state.integer("volume"), 4, 0xFF77C8E8);
     });
-    screen.on(&quot;click&quot;, function(e) {
+    screen.on("click", function(e) {
         if (e.code != 0) return;
         if (e.y &gt;= 70 &amp;&amp; e.y &lt; 88 &amp;&amp; e.x &gt;= 12 &amp;&amp; e.x &lt; 284) {
             val level = e.x - 12;
-            e.state.integer(&quot;volume&quot;, level);
+            e.state.integer("volume", level);
             audio.volume(level / 272.0);
         } else if (e.y &gt;= 34 &amp;&amp; e.y &lt; 58 &amp;&amp; e.x &gt;= 12 &amp;&amp; e.x &lt; 284) {
             if ((e.x - 12) % 70 &gt;= 62) return;
             val action = (e.x - 12) / 70;
-            if (action == 0) { if (audio.state == &quot;PLAYING&quot;) audio.pause(); else audio.play(); }
+            if (action == 0) {
+                if (audio.state == "PLAYING") audio.pause(); else audio.play();
+            }
             if (action == 1) audio.seek(audio.position &lt; 10 ? 0 : audio.position - 10);
             if (action == 2) audio.seek(audio.position + 10);
             if (action == 3) {
-                val muted = !e.state.flag(&quot;muted&quot;);
-                e.state.flag(&quot;muted&quot;, muted);
+                val muted = !e.state.flag("muted");
+                e.state.flag("muted", muted);
                 audio.muted(muted);
             }
         }
     });
-    screen.on(&quot;close&quot;, function(e) { audio.close(); });
+    screen.on("close", function(e) {
+        audio.close();
+    });
     return window;
 }
-</code></pre></div><h2 id="media-sources">Choose a media source</h2><p>Replace <code>MediaSource.file(path)</code> with <code>resource(new ResourceLocation("example", "media/intro.mp4"))</code> or <code>url(URI.create(...))</code>. ZenScript uses <code>Media.file</code>, <code>Media.resource("example:media/intro.mp4")</code> or <code>Media.url</code>. URL/resource inputs spool to a generation-owned temporary file for seeking, with a default 256 MiB encoded-size limit. Local files stream directly.</p><p>Use kind <code>IMAGE</code> for a still frame, <code>AUDIO</code> for sound only, and <code>VIDEO</code> for video or an animated GIF/WebP supported by the decoder. ZenScript accepts <code>"image"</code>, <code>"audio"</code> and <code>"video"</code>. Set audio false for silent playback; an audio-only player requires audio true. In ZenScript an empty executable path selects the built-in decoder. When using Java Sound, supported audio conversion depends on the installed providers.</p><p>Decoded images are fitted within the configured canvas with transparent letterboxing. Each player has independent pause, seek, mute and software volume. Java Sound output is separate from Minecraft's positional sound engine and its volume settings. A video can continue when an optional audio output device fails; read <code>audioFailure()</code> (ZenScript: <code>audioError</code>). Audio-only output failure is fatal.</p><h2 id="media-lifecycle">Handle loading and errors</h2><p>Status names are <code>LOADING</code>, <code>READY</code>, <code>PLAYING</code>, <code>PAUSED</code>, <code>ENDED</code>, <code>FAILED</code> and <code>CLOSED</code>. Read a fresh <code>status()</code> snapshot for position and retained errors. <code>play</code> resumes a paused player and restarts an ended player. <code>seek</code> cancels the old generation before publishing a new one; old decoder callbacks cannot replace new frames. Looping restarts at zero through the same mechanism. After a fatal failure, inspect the cause and use an explicit seek to start a new attempt; pause/play cannot hide the failed state.</p><p>A player keeps at most three queued CPU frames and uploads only changed frames. GPU upload, drawing and final closure run on Minecraft's client render thread. Downloading/decoding never allocates GPU resources. Close the player when its screen is disposed; the window also closes resources retained through <code>ownVisual</code>, including the ZenScript facade. Closure cancels decoding, terminates its owned processes, closes audio and deletes its texture. No media is registered globally or synchronized to the server.</p><p>Pass an <code>AnimatedElement</code>'s local dimensions to <code>player.draw</code> inside its render callback to independently move, rotate, tint and fade that media layer. Keep controls in your screen's normal input handlers. For live feeds or another codec stack, implement <code>MediaDecoder.Session</code>: supply immutable timestamped CPU frames and optional signed little-endian 16-bit PCM, register every partially created resource in <code>MediaCancellation</code>, and respond to cancellation.</p><nav class="av-pager" aria-label="Guide navigation"><a href="animations.html">Previous: Animate windows, elements and custom captions</a><a href="troubleshooting.html">Next: Troubleshooting</a></nav></div></main>
+</code></pre></div><h2 id="media-sources">Choose a media source</h2><p>Replace <code>MediaSource.file(path)</code> with <code>resource(new ResourceLocation("example", "media/intro.mp4"))</code> or <code>url(URI.create(...))</code>. ZenScript uses <code>Media.file</code>, <code>Media.resource("example:media/intro.mp4")</code> or <code>Media.url</code>. URL/resource inputs spool to a generation-owned temporary file for seeking, with a default 256 MiB encoded-size limit. Local files stream directly.</p><p>Use kind <code>IMAGE</code> for a still frame, <code>AUDIO</code> for sound only, and <code>VIDEO</code> for video or an animated GIF/WebP supported by the decoder. ZenScript accepts <code>"image"</code>, <code>"audio"</code> and <code>"video"</code>. Set audio false for silent playback; an audio-only player requires audio true. In ZenScript an empty executable path selects the built-in decoder. When using Java Sound, supported audio conversion depends on the installed providers.</p><p>Decoded images are fitted within the configured canvas with transparent letterboxing. Each player has independent pause, seek, mute and software volume. Java Sound output is separate from Minecraft's positional sound engine and its volume settings. A video can continue when an optional audio output device fails; read <code>audioFailure()</code> (ZenScript: <code>audioError</code>). Audio-only output failure is fatal.</p><h2 id="media-lifecycle">Handle loading and errors</h2><p>Status names are <code>LOADING</code>, <code>READY</code>, <code>PLAYING</code>, <code>PAUSED</code>, <code>ENDED</code>, <code>FAILED</code> and <code>CLOSED</code>. Read a fresh <code>status()</code> snapshot for position and retained errors. <code>play</code> resumes a paused player and restarts an ended player. <code>seek</code> cancels the old generation before publishing a new one; old decoder callbacks cannot replace new frames. Looping restarts at zero through the same mechanism. After a fatal failure, inspect the cause and use an explicit seek to start a new attempt; pause/play cannot hide the failed state.</p><p>A player keeps at most three queued CPU frames and uploads only changed frames. GPU upload, drawing and final closure run on Minecraft's client render thread. Downloading/decoding never allocates GPU resources. Close the player when its screen is disposed; the window also closes resources retained through <code>ownVisual</code>, including the ZenScript facade. Closure cancels decoding, terminates its owned processes, closes audio and deletes its texture. No media is registered globally or synchronized to the server.</p><p>Pass an <code>AnimatedElement</code>'s local dimensions to <code>player.draw</code> inside its render callback to independently move, rotate, tint and fade that media layer. Keep controls in your screen's normal input handlers. For live feeds or another codec stack, implement <code>MediaDecoder.Session</code>: supply immutable timestamped CPU frames and optional signed little-endian 16-bit PCM, register every partially created resource in <code>MediaCancellation</code>, and respond to cancellation.</p>
+
+<section class="av-call-guide"><h2 id="media-call-sequence">Calls used in the examples</h2><table><caption>Calls used in this guide</caption><thead><tr><th scope="col">Call or setting</th><th scope="col">Arguments</th><th scope="col">What it does</th></tr></thead><tbody><tr><td><code><a href="../client/media/MediaPlayer.html">MediaPlayer</a>.<a href="../client/media/MediaPlayer.html#open(com.sbancuz.offscreen.api.client.media.MediaSource,com.sbancuz.offscreen.api.client.media.MediaSource.Kind,com.sbancuz.offscreen.api.client.media.MediaOptions,com.sbancuz.offscreen.api.client.media.MediaDecoder)">open</a>(source, kind, options, decoder)</code></td><td>Media source; media kind; playback options; decoder</td><td>Use the built-in decoder for supported images/audio, or an explicitly installed FFmpeg executable for video and animated images.</td></tr><tr><td><code><a href="../client/media/MediaPlayer.html#volume(double)">volume</a>(value)</code></td><td>Playback volume</td><td>The example uses 0.25 for quieter audio.</td></tr><tr><td><code><a href="../client/media/MediaPlayer.html#play()">play</a>() / <a href="../client/media/MediaPlayer.html#pause()">pause</a>() / <a href="../client/media/MediaPlayer.html#seek(double)">seek</a>(seconds)</code></td><td>Playback action; seek position in seconds</td><td>Start or resume the clock, pause it, or move to another point.</td></tr><tr><td><code><a href="../client/media/MediaPlayer.html#draw(double,double,double,double,float)">draw</a>(x, y, width, height, opacity)</code></td><td>Destination rectangle and opacity</td><td>Draw from the client render callback. A false result lets your screen show loading or failure feedback.</td></tr></tbody></table><p><strong>When you finish:</strong> Call update from client tick/render callbacks, including for audio-only playback. Close the player in screen disposal, or attach it to its window with ownVisual. Packaged Minecraft textures belong to the texture manager and must not be deleted by the screen.</p></section>
+
+<nav class="av-pager" aria-label="Guide navigation"><a href="animations.html">Previous: Animate windows, elements and custom captions</a><a href="troubleshooting.html">Next: Troubleshooting</a></nav></div></main>
 </div>
 </body>
 </html>

@@ -68,23 +68,47 @@ final class ChoreographyRecipe {
     static Animator.Playback run(Window window) {
         var area = window.displayBounds();
         var reveal = Timeline.parallel(
-            Motions.moveTo(area.x() + area.width() * 0.24, area.y() + area.height() * 0.2, 0.45, Easing.QUINT.inOut()),
-            Motions.resizeTo(area.width() * 0.52, area.height() * 0.52, 0.45, Easing.QUINT.inOut()),
+            Motions.moveTo(area.x() + area.width() * 0.24,
+                area.y() + area.height() * 0.2,
+                0.45,
+                Easing.QUINT.inOut()),
+            Motions.resizeTo(area.width() * 0.52,
+                area.height() * 0.52,
+                0.45,
+                Easing.QUINT.inOut()),
             Motions.colorTo(0xFFFFFF, 0.45, Easing.SINE.inOut()),
             Timeline.fromTo(Channel.OPACITY, 0, 1, 0.45, Easing.SINE.inOut()));
         var expand = Timeline.parallel(
-            Motions.moveTo(area.x() + area.width() * 0.12, area.y() + area.height() * 0.1, 0.65, Easing.QUINT.inOut()),
-            Motions.resizeTo(area.width() * 0.76, area.height() * 0.76, 0.65, Easing.QUINT.inOut()),
+            Motions.moveTo(area.x() + area.width() * 0.12,
+                area.y() + area.height() * 0.1,
+                0.65,
+                Easing.QUINT.inOut()),
+            Motions.resizeTo(area.width() * 0.76,
+                area.height() * 0.76,
+                0.65,
+                Easing.QUINT.inOut()),
             Motions.colorTo(0xFFFFFF, 0.65, Easing.SINE.inOut()),
             Motions.fadeTo(1, 0.65, Easing.SINE.inOut()));
         var dock = Timeline.parallel(
-            Motions.moveTo(area.x() + area.width() * 0.66, area.y() + area.height() * 0.16, 0.55, Easing.QUINT.inOut()),
-            Motions.resizeTo(area.width() * 0.3, area.height() * 0.64, 0.55, Easing.QUINT.inOut()),
+            Motions.moveTo(area.x() + area.width() * 0.66,
+                area.y() + area.height() * 0.16,
+                0.55,
+                Easing.QUINT.inOut()),
+            Motions.resizeTo(area.width() * 0.3,
+                area.height() * 0.64,
+                0.55,
+                Easing.QUINT.inOut()),
             Motions.colorTo(0xC8DCFF, 0.55, Easing.SINE.inOut()),
             Motions.fadeTo(0.9, 0.55, Easing.SINE.inOut()));
         var restore = Timeline.parallel(
-            Motions.moveTo(area.x() + area.width() * 0.24, area.y() + area.height() * 0.2, 0.7, Easing.QUINT.inOut()),
-            Motions.resizeTo(area.width() * 0.52, area.height() * 0.52, 0.7, Easing.QUINT.inOut()),
+            Motions.moveTo(area.x() + area.width() * 0.24,
+                area.y() + area.height() * 0.2,
+                0.7,
+                Easing.QUINT.inOut()),
+            Motions.resizeTo(area.width() * 0.52,
+                area.height() * 0.52,
+                0.7,
+                Easing.QUINT.inOut()),
             Motions.colorTo(0xFFFFFF, 0.7, Easing.SINE.inOut()),
             Motions.fadeTo(1, 0.7, Easing.SINE.inOut()));
         var presentation = reveal
@@ -94,12 +118,17 @@ final class ChoreographyRecipe {
             .then(Timeline.waitFor(2.5))
             .then(restore);
     window.exitAnimation(Motions.fadeTo(0, .3, Easing.SINE.in()));
-        return window.animations().play(&quot;inspector&quot;, presentation).whenFinished(result -&gt; {
+        return window.animations()
+            .play("inspector",
+            presentation)
+            .whenFinished(result -&gt; {
             if (result.failure() != null) result.failure().printStackTrace();
         });
     }
     // Client action: cancellation keeps current geometry; it is not a rollback.
-    static void stop(Animator.Playback handle) { handle.cancel(); }
+    static void stop(Animator.Playback handle) {
+        handle.cancel();
+    }
 }
 </code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.animation.*
 import com.sbancuz.offscreen.window.Window
@@ -108,23 +137,47 @@ object ChoreographyKotlin {
     fun run(window: Window): Animator.Playback {
         val area = window.displayBounds()
         val reveal = Timeline.parallel(
-            Motions.moveTo(area.x() + area.width() * 0.24, area.y() + area.height() * 0.2, 0.45, Easing.QUINT.inOut()),
-            Motions.resizeTo(area.width() * 0.52, area.height() * 0.52, 0.45, Easing.QUINT.inOut()),
+            Motions.moveTo(area.x() + area.width() * 0.24,
+                area.y() + area.height() * 0.2,
+                0.45,
+                Easing.QUINT.inOut()),
+            Motions.resizeTo(area.width() * 0.52,
+                area.height() * 0.52,
+                0.45,
+                Easing.QUINT.inOut()),
             Motions.colorTo(0xFFFFFF, 0.45, Easing.SINE.inOut()),
             Timeline.fromTo(Channel.OPACITY, 0.0, 1.0, 0.45, Easing.SINE.inOut()))
         val expand = Timeline.parallel(
-            Motions.moveTo(area.x() + area.width() * 0.12, area.y() + area.height() * 0.1, 0.65, Easing.QUINT.inOut()),
-            Motions.resizeTo(area.width() * 0.76, area.height() * 0.76, 0.65, Easing.QUINT.inOut()),
+            Motions.moveTo(area.x() + area.width() * 0.12,
+                area.y() + area.height() * 0.1,
+                0.65,
+                Easing.QUINT.inOut()),
+            Motions.resizeTo(area.width() * 0.76,
+                area.height() * 0.76,
+                0.65,
+                Easing.QUINT.inOut()),
             Motions.colorTo(0xFFFFFF, 0.65, Easing.SINE.inOut()),
             Motions.fadeTo(1.0, 0.65, Easing.SINE.inOut()))
         val dock = Timeline.parallel(
-            Motions.moveTo(area.x() + area.width() * 0.66, area.y() + area.height() * 0.16, 0.55, Easing.QUINT.inOut()),
-            Motions.resizeTo(area.width() * 0.3, area.height() * 0.64, 0.55, Easing.QUINT.inOut()),
+            Motions.moveTo(area.x() + area.width() * 0.66,
+                area.y() + area.height() * 0.16,
+                0.55,
+                Easing.QUINT.inOut()),
+            Motions.resizeTo(area.width() * 0.3,
+                area.height() * 0.64,
+                0.55,
+                Easing.QUINT.inOut()),
             Motions.colorTo(0xC8DCFF, 0.55, Easing.SINE.inOut()),
             Motions.fadeTo(0.9, 0.55, Easing.SINE.inOut()))
         val restore = Timeline.parallel(
-            Motions.moveTo(area.x() + area.width() * 0.24, area.y() + area.height() * 0.2, 0.7, Easing.QUINT.inOut()),
-            Motions.resizeTo(area.width() * 0.52, area.height() * 0.52, 0.7, Easing.QUINT.inOut()),
+            Motions.moveTo(area.x() + area.width() * 0.24,
+                area.y() + area.height() * 0.2,
+                0.7,
+                Easing.QUINT.inOut()),
+            Motions.resizeTo(area.width() * 0.52,
+                area.height() * 0.52,
+                0.7,
+                Easing.QUINT.inOut()),
             Motions.colorTo(0xFFFFFF, 0.7, Easing.SINE.inOut()),
             Motions.fadeTo(1.0, 0.7, Easing.SINE.inOut()))
         val presentation = reveal
@@ -134,7 +187,10 @@ object ChoreographyKotlin {
             .then(Timeline.waitFor(2.5))
             .then(restore)
     window.exitAnimation(Motions.fadeTo(0.0, .3, Easing.SINE.`in`()))
-        return window.animations().play(&quot;inspector&quot;, presentation).whenFinished { result -&gt;
+        return window.animations()
+            .play("inspector",
+            presentation).whenFinished {
+            result -&gt;
             result.failure()?.printStackTrace()
         }
     }
@@ -146,23 +202,47 @@ import com.sbancuz.offscreen.window.Window
 Animator.Playback presentInspector(Window window) {
     def area = window.displayBounds()
     def reveal = Timeline.parallel(
-        Motions.moveTo(area.x() + area.width() * 0.24, area.y() + area.height() * 0.2, 0.45, Easing.QUINT.inOut()),
-        Motions.resizeTo(area.width() * 0.52, area.height() * 0.52, 0.45, Easing.QUINT.inOut()),
+        Motions.moveTo(area.x() + area.width() * 0.24,
+            area.y() + area.height() * 0.2,
+            0.45,
+            Easing.QUINT.inOut()),
+        Motions.resizeTo(area.width() * 0.52,
+            area.height() * 0.52,
+            0.45,
+            Easing.QUINT.inOut()),
         Motions.colorTo(0xFFFFFF, 0.45, Easing.SINE.inOut()),
         Timeline.fromTo(Channel.OPACITY, 0, 1, 0.45, Easing.SINE.inOut()))
     def expand = Timeline.parallel(
-        Motions.moveTo(area.x() + area.width() * 0.12, area.y() + area.height() * 0.1, 0.65, Easing.QUINT.inOut()),
-        Motions.resizeTo(area.width() * 0.76, area.height() * 0.76, 0.65, Easing.QUINT.inOut()),
+        Motions.moveTo(area.x() + area.width() * 0.12,
+            area.y() + area.height() * 0.1,
+            0.65,
+            Easing.QUINT.inOut()),
+        Motions.resizeTo(area.width() * 0.76,
+            area.height() * 0.76,
+            0.65,
+            Easing.QUINT.inOut()),
         Motions.colorTo(0xFFFFFF, 0.65, Easing.SINE.inOut()),
         Motions.fadeTo(1, 0.65, Easing.SINE.inOut()))
     def dock = Timeline.parallel(
-        Motions.moveTo(area.x() + area.width() * 0.66, area.y() + area.height() * 0.16, 0.55, Easing.QUINT.inOut()),
-        Motions.resizeTo(area.width() * 0.3, area.height() * 0.64, 0.55, Easing.QUINT.inOut()),
+        Motions.moveTo(area.x() + area.width() * 0.66,
+            area.y() + area.height() * 0.16,
+            0.55,
+            Easing.QUINT.inOut()),
+        Motions.resizeTo(area.width() * 0.3,
+            area.height() * 0.64,
+            0.55,
+            Easing.QUINT.inOut()),
         Motions.colorTo(0xC8DCFF, 0.55, Easing.SINE.inOut()),
         Motions.fadeTo(0.9, 0.55, Easing.SINE.inOut()))
     def restore = Timeline.parallel(
-        Motions.moveTo(area.x() + area.width() * 0.24, area.y() + area.height() * 0.2, 0.7, Easing.QUINT.inOut()),
-        Motions.resizeTo(area.width() * 0.52, area.height() * 0.52, 0.7, Easing.QUINT.inOut()),
+        Motions.moveTo(area.x() + area.width() * 0.24,
+            area.y() + area.height() * 0.2,
+            0.7,
+            Easing.QUINT.inOut()),
+        Motions.resizeTo(area.width() * 0.52,
+            area.height() * 0.52,
+            0.7,
+            Easing.QUINT.inOut()),
         Motions.colorTo(0xFFFFFF, 0.7, Easing.SINE.inOut()),
         Motions.fadeTo(1, 0.7, Easing.SINE.inOut()))
     def presentation = reveal
@@ -172,7 +252,7 @@ Animator.Playback presentInspector(Window window) {
         .then(Timeline.waitFor(2.5))
         .then(restore)
     window.exitAnimation(Motions.fadeTo(0, .3, Easing.SINE.in()))
-    window.animations().play(&#x27;inspector&#x27;, presentation).whenFinished { result -&gt;
+    window.animations().play('inspector', presentation).whenFinished { result -&gt;
         if (result.failure() != null) result.failure().printStackTrace()
     }
 }
@@ -185,23 +265,47 @@ object ChoreographyScala:
   def run(window: Window): Animator#Playback =
     val area = window.displayBounds()
     val reveal = Timeline.parallel(
-        Motions.moveTo(area.x() + area.width() * 0.24, area.y() + area.height() * 0.2, 0.45, Easing.QUINT.inOut()),
-        Motions.resizeTo(area.width() * 0.52, area.height() * 0.52, 0.45, Easing.QUINT.inOut()),
+        Motions.moveTo(area.x() + area.width() * 0.24,
+            area.y() + area.height() * 0.2,
+            0.45,
+            Easing.QUINT.inOut()),
+        Motions.resizeTo(area.width() * 0.52,
+            area.height() * 0.52,
+            0.45,
+            Easing.QUINT.inOut()),
         Motions.colorTo(0xFFFFFF, 0.45, Easing.SINE.inOut()),
         Timeline.fromTo(Channel.OPACITY, 0, 1, 0.45, Easing.SINE.inOut()))
     val expand = Timeline.parallel(
-        Motions.moveTo(area.x() + area.width() * 0.12, area.y() + area.height() * 0.1, 0.65, Easing.QUINT.inOut()),
-        Motions.resizeTo(area.width() * 0.76, area.height() * 0.76, 0.65, Easing.QUINT.inOut()),
+        Motions.moveTo(area.x() + area.width() * 0.12,
+            area.y() + area.height() * 0.1,
+            0.65,
+            Easing.QUINT.inOut()),
+        Motions.resizeTo(area.width() * 0.76,
+            area.height() * 0.76,
+            0.65,
+            Easing.QUINT.inOut()),
         Motions.colorTo(0xFFFFFF, 0.65, Easing.SINE.inOut()),
         Motions.fadeTo(1, 0.65, Easing.SINE.inOut()))
     val dock = Timeline.parallel(
-        Motions.moveTo(area.x() + area.width() * 0.66, area.y() + area.height() * 0.16, 0.55, Easing.QUINT.inOut()),
-        Motions.resizeTo(area.width() * 0.3, area.height() * 0.64, 0.55, Easing.QUINT.inOut()),
+        Motions.moveTo(area.x() + area.width() * 0.66,
+            area.y() + area.height() * 0.16,
+            0.55,
+            Easing.QUINT.inOut()),
+        Motions.resizeTo(area.width() * 0.3,
+            area.height() * 0.64,
+            0.55,
+            Easing.QUINT.inOut()),
         Motions.colorTo(0xC8DCFF, 0.55, Easing.SINE.inOut()),
         Motions.fadeTo(0.9, 0.55, Easing.SINE.inOut()))
     val restore = Timeline.parallel(
-        Motions.moveTo(area.x() + area.width() * 0.24, area.y() + area.height() * 0.2, 0.7, Easing.QUINT.inOut()),
-        Motions.resizeTo(area.width() * 0.52, area.height() * 0.52, 0.7, Easing.QUINT.inOut()),
+        Motions.moveTo(area.x() + area.width() * 0.24,
+            area.y() + area.height() * 0.2,
+            0.7,
+            Easing.QUINT.inOut()),
+        Motions.resizeTo(area.width() * 0.52,
+            area.height() * 0.52,
+            0.7,
+            Easing.QUINT.inOut()),
         Motions.colorTo(0xFFFFFF, 0.7, Easing.SINE.inOut()),
         Motions.fadeTo(1, 0.7, Easing.SINE.inOut()))
     val presentation = reveal
@@ -211,7 +315,7 @@ object ChoreographyScala:
         .`then`(Timeline.waitFor(2.5))
         .`then`(restore)
     window.exitAnimation(Motions.fadeTo(0, .3, Easing.SINE.in()))
-    window.animations().play(&quot;inspector&quot;, presentation).whenFinished(result =&gt;
+    window.animations().play("inspector", presentation).whenFinished(result =&gt;
       if result.failure() != null then result.failure().printStackTrace())
   def stop(handle: Animator#Playback): Unit = handle.cancel()
 </code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — zenscript"><code class="language-zenscript">#side client
@@ -221,34 +325,73 @@ import mods.offscreencleanroom.AnimationHandle;
 
 function presentInspector(window as Window) as AnimationHandle {
     val area = window.displayBounds();
-    val reveal = Animations.move(area.x + area.width * 0.24, area.y + area.height * 0.2, 0.45, Animations.ease(&quot;quint&quot;, &quot;inOut&quot;))
-        .with(Animations.size(area.width * 0.52, area.height * 0.52, 0.45, Animations.ease(&quot;quint&quot;, &quot;inOut&quot;)))
-        .with(Animations.color(0xFFFFFF, 0.45, Animations.ease(&quot;sine&quot;, &quot;inOut&quot;)))
-        .with(Animations.set(Animations.property(&quot;opacity&quot;), 0).then(Animations.fade(1, 0.45, Animations.ease(&quot;sine&quot;, &quot;inOut&quot;))));
-    val expand = Animations.move(area.x + area.width * 0.12, area.y + area.height * 0.1, 0.65, Animations.ease(&quot;quint&quot;, &quot;inOut&quot;))
-        .with(Animations.size(area.width * 0.76, area.height * 0.76, 0.65, Animations.ease(&quot;quint&quot;, &quot;inOut&quot;)))
-        .with(Animations.color(0xFFFFFF, 0.65, Animations.ease(&quot;sine&quot;, &quot;inOut&quot;)))
-        .with(Animations.fade(1, 0.65, Animations.ease(&quot;sine&quot;, &quot;inOut&quot;)));
-    val dock = Animations.move(area.x + area.width * 0.66, area.y + area.height * 0.16, 0.55, Animations.ease(&quot;quint&quot;, &quot;inOut&quot;))
-        .with(Animations.size(area.width * 0.3, area.height * 0.64, 0.55, Animations.ease(&quot;quint&quot;, &quot;inOut&quot;)))
-        .with(Animations.color(0xC8DCFF, 0.55, Animations.ease(&quot;sine&quot;, &quot;inOut&quot;)))
-        .with(Animations.fade(0.9, 0.55, Animations.ease(&quot;sine&quot;, &quot;inOut&quot;)));
-    val restore = Animations.move(area.x + area.width * 0.24, area.y + area.height * 0.2, 0.7, Animations.ease(&quot;quint&quot;, &quot;inOut&quot;))
-        .with(Animations.size(area.width * 0.52, area.height * 0.52, 0.7, Animations.ease(&quot;quint&quot;, &quot;inOut&quot;)))
-        .with(Animations.color(0xFFFFFF, 0.7, Animations.ease(&quot;sine&quot;, &quot;inOut&quot;)))
-        .with(Animations.fade(1, 0.7, Animations.ease(&quot;sine&quot;, &quot;inOut&quot;)));
+    val reveal = Animations.move(area.x + area.width * 0.24,
+        area.y + area.height * 0.2,
+        0.45,
+        Animations.ease("quint",
+        "inOut"))
+        .with(Animations.size(area.width * 0.52,
+            area.height * 0.52,
+            0.45,
+            Animations.ease("quint",
+            "inOut")))
+        .with(Animations.color(0xFFFFFF, 0.45, Animations.ease("sine", "inOut")))
+        .with(Animations.set(Animations.property("opacity"),
+            0)
+        .then(Animations.fade(1,
+            0.45,
+            Animations.ease("sine",
+            "inOut"))));
+    val expand = Animations.move(area.x + area.width * 0.12,
+        area.y + area.height * 0.1,
+        0.65,
+        Animations.ease("quint",
+        "inOut"))
+        .with(Animations.size(area.width * 0.76,
+            area.height * 0.76,
+            0.65,
+            Animations.ease("quint",
+            "inOut")))
+        .with(Animations.color(0xFFFFFF, 0.65, Animations.ease("sine", "inOut")))
+        .with(Animations.fade(1, 0.65, Animations.ease("sine", "inOut")));
+    val dock = Animations.move(area.x + area.width * 0.66,
+        area.y + area.height * 0.16,
+        0.55,
+        Animations.ease("quint",
+        "inOut"))
+        .with(Animations.size(area.width * 0.3,
+            area.height * 0.64,
+            0.55,
+            Animations.ease("quint",
+            "inOut")))
+        .with(Animations.color(0xC8DCFF, 0.55, Animations.ease("sine", "inOut")))
+        .with(Animations.fade(0.9, 0.55, Animations.ease("sine", "inOut")));
+    val restore = Animations.move(area.x + area.width * 0.24,
+        area.y + area.height * 0.2,
+        0.7,
+        Animations.ease("quint",
+        "inOut"))
+        .with(Animations.size(area.width * 0.52,
+            area.height * 0.52,
+            0.7,
+            Animations.ease("quint",
+            "inOut")))
+        .with(Animations.color(0xFFFFFF, 0.7, Animations.ease("sine", "inOut")))
+        .with(Animations.fade(1, 0.7, Animations.ease("sine", "inOut")));
     val presentation = reveal
         .then(expand)
         .then(Animations.delay(1.2))
         .then(dock)
         .then(Animations.delay(2.5))
         .then(restore);
-    window.exitAnimation(Animations.fade(0, 0.3, Animations.ease(&quot;sine&quot;, &quot;in&quot;)));
-    return window.animate(&quot;inspector&quot;, presentation).whenFinished(function(result) {
-        if (result.error != &quot;&quot;) print(result.error);
+    window.exitAnimation(Animations.fade(0, 0.3, Animations.ease("sine", "in")));
+    return window.animate("inspector", presentation).whenFinished(function(result) {
+        if (result.error != "") print(result.error);
     });
 }
-function stopPresentation(handle as AnimationHandle) { handle.cancel(); }
+function stopPresentation(handle as AnimationHandle) {
+    handle.cancel();
+}
 </code></pre></div>
 <div class="av-example-group" data-example="element-animation"><h2 id="element-animation">Animate each element independently</h2><p>Call <code>window.element(x, y, width, height)</code> for a label, icon or group of drawing commands that needs its own movement. Store the returned <code>AnimatedElement</code> in the screen controller. Creating it does not make it draw itself.</p><table><caption>Element calls</caption><thead><tr><th scope="col">Call</th><th scope="col">Arguments</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code><a href="../../window/Window.html#element(double,double,double,double)">element</a>(x, y, width, height)</code></td><td>GUI position and positive size</td><td>Create the region whose contents will move together.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#animations()">animations</a>().<a href="../animation/Animator.html#play(java.lang.String,com.sbancuz.offscreen.api.animation.Timeline)">play</a>(name, timeline)</code></td><td>Track name and timeline</td><td>Animate this element independently of the desktop window.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#render(double,double,float,java.util.function.Consumer)">render</a>(mouseX, mouseY, partialTicks, draw)</code></td><td>Pointer position, frame timing and drawing callback</td><td>Draw from the screen’s render callback. Draw inside the element using local coordinates.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#contains(double,double)">contains</a>(mouseX, mouseY)</code></td><td>Pointer position in the parent’s coordinates</td><td>Check whether the pointer hits the visible element after its movement, rotation and scale.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#localPoint(double,double)">localPoint</a>(mouseX, mouseY)</code></td><td>Pointer position in the parent’s coordinates</td><td>Convert the pointer to element-local coordinates for a control inside the region.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#close()">close</a>()</code></td><td>No arguments</td><td>Release the element when the screen is disposed.</td></tr></tbody></table><p>Forward input to your own controls after the hit check; an animated element does not create buttons or dispatch clicks for you. A fully transparent element does not receive a hit. The window releases its owned elements when it closes, but closing an element at screen disposal also handles navigation that removes the screen while keeping the window open.</p>
 <p>Built-in widgets already expose their own <code>animations()</code> controller; ZenScript calls it <code>animate</code>. Their hit regions follow their animated position and size, so they do not need a separate element just to move.</p><pre data-language="java" tabindex="0" role="region" aria-label="Animate each element independently — java"><code class="language-java">import com.sbancuz.offscreen.api.animation.*;
@@ -260,8 +403,19 @@ final class ElementRecipe {
     private final AnimatedElement label;
     ElementRecipe(Window window) {
         label = window.element(20, 30, 100, 24);
-        label.animations().play(&quot;spin&quot;, Timeline.to(Channel.ROTATION, 360, 2, Easing.SINE.inOut()));
-        label.animations().play(&quot;pulse&quot;, Motions.oscillate(Channel.SCALE_X, 1, .1, 2, 2));
+        label.animations()
+            .play("spin",
+            Timeline.to(Channel.ROTATION,
+            360,
+            2,
+            Easing.SINE.inOut()));
+        label.animations()
+            .play("pulse",
+            Motions.oscillate(Channel.SCALE_X,
+            1,
+            .1,
+            2,
+            2));
     }
     // Render callback: local coordinates start at zero inside this layer.
     void draw(int mouseX, int mouseY, float partial) {
@@ -269,8 +423,12 @@ final class ElementRecipe {
             Gui.drawRect(0, 0, (int) canvas.width(), (int) canvas.height(), 0xFF8050C0);
         });
     }
-    boolean hit(int mouseX, int mouseY) { return label.contains(mouseX, mouseY); }
-    void dispose() { label.close(); }
+    boolean hit(int mouseX, int mouseY) {
+        return label.contains(mouseX, mouseY);
+    }
+    void dispose() {
+        label.close();
+    }
 }
 </code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Animate each element independently — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.animation.*
 import com.sbancuz.offscreen.window.Window
@@ -279,12 +437,29 @@ import net.minecraft.client.gui.Gui
 class ElementKotlin(window: Window) {
     private val label = window.element(20.0, 30.0, 100.0, 24.0)
     init {
-        label.animations().play(&quot;spin&quot;, Timeline.to(Channel.ROTATION, 360.0, 2.0, Easing.SINE.inOut()))
-        label.animations().play(&quot;pulse&quot;, Motions.oscillate(Channel.SCALE_X, 1.0, .1, 2.0, 2.0))
+        label.animations()
+            .play("spin",
+            Timeline.to(Channel.ROTATION,
+            360.0,
+            2.0,
+            Easing.SINE.inOut()))
+        label.animations()
+            .play("pulse",
+            Motions.oscillate(Channel.SCALE_X,
+            1.0,
+            .1,
+            2.0,
+            2.0))
     }
     fun draw(x: Int, y: Int, partial: Float) {
         label.render(x.toDouble(), y.toDouble(), partial) { canvas -&gt;
-            Gui.drawRect(0, 0, canvas.width().toInt(), canvas.height().toInt(), 0xFF8050C0.toInt())
+            Gui.drawRect(0,
+                0,
+                canvas.width()
+                .toInt(),
+                canvas.height()
+                .toInt(),
+                0xFF8050C0.toInt())
         }
     }
     fun hit(x: Int, y: Int) = label.contains(x.toDouble(), y.toDouble())
@@ -299,12 +474,27 @@ class ElementGroovy {
     final AnimatedElement label
     ElementGroovy(Window window) {
         label = window.element(20, 30, 100, 24)
-        label.animations().play(&#x27;spin&#x27;, Timeline.to(Channel.ROTATION, 360, 2, Easing.SINE.inOut()))
-        label.animations().play(&#x27;pulse&#x27;, Motions.oscillate(Channel.SCALE_X, 1, .1, 2, 2))
+        label.animations()
+            .play('spin',
+            Timeline.to(Channel.ROTATION,
+            360,
+            2,
+            Easing.SINE.inOut()))
+        label.animations()
+            .play('pulse',
+            Motions.oscillate(Channel.SCALE_X,
+            1,
+            .1,
+            2,
+            2))
     }
     void draw(int x, int y, float partial) {
         label.render(x, y, partial, { canvas -&gt;
-            Gui.drawRect(0, 0, (int) canvas.width(), (int) canvas.height(), (int) 0xFF8050C0)
+            Gui.drawRect(0,
+                0,
+                (int) canvas.width(),
+                (int) canvas.height(),
+                (int) 0xFF8050C0)
         })
     }
     boolean hit(int x, int y) { label.contains(x, y) }
@@ -316,8 +506,13 @@ import net.minecraft.client.gui.Gui
 
 final class ElementScala(window: Window):
   private val label = window.element(20, 30, 100, 24)
-  label.animations().play(&quot;spin&quot;, Timeline.to(Channel.ROTATION, 360, 2, Easing.SINE.inOut()))
-  label.animations().play(&quot;pulse&quot;, Motions.oscillate(Channel.SCALE_X, 1, .1, 2, 2))
+  label.animations()
+      .play("spin",
+      Timeline.to(Channel.ROTATION,
+      360,
+      2,
+      Easing.SINE.inOut()))
+  label.animations().play("pulse", Motions.oscillate(Channel.SCALE_X, 1, .1, 2, 2))
   def draw(x: Int, y: Int, partial: Float): Unit =
     label.render(x, y, partial, canvas =&gt;
       Gui.drawRect(0, 0, canvas.width().toInt, canvas.height().toInt, 0xFF8050C0))
@@ -331,12 +526,17 @@ import mods.offscreencleanroom.AnimatedElement;
 
 function createLayer(window as Window) as AnimatedElement {
     val label = window.element(20, 30, 100, 24);
-    label.animate(&quot;spin&quot;, Animations.to(Animations.property(&quot;rotation&quot;), 360, 2,
-        Animations.ease(&quot;sine&quot;, &quot;inOut&quot;)));
-    label.animate(&quot;pulse&quot;, Animations.oscillate(Animations.property(&quot;scale_x&quot;), 1, 0.1, 2, 2));
+    label.animate("spin", Animations.to(Animations.property("rotation"), 360, 2,
+        Animations.ease("sine", "inOut")));
+    label.animate("pulse",
+        Animations.oscillate(Animations.property("scale_x"),
+        1,
+        0.1,
+        2,
+        2));
     return label;
 }
-// Call from the screen&#x27;s draw callback with its current pointer coordinates.
+// Call from the screen's draw callback with its current pointer coordinates.
 function drawLayer(label as AnimatedElement, x as int, y as int, partial as float) {
     label.draw(x, y, partial, function(canvas) {
         canvas.rect(0, 0, canvas.width as int, canvas.height as int, 0xFF8050C0);
@@ -345,7 +545,9 @@ function drawLayer(label as AnimatedElement, x as int, y as int, partial as floa
 function hitLayer(label as AnimatedElement, x as int, y as int) as bool {
     return label.contains(x, y);
 }
-function disposeLayer(label as AnimatedElement) { label.close(); }
+function disposeLayer(label as AnimatedElement) {
+    label.close();
+}
 </code></pre></div>
 <div class="av-example-group" data-example="caption-font"><h2 id="caption-font">Use a formatted font for the title and controls</h2><p>To draw the title and window controls with your own font, first open the window with a custom title bar. Then call <code>window.captionRenderer(renderer)</code> and keep the returned <code>CaptionHandle</code>. This changes the custom bar’s text; the operating system’s taskbar title remains plain.</p><table><caption>Caption setup</caption><thead><tr><th scope="col">Call</th><th scope="col">Arguments</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>window.<a href="../../window/Window.html#captionTitle(java.lang.String)">captionTitle</a>(text)</code></td><td>Full title string, including your font’s formatting codes</td><td>Set the title displayed by the custom bar.</td></tr><tr><td><code>window.<a href="../../window/Window.html#captionLabels(java.lang.String,java.lang.String,java.lang.String)">captionLabels</a>(minimize, middle, close)</code></td><td>The three control labels</td><td>Choose the glyphs drawn for the window controls.</td></tr><tr><td><code><a href="../client/CaptionRenderer.html">CaptionRenderer</a>.<a href="../client/CaptionRenderer.html#of(java.util.function.ToIntFunction,java.util.function.IntSupplier,com.sbancuz.offscreen.api.client.CaptionRenderer.Draw)">of</a>(measure, height, draw)</code></td><td>Width function, height function and drawing function</td><td>Connect a font provider to the custom bar.</td></tr><tr><td><code>window.<a href="../../window/Window.html#captionRenderer(com.sbancuz.offscreen.api.client.CaptionRenderer)">captionRenderer</a>(renderer)</code></td><td>Your completed renderer</td><td>Install it and receive the handle used to remove it.</td></tr></tbody></table><p>The measuring function returns the width of the supplied text, and the height function returns the font height. The draw callback receives a role, the unchanged text, its position and a base color. Use the role to tell title text from a control label when your font needs different treatment.</p>
 <p>Use the same formatting rules for measuring and drawing. Otherwise the bar may reserve the wrong amount of space or clip a label. If your provider chooses its own text colors, keep them readable against the configured bar tint; a transparent bar cannot know the desktop colors behind it.</p>
@@ -356,17 +558,22 @@ import net.minecraft.client.Minecraft;
 
 final class CaptionRecipe {
     static CaptionHandle install(Window window) {
-        window.captionTitle(&quot;§bTools §f— §dPreview&quot;);
-        window.captionLabels(&quot;_&quot;, &quot;□&quot;, &quot;×&quot;);
+        window.captionTitle("§bTools §f— §dPreview");
+        window.captionLabels("_", "□", "×");
         return window.captionRenderer(CaptionRenderer.of(
                 text -&gt; Minecraft.getMinecraft().fontRenderer.getStringWidth(text),
                 () -&gt; Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT,
                 (role, text, x, y, baseColor) -&gt; {
-                    Minecraft.getMinecraft().fontRenderer.drawString(text, x, y, baseColor);
+                    Minecraft.getMinecraft().fontRenderer.drawString(text,
+                        x,
+                        y,
+                        baseColor);
                 }));
     }
     // Teardown: removes only this contribution, even after a newer font replaced it.
-    static void remove(CaptionHandle handle) { handle.close(); }
+    static void remove(CaptionHandle handle) {
+        handle.close();
+    }
 }
 </code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.client.CaptionHandle
 import com.sbancuz.offscreen.api.client.CaptionRenderer
@@ -375,8 +582,8 @@ import net.minecraft.client.Minecraft
 
 object CaptionKotlin {
     fun install(window: Window): CaptionHandle {
-        window.captionTitle(&quot;§bTools §f— §dPreview&quot;)
-        window.captionLabels(&quot;_&quot;, &quot;□&quot;, &quot;×&quot;)
+        window.captionTitle("§bTools §f— §dPreview")
+        window.captionLabels("_", "□", "×")
         return window.captionRenderer(CaptionRenderer.of(
             { text -&gt; Minecraft.getMinecraft().fontRenderer.getStringWidth(text) },
             { Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT },
@@ -392,8 +599,8 @@ import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.Minecraft
 
 CaptionHandle installCaption(Window window) {
-    window.captionTitle(&#x27;§bTools §f— §dPreview&#x27;)
-    window.captionLabels(&#x27;_&#x27;, &#x27;□&#x27;, &#x27;×&#x27;)
+    window.captionTitle('§bTools §f— §dPreview')
+    window.captionLabels('_', '□', '×')
     window.captionRenderer(CaptionRenderer.of(
         { text -&gt; Minecraft.getMinecraft().fontRenderer.getStringWidth(text) },
         { Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT },
@@ -408,8 +615,8 @@ import net.minecraft.client.Minecraft
 
 object CaptionScala:
   def install(window: Window): CaptionHandle =
-    window.captionTitle(&quot;§bTools §f— §dPreview&quot;)
-    window.captionLabels(&quot;_&quot;, &quot;□&quot;, &quot;×&quot;)
+    window.captionTitle("§bTools §f— §dPreview")
+    window.captionLabels("_", "□", "×")
     window.captionRenderer(CaptionRenderer.of(
       text =&gt; Minecraft.getMinecraft().fontRenderer.getStringWidth(text),
       () =&gt; Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT,
@@ -424,13 +631,19 @@ import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.CaptionHandle;
 
 function installCaption(window as Window) as CaptionHandle {
-    window.captionTitle(&quot;§bTools §f— §dPreview&quot;);
-    window.captionLabels(&quot;_&quot;, &quot;□&quot;, &quot;×&quot;);
+    window.captionTitle("§bTools §f— §dPreview");
+    window.captionLabels("_", "□", "×");
     return window.captionFont(
-        function(text) { return Windows.textWidth(text); },
-        function(label) { label.vanilla(); }, 9);
+        function(text) {
+            return Windows.textWidth(text);
+        },
+        function(label) {
+            label.vanilla();
+        }, 9);
 }
-function removeCaption(handle as CaptionHandle) { handle.close(); }
+function removeCaption(handle as CaptionHandle) {
+    handle.close();
+}
 </code></pre></div>
 <div class="av-example-group" data-example="render-attachments"><h2 id="render-attachments">Attach a shader or in-game renderer</h2><p>To run your own renderer at a chosen point, call <code>window.renderAttachments().add(stage, draw, cleanup)</code>. Pass the rendering stage, a drawing callback and a cleanup function for resources your renderer owns. Keep the returned receipt if you may remove the renderer before its window closes.</p><table><caption>Choose a rendering stage</caption><thead><tr><th scope="col">Stage</th><th scope="col">Where it draws</th><th scope="col">Available setup</th></tr></thead><tbody><tr><td><code><a href="../client/RenderAttachments.Stage.html#BACKGROUND">BACKGROUND</a></code></td><td>Inside the desktop window, before its screen content</td><td>The window’s drawing area has been cleared.</td></tr><tr><td><code><a href="../client/RenderAttachments.Stage.html#FOREGROUND">FOREGROUND</a></code></td><td>Inside the desktop window, after the content and caption</td><td>Window postprocessing has not run yet.</td></tr><tr><td><code><a href="../client/RenderAttachments.Stage.html#WORLD">WORLD</a></code></td><td>In Minecraft’s world</td><td>The current camera and world projection are active.</td></tr><tr><td><code><a href="../client/RenderAttachments.Stage.html#HUD">HUD</a></code></td><td>Over Minecraft’s game view</td><td>The game’s GUI projection is active.</td></tr></tbody></table><p>The callback receives a <code>RenderAttachments.Context</code> for this draw only. A nonzero <code>texture()</code> value gives access to the supplied texture during that callback. Do not store the context or texture ID for use in a later frame; both are borrowed from the current draw.</p>
 <p>Offscreen supplies the place to draw, not the shader or effect. Your addon creates its shader programs and other graphics resources and releases them in the cleanup callback. For an effect driven by animation, read <code>window.animationValue(Channel.EFFECT_PROGRESS)</code> from your renderer. This value remains available during a frozen exit.</p>
@@ -445,7 +658,9 @@ final class RenderHookRecipe {
             if (frame.texture() != 0) addonDraw.accept(frame);
         }, addonCleanup);
     }
-    static void remove(RenderAttachments.Receipt handle) { handle.close(); }
+    static void remove(RenderAttachments.Receipt handle) {
+        handle.close();
+    }
 }
 </code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.client.RenderAttachments
 import com.sbancuz.offscreen.window.Window
@@ -487,11 +702,13 @@ import mods.offscreencleanroom.Action;
 
 function attachRenderer(window as Window, addonDraw as RenderAction,
         addonCleanup as Action) as RenderHandle {
-    return window.render(&quot;world&quot;, function(frame) {
+    return window.render("world", function(frame) {
         if (frame.texture != 0) addonDraw.draw(frame);
     }, addonCleanup);
 }
-function removeRenderer(handle as RenderHandle) { handle.close(); }
+function removeRenderer(handle as RenderHandle) {
+    handle.close();
+}
 </code></pre></div><h2 id="animation-cleanup">Failure, reload and closing</h2><p>Each retained handle has one job. Release it when that part of the screen is finished:</p><table><caption>Cleanup and failure behavior</caption><thead><tr><th scope="col">Handle or resource</th><th scope="col">How to finish</th><th scope="col">If a callback fails</th></tr></thead><tbody><tr><td>Playback</td><td><code><a href="../animation/Animator.Playback.html#cancel()">cancel</a>()</code> or <code><a href="../animation/Animator.Playback.html#close()">close</a>()</code></td><td>The track stops. Inspect failure() for the cause and observerFailures() for errors in completion callbacks.</td></tr><tr><td>Animated element</td><td><code><a href="../client/AnimatedElement.html#close()">close</a>()</code> from screen disposal</td><td>Do not keep forwarding drawing or input after disposal.</td></tr><tr><td>Caption handle</td><td><code><a href="../client/CaptionHandle.html#close()">close</a>()</code></td><td>The caption falls back to Minecraft’s font; the handle retains the failure.</td></tr><tr><td>Render attachment receipt</td><td><code><a href="../client/RenderAttachments.Receipt.html#close()">close</a>()</code></td><td>The failing attachment removes itself and attempts its cleanup without removing other attachments.</td></tr><tr><td>Window</td><td><code><a href="../OffscreenAPI.html">OffscreenAPI</a>.<a href="../OffscreenAPI.html#close(com.sbancuz.offscreen.window.Window)">close</a>(window)</code></td><td>Its session and remaining owned visual resources are released through the window lifecycle.</td></tr></tbody></table><p>An exit animation is set with <code>window.exitAnimation(timeline)</code>. When you close that window, server interaction ends first and the finite exit plays using a frozen image of the screen. During the exit, <code>isOpen</code> stays true, <code>isReady</code> is false and the status is <code>CLOSING</code>. The frozen image is visual feedback, not a live inventory.</p>
 <p>Use <code>OffscreenAPI.closeImmediately(window)</code> when failed setup or script unload must skip that visual exit. Groovy-owned window cleanup already uses immediate closure so callbacks from an unloaded script cannot continue running.</p>
 <p>For resources created by an animation action, use that action context’s <code>own</code> helper so the run can release them. Visual trails hold snapshots, not copied server containers. They cannot take focus, are limited to 32 per source and close when their animation or source releases them.</p><nav class="av-pager" aria-label="Guide navigation"><a href="lifecycle.html">Previous: Save window values and connect controls to the server</a><a href="media.html">Next: Show images, video and audio</a></nav></div></main>

@@ -102,21 +102,21 @@ final class WindowWidgetsRecipe {
 
     // Client initialization: these declarations can be reused for every new window.
     static List&lt;WidgetSpec&gt; controls() {
-        var name = WidgetSpec.widget(TEXT_FIELD, &quot;name&quot;, 12, 12, 180, 20)
-                .initial(&quot;Hello&quot;).maxLength(40).validate(text -&gt; !text.contains(&quot;\n&quot;))
+        var name = WidgetSpec.widget(TEXT_FIELD, "name", 12, 12, 180, 20)
+                .initial("Hello").maxLength(40).validate(text -&gt; !text.contains("\n"))
                 .changed(widget -&gt; {
                     var state = widget.state();
-                    state.initial(&quot;changes&quot;, 0);
-                    state.integer(&quot;changes&quot;, state.integer(&quot;changes&quot;) + 1);
+                    state.initial("changes", 0);
+                    state.integer("changes", state.integer("changes") + 1);
                 }).build();
-        var volume = WidgetSpec.widget(SLIDER, &quot;volume&quot;, 12, 40, 180, 20)
+        var volume = WidgetSpec.widget(SLIDER, "volume", 12, 40, 180, 20)
                 .range(0, 1, 0.05).initial(0.5).build();
-        var enabled = WidgetSpec.widget(CHECKBOX, &quot;enabled&quot;, 12, 68, 180, 20)
-                .label(&quot;Enabled&quot;).initial(true).build();
-        var choice = WidgetSpec.widget(LIST, &quot;choice&quot;, 12, 96, 180, 48)
-                .choices(List.of(&quot;Copper&quot;, &quot;Silver&quot;, &quot;Gold&quot;)).build();
-        var nested = WidgetSpec.widget(TEXT_FIELD, &quot;notes&quot;, 4, 90, 160, 20).build();
-        var scroll = WidgetSpec.widget(SCROLL, &quot;scroll&quot;, 220, 12, 180, 80)
+        var enabled = WidgetSpec.widget(CHECKBOX, "enabled", 12, 68, 180, 20)
+                .label("Enabled").initial(true).build();
+        var choice = WidgetSpec.widget(LIST, "choice", 12, 96, 180, 48)
+                .choices(List.of("Copper", "Silver", "Gold")).build();
+        var nested = WidgetSpec.widget(TEXT_FIELD, "notes", 4, 90, 160, 20).build();
+        var scroll = WidgetSpec.widget(SCROLL, "scroll", 220, 12, 180, 80)
                 .children(List.of(nested)).build();
         return List.of(name, volume, enabled, choice, scroll);
     }
@@ -124,8 +124,8 @@ final class WindowWidgetsRecipe {
     // Client action: each call creates new screens and independent WindowState values.
     void open() {
         var declaration = controls();
-        first = WidgetScreen.open(&quot;Tools A&quot;, 640, 400, declaration);
-        second = WidgetScreen.open(&quot;Tools B&quot;, 640, 400, declaration);
+        first = WidgetScreen.open("Tools A", 640, 400, declaration);
+        second = WidgetScreen.open("Tools B", 640, 400, declaration);
     }
 
     // Client teardown: retaining a widget after its screen closes does not keep it alive.
@@ -145,31 +145,61 @@ class WindowWidgetsRecipeK {
 
     // Client initialization: the shared Java model owns validation and live-instance creation.
     fun controls(): List&lt;WidgetSpec&gt; = listOf(
-        widget(TEXT_FIELD, &quot;name&quot;, 12, 12, 180, 20) {
-            initial(&quot;Hello&quot;); maxLength(40); validate { !it.contains(&quot;\n&quot;) }
+        widget(TEXT_FIELD, "name", 12, 12, 180, 20) {
+            initial("Hello"); maxLength(40); validate {
+                !it.contains("\n")
+            }
             changed { field -&gt;
                 val state = field.state()
-                state.initial(&quot;changes&quot;, 0)
-                state.integer(&quot;changes&quot;, state.integer(&quot;changes&quot;) + 1)
+                state.initial("changes", 0)
+                state.integer("changes", state.integer("changes") + 1)
             }
         },
-        widget(SLIDER, &quot;volume&quot;, 12, 40, 180, 20) { range(0.0, 1.0, 0.05); initial(0.5) },
-        widget(CHECKBOX, &quot;enabled&quot;, 12, 68, 180, 20) { label(&quot;Enabled&quot;); initial(true) },
-        widget(LIST, &quot;choice&quot;, 12, 96, 180, 48) { choices(listOf(&quot;Copper&quot;, &quot;Silver&quot;, &quot;Gold&quot;)) },
-        widget(SCROLL, &quot;scroll&quot;, 220, 12, 180, 80) {
-            children(listOf(widget(TEXT_FIELD, &quot;notes&quot;, 4, 90, 160, 20) {}))
+        widget(SLIDER,
+            "volume",
+            12,
+            40,
+            180,
+            20) {
+            range(0.0,
+            1.0,
+            0.05); initial(0.5)
+        },
+        widget(CHECKBOX,
+            "enabled",
+            12,
+            68,
+            180,
+            20) {
+            label("Enabled"); initial(true)
+        },
+        widget(LIST,
+            "choice",
+            12,
+            96,
+            180,
+            48) {
+            choices(listOf("Copper",
+            "Silver",
+            "Gold"))
+        },
+        widget(SCROLL, "scroll", 220, 12, 180, 80) {
+            children(listOf(widget(TEXT_FIELD, "notes", 4, 90, 160, 20) {}))
         },
     )
 
     // Client action: a declaration can be opened twice without sharing its input or selections.
     fun open() {
         val declaration = controls().toTypedArray()
-        first = openWidgets(&quot;Tools A&quot;, 640, 400, *declaration)
-        second = openWidgets(&quot;Tools B&quot;, 640, 400, *declaration)
+        first = openWidgets("Tools A", 640, 400, *declaration)
+        second = openWidgets("Tools B", 640, 400, *declaration)
     }
 
     // Client teardown; ordinary captured mutable variables are still shared by their closures.
-    fun close() { OffscreenAPI.close(first); OffscreenAPI.close(second) }
+    fun close() {
+        OffscreenAPI.close(first);
+        OffscreenAPI.close(second)
+    }
 }</code></pre>
 <pre data-language="groovy" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.widgets.WidgetSpec
 import static com.sbancuz.offscreen.api.widgets.WidgetSpec.Kind.*
@@ -177,27 +207,61 @@ import static com.sbancuz.offscreen.api.widgets.WidgetSpec.Kind.*
 // Client initialization in GroovyScript. No window is allocated while this declaration is loaded.
 def windows = mods.offscreencleanroom.windows
 def controls = [
-    WidgetSpec.widget(TEXT_FIELD, &#x27;name&#x27;, 12, 12, 180, 20).initial(&#x27;Hello&#x27;).maxLength(40)
-        .validate({ text -&gt; !text.contains(&#x27;\n&#x27;) })
+    WidgetSpec.widget(TEXT_FIELD,
+        'name',
+        12,
+        12,
+        180,
+        20)
+        .initial('Hello')
+        .maxLength(40)
+        .validate({ text -&gt; !text.contains('\n') })
         .changed({ field -&gt;
             def state = field.state()
-            state.initial(&#x27;changes&#x27;, 0)
-            state.integer(&#x27;changes&#x27;, state.integer(&#x27;changes&#x27;) + 1)
+            state.initial('changes', 0)
+            state.integer('changes', state.integer('changes') + 1)
         }).build(),
-    WidgetSpec.widget(SLIDER, &#x27;volume&#x27;, 12, 40, 180, 20).range(0, 1, 0.05).initial(0.5d).build(),
-    WidgetSpec.widget(CHECKBOX, &#x27;enabled&#x27;, 12, 68, 180, 20).label(&#x27;Enabled&#x27;).initial(true).build(),
-    WidgetSpec.widget(LIST, &#x27;choice&#x27;, 12, 96, 180, 48).choices([&#x27;Copper&#x27;, &#x27;Silver&#x27;, &#x27;Gold&#x27;]).build(),
-    WidgetSpec.widget(SCROLL, &#x27;scroll&#x27;, 220, 12, 180, 80).children([
-        WidgetSpec.widget(TEXT_FIELD, &#x27;notes&#x27;, 4, 90, 160, 20).build()
+    WidgetSpec.widget(SLIDER,
+        'volume',
+        12,
+        40,
+        180,
+        20)
+        .range(0,
+        1,
+        0.05)
+        .initial(0.5d)
+        .build(),
+    WidgetSpec.widget(CHECKBOX,
+        'enabled',
+        12,
+        68,
+        180,
+        20)
+        .label('Enabled')
+        .initial(true)
+        .build(),
+    WidgetSpec.widget(LIST,
+        'choice',
+        12,
+        96,
+        180,
+        48)
+        .choices(['Copper',
+        'Silver',
+        'Gold'])
+        .build(),
+    WidgetSpec.widget(SCROLL, 'scroll', 220, 12, 180, 80).children([
+        WidgetSpec.widget(TEXT_FIELD, 'notes', 4, 90, 160, 20).build()
     ]).build()
 ]
 
 // Retain this action in your actual client input handler, then invoke it on the client thread.
 def openTools = {
-    windows.openWidgets(&#x27;Tools A&#x27;, 640, 400, controls)
-    windows.openWidgets(&#x27;Tools B&#x27;, 640, 400, controls)
+    windows.openWidgets('Tools A', 640, 400, controls)
+    windows.openWidgets('Tools B', 640, 400, controls)
 }
-// Teardown: GroovyScript reload invalidates callbacks and closes only this registry&#x27;s owned windows.</code></pre>
+// Teardown: GroovyScript reload invalidates callbacks and closes only this registry's owned windows.</code></pre>
 <pre data-language="scala" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — scala"><code class="language-scala">import java.util.List as JList
 import com.sbancuz.offscreen.api.OffscreenAPI
 import com.sbancuz.offscreen.api.widgets.WidgetSpec
@@ -212,27 +276,48 @@ final class WindowWidgetsRecipeS:
 
   // Client initialization; each lambda configures the shared typed Java builder.
   def controls(): Seq[WidgetSpec] = Seq(
-    widget(TEXT_FIELD, &quot;name&quot;, 12, 12, 180, 20) { field =&gt;
-      field.initial(&quot;Hello&quot;).maxLength(40).validate(text =&gt; !text.contains(&quot;\n&quot;))
+    widget(TEXT_FIELD, "name", 12, 12, 180, 20) { field =&gt;
+      field.initial("Hello").maxLength(40).validate(text =&gt; !text.contains("\n"))
       field.changed { control =&gt;
         val state = control.state()
-        state.initial(&quot;changes&quot;, Int.box(0))
-        state.integer(&quot;changes&quot;, state.integer(&quot;changes&quot;) + 1)
+        state.initial("changes", Int.box(0))
+        state.integer("changes", state.integer("changes") + 1)
       }
     },
-    widget(SLIDER, &quot;volume&quot;, 12, 40, 180, 20)(_.range(0, 1, 0.05).initial(Double.box(0.5))),
-    widget(CHECKBOX, &quot;enabled&quot;, 12, 68, 180, 20)(_.label(&quot;Enabled&quot;).initial(Boolean.box(true))),
-    widget(LIST, &quot;choice&quot;, 12, 96, 180, 48)(_.choices(JList.of(&quot;Copper&quot;, &quot;Silver&quot;, &quot;Gold&quot;))),
-    widget(SCROLL, &quot;scroll&quot;, 220, 12, 180, 80) { panel =&gt;
-      panel.children(JList.of(widget(TEXT_FIELD, &quot;notes&quot;, 4, 90, 160, 20)(_ =&gt; ())))
+    widget(SLIDER,
+        "volume",
+        12,
+        40,
+        180,
+        20)(_.range(0,
+        1,
+        0.05)
+        .initial(Double.box(0.5))),
+    widget(CHECKBOX,
+        "enabled",
+        12,
+        68,
+        180,
+        20)(_.label("Enabled")
+        .initial(Boolean.box(true))),
+    widget(LIST,
+        "choice",
+        12,
+        96,
+        180,
+        48)(_.choices(JList.of("Copper",
+        "Silver",
+        "Gold"))),
+    widget(SCROLL, "scroll", 220, 12, 180, 80) { panel =&gt;
+      panel.children(JList.of(widget(TEXT_FIELD, "notes", 4, 90, 160, 20)(_ =&gt; ())))
     }
   )
 
   // Client action; native Scala 3 uses Scalar, with no alternate widget implementation.
   def open(): Unit =
     val declaration = controls()
-    first = openWidgets(&quot;Tools A&quot;, 640, 400)(declaration*)
-    second = openWidgets(&quot;Tools B&quot;, 640, 400)(declaration*)
+    first = openWidgets("Tools A", 640, 400)(declaration*)
+    second = openWidgets("Tools B", 640, 400)(declaration*)
 
   // Client teardown.
   def close(): Unit =
@@ -242,18 +327,20 @@ final class WindowWidgetsRecipeS:
 import mods.offscreencleanroom.Windows;
 
 // Client initialization: defaults are copied into each newly opened window.
-val tools = Windows.screen(&quot;Tools&quot;, 640, 400);
-tools.defaults.integer(&quot;changes&quot;, 0);
-tools.textField(&quot;name&quot;, 12, 12, 180, 20, &quot;Hello&quot;).maxLength(40)
-    .validate(function(text) { return text != &quot;rejected&quot;; })
+val tools = Windows.screen("Tools", 640, 400);
+tools.defaults.integer("changes", 0);
+tools.textField("name", 12, 12, 180, 20, "Hello").maxLength(40)
+    .validate(function(text) {
+        return text != "rejected";
+    })
     .changed(function(field) {
-        field.state.integer(&quot;changes&quot;, field.state.integer(&quot;changes&quot;) + 1);
+        field.state.integer("changes", field.state.integer("changes") + 1);
     });
-tools.slider(&quot;volume&quot;, 12, 40, 180, 20, 0.0, 1.0, 0.05, 0.5);
-tools.checkbox(&quot;enabled&quot;, 12, 68, 180, 20, true).label(&quot;Enabled&quot;);
-tools.list(&quot;choice&quot;, 12, 96, 180, 48, [&quot;Copper&quot;, &quot;Silver&quot;, &quot;Gold&quot;]);
-val scroll = tools.scrollPanel(&quot;scroll&quot;, 220, 12, 180, 80);
-scroll.add(tools.textField(&quot;notes&quot;, 4, 90, 160, 20, &quot;&quot;));
+tools.slider("volume", 12, 40, 180, 20, 0.0, 1.0, 0.05, 0.5);
+tools.checkbox("enabled", 12, 68, 180, 20, true).label("Enabled");
+tools.list("choice", 12, 96, 180, 48, ["Copper", "Silver", "Gold"]);
+val scroll = tools.scrollPanel("scroll", 220, 12, 180, 80);
+scroll.add(tools.textField("notes", 4, 90, 160, 20, ""));
 
 // Call from your client input action after Minecraft has initialized its graphics context.
 function openTools(tools as mods.offscreencleanroom.Screen) as void {
@@ -290,7 +377,7 @@ import net.minecraft.client.gui.GuiScreen;
 
 final class AdapterRecipe {
     static final class Scratch extends GuiScreen {
-        String text = &quot;Type here&quot;;
+        String text = "Type here";
         int ticks, layoutWidth, lastScancode;
     }
     private Window window;
@@ -298,20 +385,33 @@ final class AdapterRecipe {
     // Client initialization: every adapter gets a fresh backing screen and its own fields.
     static HostUI adapter(Scratch screen) {
         return HostUIBuilder.forScreen(screen)
-                .draw(frame -&gt; frame.minecraft().fontRenderer.drawString(screen.text, 8, 24, -1, true))
+                .draw(frame -&gt; frame.minecraft().fontRenderer.drawString(screen.text,
+                    8,
+                    24,
+                    -1,
+                    true))
                 .resize((width, height) -&gt; screen.layoutWidth = width)
                 .tick(() -&gt; screen.ticks++)
-                .text(text -&gt; { screen.text += text; return true; })
-                .key(key -&gt; { screen.lastScancode = key.sdlScanCode(); return false; })
+                .text(text -&gt; {
+                    screen.text += text; return true;
+                })
+                .key(key -&gt; {
+                    screen.lastScancode = key.sdlScanCode(); return false;
+                })
                 .pointer(event -&gt; false) // False preserves normal vanilla control handling.
                 .scope(Scope.NOP)        // Replace with an addon scope if extra state must be borrowed.
-                .dispose(() -&gt; screen.text = &quot;&quot;)
+                .dispose(() -&gt; screen.text = "")
                 .build();
     }
     // Client action: supplier and adapter creation are immediate; callbacks run on the client thread.
-    void open() { window = OffscreenAPI.open(Scratch::new, value -&gt; adapter((Scratch) value)); }
+    void open() {
+        window = OffscreenAPI.open(Scratch::new,
+        value -&gt; adapter((Scratch) value));
+    }
     // Client teardown. Both the backing GUI and custom disposal are attempted, even after an exception.
-    void close() { OffscreenAPI.close(window); }
+    void close() {
+        OffscreenAPI.close(window);
+    }
 }</code></pre>
 <pre data-language="kotlin" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
 import com.sbancuz.offscreen.scope.Scope
@@ -320,7 +420,7 @@ import net.minecraft.client.gui.GuiScreen
 
 class AdapterRecipeK {
     class Scratch : GuiScreen() {
-        var text = &quot;Type here&quot;
+        var text = "Type here"
         var ticks = 0
         var layoutWidth = 0
         var lastScancode = 0
@@ -329,17 +429,35 @@ class AdapterRecipeK {
 
     // Client initialization. The Kotlin receiver configures the same HostUIBuilder as Java.
     fun adapter(screen: Scratch): HostUI = hostUI(screen) {
-        draw { frame -&gt; frame.minecraft().fontRenderer.drawString(screen.text, 8f, 24f, -1, true) }
+        draw {
+            frame -&gt; frame.minecraft().fontRenderer.drawString(screen.text,
+            8f,
+            24f,
+            -1,
+            true)
+        }
         resize { width, _ -&gt; screen.layoutWidth = width }
         tick { screen.ticks++ }
-        text { value -&gt; screen.text += value; true }
-        key { event -&gt; screen.lastScancode = event.sdlScanCode(); false }
+        text {
+            value -&gt; screen.text += value;
+            true
+        }
+        key {
+            event -&gt; screen.lastScancode = event.sdlScanCode();
+            false
+        }
         pointer { false }
         scope(Scope.NOP)
-        dispose { screen.text = &quot;&quot; }
+        dispose { screen.text = "" }
     }
     // Client action; screen fields belong to this open, rather than a shared outer script counter.
-    fun open() { window = openWindow(HostUIFactory { value -&gt; adapter(value as Scratch) }) { Scratch() } }
+    fun open() {
+        window = openWindow(HostUIFactory {
+            value -&gt; adapter(value as Scratch)
+        }) {
+            Scratch()
+        }
+    }
     // Client teardown.
     fun close() { OffscreenAPI.close(window) }
 }</code></pre>
@@ -348,7 +466,7 @@ import com.sbancuz.offscreen.scope.Scope
 import net.minecraft.client.gui.GuiScreen
 
 class ScratchRecipeG extends GuiScreen {
-    String text = &#x27;Type here&#x27;
+    String text = 'Type here'
     int ticks, layoutWidth, lastScancode
 }
 def windows = mods.offscreencleanroom.windows
@@ -357,19 +475,29 @@ def windows = mods.offscreencleanroom.windows
 def installAdapter = {
     windows.registerAdapter(ScratchRecipeG, { ScratchRecipeG screen -&gt;
         HostUIBuilder.forScreen(screen)
-            .draw({ frame -&gt; frame.minecraft().fontRenderer.drawString(screen.text, 8, 24, -1, true) })
+            .draw({
+                frame -&gt; frame.minecraft().fontRenderer.drawString(screen.text,
+                8,
+                24,
+                -1,
+                true)
+            })
             .resize({ width, height -&gt; screen.layoutWidth = width })
             .tick({ screen.ticks++ })
-            .text({ value -&gt; screen.text += value; true })
-            .key({ event -&gt; screen.lastScancode = event.sdlScanCode(); false })
+            .text({
+                value -&gt; screen.text += value; true
+            })
+            .key({
+                event -&gt; screen.lastScancode = event.sdlScanCode(); false
+            })
             .pointer({ event -&gt; false }).scope(Scope.NOP)
-            .dispose({ screen.text = &#x27;&#x27; }).build()
+            .dispose({ screen.text = '' }).build()
     })
 }
 // Client action after installation:
-def openTools = { windows.open({ new ScratchRecipeG() }, &#x27;Scratch&#x27;, 640, 400) }
+def openTools = { windows.open({ new ScratchRecipeG() }, 'Scratch', 640, 400) }
 // Teardown: reload removes only this registration receipt, invalidates its old callbacks,
-// and disposes this windows registry&#x27;s owned windows. Other addons&#x27; windows remain their own responsibility.</code></pre>
+// and disposes this windows registry's owned windows. Other addons' windows remain their own responsibility.</code></pre>
 <pre data-language="scala" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — scala"><code class="language-scala">import com.sbancuz.offscreen.api.{HostUI, HostUIFactory, OffscreenAPI}
 import com.sbancuz.offscreen.scaladsl.Offscreen.hostUI
 import com.sbancuz.offscreen.scope.Scope
@@ -378,7 +506,7 @@ import net.minecraft.client.gui.GuiScreen
 
 final class AdapterRecipeS:
   final class Scratch extends GuiScreen:
-    var text = &quot;Type here&quot;
+    var text = "Type here"
     var ticks = 0
     var layoutWidth = 0
     var lastScancode = 0
@@ -386,47 +514,66 @@ final class AdapterRecipeS:
 
   // Client initialization, using the same typed callback builder as Java and Kotlin.
   def adapter(screen: Scratch): HostUI = hostUI(screen) { builder =&gt;
-    builder.draw(frame =&gt; { frame.minecraft().fontRenderer.drawString(screen.text, 8, 24, -1, true); () })
+    builder.draw(frame =&gt; { frame.minecraft().fontRenderer.drawString(screen.text,
+        8,
+        24,
+        -1,
+        true); () })
       .resize((width, height) =&gt; screen.layoutWidth = width)
       .tick(() =&gt; screen.ticks += 1)
       .text(value =&gt; { screen.text += value; true })
       .key(event =&gt; { screen.lastScancode = event.sdlScanCode(); false })
       .pointer(_ =&gt; false)
       .scope(Scope.NOP)
-      .dispose(() =&gt; screen.text = &quot;&quot;)
+      .dispose(() =&gt; screen.text = "")
   }
   // Client action. Native Scala 3 lambdas become the Java callback interfaces.
   def open(): Unit =
-    window = OffscreenAPI.open(() =&gt; new Scratch(), (value: Object) =&gt; adapter(value.asInstanceOf[Scratch]))
+    window = OffscreenAPI.open(() =&gt; new Scratch(),
+        (value: Object) =&gt; adapter(value.asInstanceOf[Scratch]))
   // Client teardown.
   def close(): Unit = OffscreenAPI.close(window)</code></pre>
 <pre data-language="zenscript" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Windows;
 
 // Client initialization. Host scopes are supplied automatically by this facade.
-val scratch = Windows.screen(&quot;Scratch&quot;, 640, 400);
-scratch.defaults.text(&quot;input&quot;, &quot;Type here&quot;);
-scratch.defaults.integer(&quot;ticks&quot;, 0);
-scratch.on(&quot;tick&quot;, function(event) {
-    event.state.integer(&quot;ticks&quot;, event.state.integer(&quot;ticks&quot;) + 1);
+val scratch = Windows.screen("Scratch", 640, 400);
+scratch.defaults.text("input", "Type here");
+scratch.defaults.integer("ticks", 0);
+scratch.on("tick", function(event) {
+    event.state.integer("ticks", event.state.integer("ticks") + 1);
     return false;
 });
-scratch.on(&quot;text&quot;, function(event) {
-    event.state.text(&quot;input&quot;, event.state.text(&quot;input&quot;) + event.text);
+scratch.on("text", function(event) {
+    event.state.text("input", event.state.text("input") + event.text);
     return true;
 });
-scratch.on(&quot;key&quot;, function(event) { print(event.scancode); return false; });
-scratch.on(&quot;resize&quot;, function(event) { print(event.width); return false; });
-scratch.on(&quot;click&quot;, function(event) { return false; });
-scratch.on(&quot;drag&quot;, function(event) { return false; });
-scratch.on(&quot;release&quot;, function(event) { return false; });
-scratch.on(&quot;scroll&quot;, function(event) { return false; });
-scratch.on(&quot;draw&quot;, function(event) {
-    // Render callback. The draw/state context expires when this callback returns.
-    event.text(event.state.text(&quot;input&quot;), 8, 24, -1, true);
+scratch.on("key", function(event) {
+    print(event.scancode); return false;
+});
+scratch.on("resize", function(event) {
+    print(event.width); return false;
+});
+scratch.on("click", function(event) {
     return false;
 });
-scratch.on(&quot;close&quot;, function(event) { print(&quot;Scratch closed&quot;); return false; });
+scratch.on("drag", function(event) {
+    return false;
+});
+scratch.on("release", function(event) {
+    return false;
+});
+scratch.on("scroll", function(event) {
+    return false;
+});
+scratch.on("draw", function(event) {
+    // Render callback. The draw/state context expires when this callback returns.
+    event.text(event.state.text("input"), 8, 24, -1, true);
+    return false;
+});
+scratch.on("close", function(event) {
+    print("Scratch closed"); return false;
+});
 // Client action after graphics initialization: retain scratch.open(), then close that handle at teardown.
 // CraftTweaker 1.12 startup scripts require a restart after editing; this is not a Groovy reload registration.</code></pre>
 <p>GroovyScript adapter registrations belong to the script that installed them. Reload removes those registrations and stops their old callbacks. Ordinary CraftTweaker startup scripts take effect after a game restart; their screen-event API uses the same window lifecycle.</p></div>
@@ -466,23 +613,27 @@ import net.minecraftforge.fluids.IFluidTank;
 final class SyncedPanelRecipe {
     // Common initialization, once on both sides. These functions resolve existing addon storage.
     // Offscreen calls them only on the server, after the permission predicate succeeds.
-    static OffscreenSimpleFactory register(Function&lt;EntityPlayer, IItemHandler&gt; inventory,
+    static OffscreenSimpleFactory register(Function&lt;EntityPlayer,
+        IItemHandler&gt; inventory,
             Function&lt;EntityPlayer, IFluidTank&gt; tank, Predicate&lt;EntityPlayer&gt; allowed) {
-        SyncedPanel.backend(&quot;example:machine&quot;, allowed, inventory, (player, index) -&gt; {
-            if (index != 0) throw new IllegalArgumentException(&quot;Only tank 0 exists&quot;);
+        SyncedPanel.backend("example:machine", allowed, inventory, (player, index) -&gt; {
+            if (index != 0) throw new IllegalArgumentException("Only tank 0 exists");
             return tank.apply(player);
         });
-        return SyncedPanel.panel(&quot;example_tools&quot;, &quot;example&quot;, 220, 230)
+        return SyncedPanel.panel("example_tools", "example", 220, 230)
                 .permission(allowed)
-                .text(&quot;name&quot;, &quot;&quot;, 32).number(&quot;count&quot;, 0, 0, 100).flag(&quot;enabled&quot;, false)
+                .text("name", "", 32).number("count", 0, 0, 100).flag("enabled", false)
                 // Server action: the borrowed context expires even if this callback throws.
-                .action(&quot;increment&quot;, context -&gt; context.number(&quot;count&quot;, Math.min(100, context.number(&quot;count&quot;) + 1)))
-                .control(&quot;button&quot;, &quot;Increment&quot;, &quot;increment&quot;, 10, 10, 90, 20)
-                .control(&quot;text&quot;, &quot;Name&quot;, &quot;name&quot;, 10, 40, 140, 20)
-                .control(&quot;slider&quot;, &quot;Count&quot;, &quot;count&quot;, 10, 70, 140, 20)
-                .control(&quot;checkbox&quot;, &quot;Enabled&quot;, &quot;enabled&quot;, 10, 100, 90, 20)
-                .itemSlot(&quot;input&quot;, &quot;example:machine&quot;, 0, 170, 40)
-                .fluidSlot(&quot;tank&quot;, &quot;example:machine&quot;, 0, 170, 70)
+                .action("increment",
+                    context -&gt; context.number("count",
+                    Math.min(100,
+                    context.number("count") + 1)))
+                .control("button", "Increment", "increment", 10, 10, 90, 20)
+                .control("text", "Name", "name", 10, 40, 140, 20)
+                .control("slider", "Count", "count", 10, 70, 140, 20)
+                .control("checkbox", "Enabled", "enabled", 10, 100, 90, 20)
+                .itemSlot("input", "example:machine", 0, 170, 40)
+                .fluidSlot("tank", "example:machine", 0, 170, 70)
                 .playerInventory(10, 140).register();
     }
     // Client action, after joining a world: factory.openOffscreen().
@@ -498,22 +649,41 @@ import net.minecraftforge.fluids.IFluidTank
 
 object SyncedPanelRecipeK {
     // Common initialization, once on both sides. Only the server invokes these storage resolvers.
-    fun register(inventory: Function&lt;EntityPlayer, IItemHandler&gt;, tank: Function&lt;EntityPlayer, IFluidTank&gt;,
+    fun register(inventory: Function&lt;EntityPlayer,
+        IItemHandler&gt;,
+        tank: Function&lt;EntityPlayer,
+        IFluidTank&gt;,
                  allowed: Predicate&lt;EntityPlayer&gt;): OffscreenSimpleFactory {
-        SyncedPanel.backend(&quot;example:machine&quot;, allowed, inventory) { player, index -&gt;
-            require(index == 0) { &quot;Only tank 0 exists&quot; }
+        SyncedPanel.backend("example:machine", allowed, inventory) { player, index -&gt;
+            require(index == 0) { "Only tank 0 exists" }
             tank.apply(player)
         }
-        return SyncedPanel.panel(&quot;example_tools&quot;, &quot;example&quot;, 220, 230).permission(allowed)
-            .text(&quot;name&quot;, &quot;&quot;, 32).number(&quot;count&quot;, 0.0, 0.0, 100.0).flag(&quot;enabled&quot;, false)
+        return SyncedPanel.panel("example_tools",
+            "example",
+            220,
+            230)
+            .permission(allowed)
+            .text("name",
+                "",
+                32)
+            .number("count",
+                0.0,
+                0.0,
+                100.0)
+            .flag("enabled",
+                false)
             // Server action. The context belongs only to this callback and this container.
-            .action(&quot;increment&quot;) { context -&gt; context.number(&quot;count&quot;, minOf(100.0, context.number(&quot;count&quot;) + 1)) }
-            .control(&quot;button&quot;, &quot;Increment&quot;, &quot;increment&quot;, 10, 10, 90, 20)
-            .control(&quot;text&quot;, &quot;Name&quot;, &quot;name&quot;, 10, 40, 140, 20)
-            .control(&quot;slider&quot;, &quot;Count&quot;, &quot;count&quot;, 10, 70, 140, 20)
-            .control(&quot;checkbox&quot;, &quot;Enabled&quot;, &quot;enabled&quot;, 10, 100, 90, 20)
-            .itemSlot(&quot;input&quot;, &quot;example:machine&quot;, 0, 170, 40)
-            .fluidSlot(&quot;tank&quot;, &quot;example:machine&quot;, 0, 170, 70)
+            .action("increment") {
+                context -&gt; context.number("count",
+                minOf(100.0,
+                context.number("count") + 1))
+            }
+            .control("button", "Increment", "increment", 10, 10, 90, 20)
+            .control("text", "Name", "name", 10, 40, 140, 20)
+            .control("slider", "Count", "count", 10, 70, 140, 20)
+            .control("checkbox", "Enabled", "enabled", 10, 100, 90, 20)
+            .itemSlot("input", "example:machine", 0, 170, 40)
+            .fluidSlot("tank", "example:machine", 0, 170, 70)
             .playerInventory(10, 140).register()
     }
     // Client action: factory.openOffscreen(); retain the window until client teardown.
@@ -528,22 +698,28 @@ import net.minecraftforge.fluids.IFluidTank
 
 class SyncedPanelRecipeG {
     // Common startup only, once on both sides. Keep permanent factory registration out of reloadable loaders.
-    static OffscreenSimpleFactory register(Function&lt;EntityPlayer, IItemHandler&gt; inventory,
+    static OffscreenSimpleFactory register(Function&lt;EntityPlayer,
+        IItemHandler&gt; inventory,
             Function&lt;EntityPlayer, IFluidTank&gt; tank, Predicate&lt;EntityPlayer&gt; allowed) {
-        SyncedPanel.backend(&#x27;example:machine&#x27;, allowed, inventory, { player, index -&gt;
-            if (index != 0) throw new IllegalArgumentException(&#x27;Only tank 0 exists&#x27;)
+        SyncedPanel.backend('example:machine', allowed, inventory, { player, index -&gt;
+            if (index != 0) throw new IllegalArgumentException('Only tank 0 exists')
             tank.apply(player)
         })
-        SyncedPanel.panel(&#x27;example_tools&#x27;, &#x27;example&#x27;, 220, 230).permission(allowed)
-            .text(&#x27;name&#x27;, &#x27;&#x27;, 32).number(&#x27;count&#x27;, 0, 0, 100).flag(&#x27;enabled&#x27;, false)
+        SyncedPanel.panel('example_tools', 'example', 220, 230).permission(allowed)
+            .text('name', '', 32).number('count', 0, 0, 100).flag('enabled', false)
             // Server action; retaining this context does not extend its lifetime.
-            .action(&#x27;increment&#x27;, { context -&gt; context.number(&#x27;count&#x27;, Math.min(100d, context.number(&#x27;count&#x27;) + 1)) })
-            .control(&#x27;button&#x27;, &#x27;Increment&#x27;, &#x27;increment&#x27;, 10, 10, 90, 20)
-            .control(&#x27;text&#x27;, &#x27;Name&#x27;, &#x27;name&#x27;, 10, 40, 140, 20)
-            .control(&#x27;slider&#x27;, &#x27;Count&#x27;, &#x27;count&#x27;, 10, 70, 140, 20)
-            .control(&#x27;checkbox&#x27;, &#x27;Enabled&#x27;, &#x27;enabled&#x27;, 10, 100, 90, 20)
-            .itemSlot(&#x27;input&#x27;, &#x27;example:machine&#x27;, 0, 170, 40)
-            .fluidSlot(&#x27;tank&#x27;, &#x27;example:machine&#x27;, 0, 170, 70)
+            .action('increment',
+                {
+                context -&gt; context.number('count',
+                Math.min(100d,
+                context.number('count') + 1))
+            })
+            .control('button', 'Increment', 'increment', 10, 10, 90, 20)
+            .control('text', 'Name', 'name', 10, 40, 140, 20)
+            .control('slider', 'Count', 'count', 10, 70, 140, 20)
+            .control('checkbox', 'Enabled', 'enabled', 10, 100, 90, 20)
+            .itemSlot('input', 'example:machine', 0, 170, 40)
+            .fluidSlot('tank', 'example:machine', 0, 170, 70)
             .playerInventory(10, 140).register()
     }
     // Client action: factory.openOffscreen(); retain the result and close it during client teardown.
@@ -556,46 +732,52 @@ import net.minecraftforge.fluids.IFluidTank
 
 object SyncedPanelRecipeS:
   // Common initialization, once on both sides. Resolvers run only on the authorized server.
-  def register(inventory: Function[EntityPlayer, IItemHandler], tank: Function[EntityPlayer, IFluidTank],
+  def register(inventory: Function[EntityPlayer,
+      IItemHandler],
+      tank: Function[EntityPlayer,
+      IFluidTank],
                allowed: Predicate[EntityPlayer]): OffscreenSimpleFactory =
-    SyncedPanel.backend(&quot;example:machine&quot;, allowed, inventory, (player, index) =&gt;
-      require(index == 0, &quot;Only tank 0 exists&quot;)
+    SyncedPanel.backend("example:machine", allowed, inventory, (player, index) =&gt;
+      require(index == 0, "Only tank 0 exists")
       tank.apply(player)
     )
-    SyncedPanel.panel(&quot;example_tools&quot;, &quot;example&quot;, 220, 230).permission(allowed)
-      .text(&quot;name&quot;, &quot;&quot;, 32).number(&quot;count&quot;, 0, 0, 100).flag(&quot;enabled&quot;, false)
+    SyncedPanel.panel("example_tools", "example", 220, 230).permission(allowed)
+      .text("name", "", 32).number("count", 0, 0, 100).flag("enabled", false)
       // Server action: context access ends when this callback returns.
-      .action(&quot;increment&quot;, context =&gt; context.number(&quot;count&quot;, math.min(100, context.number(&quot;count&quot;) + 1)))
-      .control(&quot;button&quot;, &quot;Increment&quot;, &quot;increment&quot;, 10, 10, 90, 20)
-      .control(&quot;text&quot;, &quot;Name&quot;, &quot;name&quot;, 10, 40, 140, 20)
-      .control(&quot;slider&quot;, &quot;Count&quot;, &quot;count&quot;, 10, 70, 140, 20)
-      .control(&quot;checkbox&quot;, &quot;Enabled&quot;, &quot;enabled&quot;, 10, 100, 90, 20)
-      .itemSlot(&quot;input&quot;, &quot;example:machine&quot;, 0, 170, 40)
-      .fluidSlot(&quot;tank&quot;, &quot;example:machine&quot;, 0, 170, 70)
+      .action("increment",
+          context =&gt; context.number("count",
+          math.min(100,
+          context.number("count") + 1)))
+      .control("button", "Increment", "increment", 10, 10, 90, 20)
+      .control("text", "Name", "name", 10, 40, 140, 20)
+      .control("slider", "Count", "count", 10, 70, 140, 20)
+      .control("checkbox", "Enabled", "enabled", 10, 100, 90, 20)
+      .itemSlot("input", "example:machine", 0, 170, 40)
+      .fluidSlot("tank", "example:machine", 0, 170, 70)
       .playerInventory(10, 140).register()
   // Client action: factory.openOffscreen(); close the retained window during client teardown.</code></pre>
 <pre data-language="zenscript" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — zenscript"><code class="language-zenscript">import mods.offscreencleanroom.Windows;
 
 // Common startup, identical on client and server. An addon must register example:machine first.
 // Its server resolver and permission check choose the actual inventory/tank; scripts pass only the name.
-val panel = Windows.panel(&quot;example_tools&quot;, &quot;example&quot;, 220, 230)
-    .text(&quot;name&quot;, &quot;&quot;, 32).number(&quot;count&quot;, 0.0, 0.0, 100.0).flag(&quot;enabled&quot;, false)
-    .action(&quot;increment&quot;, function(context) {
+val panel = Windows.panel("example_tools", "example", 220, 230)
+    .text("name", "", 32).number("count", 0.0, 0.0, 100.0).flag("enabled", false)
+    .action("increment", function(context) {
         // Server action. The upper bound is also checked on incoming slider changes.
-        val next = context.number(&quot;count&quot;) + 1.0;
-        if (next &lt;= 100.0) context.number(&quot;count&quot;, next);
+        val next = context.number("count") + 1.0;
+        if (next &lt;= 100.0) context.number("count", next);
     })
-    .control(&quot;button&quot;, &quot;Increment&quot;, &quot;increment&quot;, 10, 10, 90, 20)
-    .control(&quot;text&quot;, &quot;Name&quot;, &quot;name&quot;, 10, 40, 140, 20)
-    .control(&quot;slider&quot;, &quot;Count&quot;, &quot;count&quot;, 10, 70, 140, 20)
-    .control(&quot;checkbox&quot;, &quot;Enabled&quot;, &quot;enabled&quot;, 10, 100, 90, 20)
-    .itemSlot(&quot;input&quot;, &quot;example:machine&quot;, 0, 170, 40)
-    .fluidSlot(&quot;tank&quot;, &quot;example:machine&quot;, 0, 170, 70)
+    .control("button", "Increment", "increment", 10, 10, 90, 20)
+    .control("text", "Name", "name", 10, 40, 140, 20)
+    .control("slider", "Count", "count", 10, 70, 140, 20)
+    .control("checkbox", "Enabled", "enabled", 10, 100, 90, 20)
+    .itemSlot("input", "example:machine", 0, 170, 40)
+    .fluidSlot("tank", "example:machine", 0, 170, 70)
     .playerInventory(10, 140);
 val factoryName = panel.register();
 
 // A client input action may call Windows.openSynchronized(factoryName).
-// Retain its window and call close() from the controller&#x27;s later client teardown.</code></pre>
+// Retain its window and call close() from the controller's later client teardown.</code></pre>
 <p>CraftTweaker refers to a registered backend by name instead of passing Java handler objects. A mismatch between the two sides rejects the open before storage is resolved. This follows Minecraft's one-active-container rule; opening another desktop window does not provide another independent server inventory.</p></div>
 <p>Panel text, numbers and flags last for the session. The item handler and tanks still belong to your addon. Closing the window releases the panel connection; your addon remains responsible for saving its storage and releasing resources it created outside the panel.</p><h2 id="offscreen-lifecycle-outcomes">Handle reloads, errors, and cleanup</h2>
 <p>Once your tool is working, connect its close method to your addon’s client disconnect or unload hook. For the local recipes, that method closes the handles saved in their fields. For the server panel, close the window returned by the factory. Releasing a widget or panel does not close unrelated files, workers or listeners your addon kept elsewhere, so give those resources their own cleanup code.</p>
@@ -611,10 +793,10 @@ final class ReadinessExample {
     // Client action/tick: call on a status change; do not block waiting for readiness.
     static void report(Window window) {
         var status = OffscreenAPI.getStatus(window);
-        System.out.println(status.state() + &quot;: &quot; + status.message());
+        System.out.println(status.state() + ": " + status.message());
         if (!OffscreenAPI.isReady(window)) return;
         // The screen has completed layout; synchronized bindings are healthy.
-        System.out.println(&quot;Screen is ready&quot;);
+        System.out.println("Screen is ready");
     }
     // Teardown: OffscreenAPI.close(window). The error screen also offers Close/Retry.
 }</code></pre>
@@ -624,9 +806,9 @@ import com.sbancuz.offscreen.window.Window
 // Client action/tick: inspect a retained handle on status changes, without blocking.
 fun reportReadiness(window: Window?) {
     val status = OffscreenAPI.getStatus(window)
-    println(&quot;${status.state()}: ${status.message()}&quot;)
+    println("${status.state()}: ${status.message()}")
     if (!OffscreenAPI.isReady(window)) return
-    println(&quot;Screen is ready&quot;)
+    println("Screen is ready")
 }
 // Client teardown: OffscreenAPI.close(window). Close/Retry are also in the error screen.</code></pre>
 <pre data-language="groovy" tabindex="0" role="region" aria-label="Screen readiness — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.OffscreenAPI
@@ -635,9 +817,9 @@ fun reportReadiness(window: Window?) {
 // Retain it in your client controller; report on changes rather than every frame.
 def reportReadiness(window) {
     def status = OffscreenAPI.getStatus(window)
-    println(&quot;${status.state()}: ${status.message()}&quot;)
+    println("${status.state()}: ${status.message()}")
     if (!OffscreenAPI.isReady(window)) return
-    println(&#x27;Screen is ready&#x27;)
+    println('Screen is ready')
 }
 // Client teardown/reload: OffscreenAPI.close(window). A factory handle is controller-owned.</code></pre>
 <pre data-language="scala" tabindex="0" role="region" aria-label="Screen readiness — scala"><code class="language-scala">import com.sbancuz.offscreen.api.OffscreenAPI
@@ -646,8 +828,8 @@ import com.sbancuz.offscreen.window.Window
 // Client action/tick: inspect the retained handle on status changes; never block.
 def reportReadiness(window: Window): Unit =
     val status = OffscreenAPI.getStatus(window)
-    println(s&quot;${status.state()}: ${status.message()}&quot;)
-    if OffscreenAPI.isReady(window) then println(&quot;Screen is ready&quot;)
+    println(s"${status.state()}: ${status.message()}")
+    if OffscreenAPI.isReady(window) then println("Screen is ready")
 // Client teardown: OffscreenAPI.close(window). The error screen also has Close/Retry.</code></pre>
 <pre data-language="zenscript" tabindex="0" role="region" aria-label="Screen readiness — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Window;
@@ -655,10 +837,10 @@ import mods.offscreencleanroom.Window;
 // Client action: pass the handle returned by Windows.openSynchronized or your panel.
 // Call on status changes, not every frame. Do not run rendering helpers on the server.
 function reportReadiness(window as Window) {
-    print(window.status + &quot;: &quot; + window.statusMessage);
-    if (window.failureReason != &quot;&quot;) print(window.failureReason);
+    print(window.status + ": " + window.statusMessage);
+    if (window.failureReason != "") print(window.failureReason);
     if (!window.ready) return;
-    print(&quot;Screen is ready&quot;);
+    print("Screen is ready");
 }
 // Teardown: window.close(). The local error screen also provides Close and Retry.</code></pre>
 </div><nav class="av-pager" aria-label="Guide navigation"><a href="integrations.html">Previous: ModularUI and HEI integration</a><a href="animations.html">Next: Animate windows, elements and custom captions</a></nav></div></main>
