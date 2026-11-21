@@ -1,0 +1,974 @@
+<!DOCTYPE html><html data-pathToRoot="../../../../" data-rawLocation="com/sbancuz/offscreen/scaladsl/Offscreen$" data-dynamicSideMenu="false"><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta><title>Offscreen</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/theme.js"></script><script type="text/javascript" src="../../../../scripts/searchData.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/scastieConfiguration.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/theme/bundle.css"></link><link rel="stylesheet" href="../../../../styles/theme/components/bundle.css"></link><link rel="stylesheet" href="../../../../styles/theme/components/button/bundle.css"></link><link rel="stylesheet" href="../../../../styles/theme/layout/bundle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/searchbar.css"></link><link rel="stylesheet" href="../../../../styles/social-links.css"></link><link rel="stylesheet" href="../../../../styles/versions-dropdown.css"></link><link rel="stylesheet" href="../../../../styles/content-contributors.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/scaladoc-scalajs.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/contributors.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="https://scastie.scala-lang.org/embedded.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script>var pathToRoot = "../../../../";</script><link rel="stylesheet" href="../../../../../resource-files/wiki-native.css?v=03ebc88c0901"></head><body><div id=""><div id="header" class="body-small"><a class="av-header-logo" href="../../../../../index.html" onclick="event.stopImmediatePropagation()" aria-label="OffscreenCleanroom overview"><img src="../../../../../resource-files/wiki-logo.png" alt="" width="32" height="32"></a><div class="header-container-left"><a class="av-overview-back" href="../../../../../index.html" onclick="event.stopImmediatePropagation()" aria-label="Back to Offscreen overview"><span aria-hidden="true">←</span> Overview</a><a href="../../../../" class="logo-container"><span class="project-name h300">Offscreen Wiki</span></a><span onclick="dropdownHandler(event)" class="text-button with-arrow" id="dropdown-trigger"><a><div class="projectVersion">0.1.1</div></a></span><div id="version-dropdown" class="dropdown-menu"></div></div><div class="header-container-right"><button id="search-toggle" class="icon-button"></button><span id="theme-toggle" class="icon-button"></span><span id="mobile-menu-toggle" class="icon-button hamburger"></span></div></div><div id="mobile-menu"><div class="mobile-menu-header body-small"><span class="mobile-menu-logo"><span class="project-name h300">Offscreen Wiki</span></span><button id="mobile-menu-close" class="icon-button close"></button></div><div class="mobile-menu-container body-medium"><input id="mobile-scaladoc-searchbar-input" class="scaladoc-searchbar-input" type="search" placeholder="Find anything"></input><span id="mobile-theme-toggle" class="mobile-menu-item mode"></span></div></div><span id="mobile-sidebar-toggle" class="floating-button"></span><div id="leftColumn" class="body-small"><div class="switcher-container"><a id="api-nav-button" class="switcher h100 selected" href="../../../../index.html">API</a></div><nav id="api-nav" class="side-menu"><div class="ni n0 expanded"><span class="nh h100 expanded cs"><button class="ar icon-button expanded"></button><a href="../scaladsl.html"><span class="micon pa"></span><span>com.sbancuz.offscreen.scaladsl</span></a></span><div class="ni n1 expanded"><span class="nh h100 selected"><a href="#"><span class="micon ob"></span><span>Offscreen</span></a></span></div><div class="ni n1 "><span class="nh "><a href="WidgetDeclarations$.html"><span class="micon ob"></span><span>WidgetDeclarations</span></a></span></div></div></nav></div><div id="footer" class="body-small"><div class="left-container">Generated with</div><div class="right-container"><div class="text"></div></div><div class="text-mobile"></div></div><div id="scaladoc-searchBar"></div><div id="main"><div class="breadcrumbs container"><a href="../../../../index.html">Offscreen Wiki</a>/<a href="../scaladsl.html">com.sbancuz.offscreen.scaladsl</a>/<a href="Offscreen$.html">Offscreen</a></div><div id="content" class="body-medium"><div><div class="cover-header">
+ <span class="icon"><span class="micon ob"></span></span>
+ <h1 class="h600 single">Offscreen</h1>
+</div>
+<div class="fqname body-large">
+ <span>com.sbancuz.offscreen.scaladsl.Offscreen</span>
+</div>
+<div class="main-signature mono-small-block">
+ <div class="signature">
+  <span class="modifiers"></span><span class="kind"><span t="k">object </span></span><a href="Offscreen$.html" t="n" class="documentableName ">Offscreen</a>
+ </div>
+</div>
+<div class="cover">
+ <div class="doc">
+  <p>Compact Scala 3 syntax for the complete shared Offscreen button and window APIs.</p>
+  <p>Import <code>com.sbancuz.offscreen.scaladsl.Offscreen.*</code>. Keep your GUI's own appearance and input code and add just <code>popOut(existingButton)(new MyScreen)</code>, or build a new vanilla-looking button with <code>popOut("Open")(new MyScreen).build(42, x, y, 100, 20)</code>. A screen expression is evaluated freshly on each click, not while declaring the button. Java builder methods still provide images, tooltips, per-state skins and custom painters. Native Scalar for Scala 3 supplies the optional runtime; Java-only consumers do not load this object.</p>
+  <p>Window and GUI operations must run on Minecraft's main client thread after initialization. Supply local screens; a server-backed container must use its synchronized factory. Ordinary GUI layout still belongs to your screen.</p>
+ </div>
+ <section id="attributes">
+  <h2 class="h500">Attributes</h2>
+  <dl class="attributes">
+   <dt class="body-small">Graph</dt>
+   <dd class="body-medium">
+    <div id="inheritance-diagram" class="diagram-class showGraph">
+     <button type="button" class="label-only-button" onclick="zoomOut()">Reset zoom</button><button type="button" class="label-only-button" onclick="hideGraph()">Hide graph</button><button type="button" class="label-only-button" onclick="showGraph()">Show graph</button>
+     <svg id="graph"></svg>
+     <script type="text/dot" id="dot"> digraph g {
+ node0 [id=node0, label="<span style=\"color: #FFFFFF;\">object <a href=\"Offscreen$.html\" t=\"n\">Offscreen</a></span>", class="object vertex"];
+node1 [id=node1, label="<span style=\"color: #FFFFFF;\">class <span data-unresolved-link=\"\" t=\"n\">Object</span></span>", class="class vertex"];
+node2 [id=node2, label="<span style=\"color: #FFFFFF;\">class <span data-unresolved-link=\"\" t=\"n\">Any</span></span>", class="class vertex"];
+node3 [id=node3, label="<span style=\"color: #FFFFFF;\">trait <span data-unresolved-link=\"\" t=\"n\">Matchable</span></span>", class="trait vertex"];
+
+
+ node0 -> node1;
+node1 -> node2;
+node1 -> node3;
+node3 -> node2;
+
+}
+</script>
+    </div>
+   </dd>
+   <dt class="body-small">Supertypes</dt>
+   <dd class="body-medium">
+    <div class="mono-small-block supertypes">
+     <div>
+      class <span data-unresolved-link="" t="n">Object</span>
+     </div>
+     <div>
+      trait <span data-unresolved-link="" t="n">Matchable</span>
+     </div>
+     <div>
+      class <span data-unresolved-link="" t="n">Any</span>
+     </div>
+     <span></span>
+    </div>
+   </dd>
+   <dt class="body-small">Self type</dt>
+   <dd class="body-medium">
+    <div class="mono-small-block supertypes">
+     <span></span>
+     <div>
+      <a href="Offscreen$.html" t="n">Offscreen</a>.<span t="k">type</span>
+     </div>
+    </div>
+   </dd>
+  </dl>
+ </section>
+</div>
+<section id="members-list">
+ <h2 class="h500">Members list</h2>
+ <div class="documentableFilter">
+  <div class="filtersContainer"></div>
+  <input class="filterableInput" placeholder="Filter by any phrase" data-test-id="filterBarInput" type="search"><button class="clearButton label-only-button" data-test-id="filterBarClearButton">Clear all</button>
+ </div>
+ <div class="membersList expand">
+  <div class="tabs">
+   <div class="contents">
+    <section id="Value-members">
+     <div data-togglable="Value members" class="tab expand">
+      <div class="member-group-header">
+       <h3 data-togglable="Value members" class="h400">Value members</h3>
+      </div>
+      <section id="Concrete-methods">
+       <div class="documentableList expand">
+        <div class="documentableList-expander">
+         <button class="icon-button show-content expand"></button>
+         <h4 class="groupHeader h200">Concrete methods</h4>
+        </div>
+        <div class="documentableElement" id="adapted-fffffea3">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#adapted-fffffea3" t="n" class="documentableName ">adapted</a>[<span t="k"></span><span data-unresolved-link="" t="t">H</span><span t="k"> &lt;: </span><span data-unresolved-link="" t="t">HostUI</span>](<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">factory</span>: <span data-unresolved-link="" t="t">HostUIFactory</span>[<span data-unresolved-link="" t="t">H</span>])(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">AnyRef</span>): <span data-unresolved-link="" t="t">Window</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Opens a fresh screen through an explicit adapter, including entirely custom GUI frameworks.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Opens a fresh screen through an explicit adapter, including entirely custom GUI frameworks.</p>
+             </div>
+             <h2 class="h200">Type parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">H</dt>
+              <dd class="body-medium">
+               <p>adapter type</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">factory</dt>
+              <dd class="body-medium">
+               <p>adapter factory; null adapter results leave no native window</p>
+              </dd>
+              <dt class="body-small">screen</dt>
+              <dd class="body-medium">
+               <p>fresh screen expression, evaluated once</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>native window or null when no screen/adapter was produced</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="adaptedOption-fffff0e6">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#adaptedOption-fffff0e6" t="n" class="documentableName ">adaptedOption</a>[<span t="k"></span><span data-unresolved-link="" t="t">H</span><span t="k"> &lt;: </span><span data-unresolved-link="" t="t">HostUI</span>](<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">factory</span>: <span data-unresolved-link="" t="t">HostUIFactory</span>[<span data-unresolved-link="" t="t">H</span>])(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">AnyRef</span>): <span data-unresolved-link="" t="t">Option</span>[<span data-unresolved-link="" t="t">Window</span>]
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Opens through the same explicit adapter and represents an absent screen/adapter with None.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Opens through the same explicit adapter and represents an absent screen/adapter with None.</p>
+             </div>
+             <h2 class="h200">Type parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">H</dt>
+              <dd class="body-medium">
+               <p>adapter type</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">factory</dt>
+              <dd class="body-medium">
+               <p>caller-owned adapter factory</p>
+              </dd>
+              <dt class="body-small">screen</dt>
+              <dd class="body-medium">
+               <p>fresh expression, evaluated once on the client thread</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>caller-owned native window, or None; native errors still propagate</p>
+              </dd>
+              <dt class="body-small">Note</dt>
+              <dd class="body-medium">
+               <div>
+                <div>
+                 <p>Does not catch setup failures or close a successful window automatically.</p>
+                </div>
+               </div>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="button-fffff830">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#button-fffff830" t="n" class="documentableName ">button</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">text</span>: <span data-unresolved-link="" t="t">String</span>): <span data-unresolved-link="" t="t">Builder</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Starts a shared vanilla-looking builder; later customization remains optional.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Starts a shared vanilla-looking builder; later customization remains optional.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">text</dt>
+              <dd class="body-medium">
+               <p>visible label, including empty text for image-only controls</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>the complete Java builder, with no native window allocated</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="button-fffff825">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#button-fffff825" t="n" class="documentableName ">button</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">text</span>: () <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">String</span>): <span data-unresolved-link="" t="t">Builder</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Starts a builder with a label evaluated at each draw.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Starts a builder with a label evaluated at each draw.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">text</dt>
+              <dd class="body-medium">
+               <p>live non-null label function</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>the complete shared builder</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="custom-ba9">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#custom-ba9" t="n" class="documentableName ">custom</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">text</span>: <span data-unresolved-link="" t="t">String</span>)(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">paint</span>: <span data-unresolved-link="" t="t">Draw</span> <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">Unit</span>): <span data-unresolved-link="" t="t">Builder</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Creates a button with fully caller-controlled painting and the same shared action/layout facilities.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Creates a button with fully caller-controlled painting and the same shared action/layout facilities.</p>
+              <p>A painter receives geometry, interaction state, configured font and label. It can call <code>background()</code> or <code>content()</code> to reuse default layers. The helper restores native attributes, matrices and Minecraft's GL cache on success or failure; painters must not replace the framebuffer or GL context.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">paint</dt>
+              <dd class="body-medium">
+               <p>full visual callback, invoked only during native GUI drawing</p>
+              </dd>
+              <dt class="body-small">text</dt>
+              <dd class="body-medium">
+               <p>initial label</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>configurable shared builder</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="hostUI-fffff460">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#hostUI-fffff460" t="n" class="documentableName ">hostUI</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span data-unresolved-link="" t="t">GuiScreen</span>)(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">configure</span>: <span data-unresolved-link="" t="t">HostUIBuilder</span> <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">Unit</span>): <span data-unresolved-link="" t="t">HostUI</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Builds a typed client-only adapter over the shared host callbacks.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Builds a typed client-only adapter over the shared host callbacks.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">configure</dt>
+              <dd class="body-medium">
+               <p>all drawing, input, layout, scope and disposal hooks</p>
+              </dd>
+              <dt class="body-small">screen</dt>
+              <dd class="body-medium">
+               <p>fresh backing GUI</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>fresh adapter, without allocating a native window</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="open-a1">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#open-a1" t="n" class="documentableName ">open</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">title</span>: <span data-unresolved-link="" t="t">String</span>, <span t="k"></span><span data-unresolved-link="" t="n">width</span>: <span data-unresolved-link="" t="t">Int</span> = ..., <span t="k"></span><span data-unresolved-link="" t="n">height</span>: <span data-unresolved-link="" t="t">Int</span> = ...)(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">AnyRef</span>): <span data-unresolved-link="" t="t">Window</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Opens a sized local window using the same cleanup-on-failure helper as Java and Kotlin.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Opens a sized local window using the same cleanup-on-failure helper as Java and Kotlin.</p>
+              <p>The caller owns the returned window and can close it with <code>OffscreenAPI.close(window)</code>. Closing it releases its hosted screens without closing Minecraft. This method is synchronous; never call it from a worker thread.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">height</dt>
+              <dd class="body-medium">
+               <p>positive logical height, default 800</p>
+              </dd>
+              <dt class="body-small">screen</dt>
+              <dd class="body-medium">
+               <p>fresh supported local screen expression, evaluated once during this call</p>
+              </dd>
+              <dt class="body-small">title</dt>
+              <dd class="body-medium">
+               <p>native desktop title</p>
+              </dd>
+              <dt class="body-small">width</dt>
+              <dd class="body-medium">
+               <p>positive logical width, default 1280</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>actual open window</p>
+              </dd>
+              <dt class="body-small">Throws</dt>
+              <dd class="body-medium">
+               <div>
+                <div>
+                 <span data-unresolved-link="">java.lang.IllegalArgumentException</span>
+                 <p>if dimensions are invalid</p>
+                </div>
+                <div>
+                 <span data-unresolved-link="">java.lang.IllegalStateException</span>
+                 <p>if adaptation or native window setup fails</p>
+                </div>
+               </div>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="openWidgets-fffffafc">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#openWidgets-fffffafc" t="n" class="documentableName ">openWidgets</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">title</span>: <span data-unresolved-link="" t="t">String</span>, <span t="k"></span><span data-unresolved-link="" t="n">width</span>: <span data-unresolved-link="" t="t">Int</span>, <span t="k"></span><span data-unresolved-link="" t="n">height</span>: <span data-unresolved-link="" t="t">Int</span>)(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">controls</span>: <span data-unresolved-link="" t="t">WidgetSpec</span>*): <span data-unresolved-link="" t="t">Window</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Opens controls with fresh per-window state on the client thread.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Opens controls with fresh per-window state on the client thread.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">controls</dt>
+              <dd class="body-medium">
+               <p>reusable widget declarations</p>
+              </dd>
+              <dt class="body-small">height</dt>
+              <dd class="body-medium">
+               <p>logical height</p>
+              </dd>
+              <dt class="body-small">title</dt>
+              <dd class="body-medium">
+               <p>desktop title</p>
+              </dd>
+              <dt class="body-small">width</dt>
+              <dd class="body-medium">
+               <p>logical width</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>caller-owned native window</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="popOut-3df">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#popOut-3df" t="n" class="documentableName ">popOut</a>[<span t="k"></span><span data-unresolved-link="" t="t">B</span><span t="k"> &lt;: </span><span data-unresolved-link="" t="t">GuiButton</span>](<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">control</span>: <span data-unresolved-link="" t="t">B</span>)(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">AnyRef</span>): <span data-unresolved-link="" t="t">B</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Appends a fresh-screen pop-out action to any existing GuiButton subclass without restyling it.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Appends a fresh-screen pop-out action to any existing GuiButton subclass without restyling it.</p>
+              <p>The containing GUI's normal action remains intact. Calling again replaces this helper's earlier attachment. To remove only the added behavior, call <code>OffscreenButtons.detach(control)</code>.</p>
+             </div>
+             <h2 class="h200">Type parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">B</dt>
+              <dd class="body-medium">
+               <p>concrete button type, preserved in the result</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">control</dt>
+              <dd class="body-medium">
+               <p>existing native or fully custom button</p>
+              </dd>
+              <dt class="body-small">screen</dt>
+              <dd class="body-medium">
+               <p>fresh supported screen expression evaluated only on accepted activation</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>the exact supplied control</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="popOut-14a">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#popOut-14a" t="n" class="documentableName ">popOut</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">text</span>: <span data-unresolved-link="" t="t">String</span>)(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">AnyRef</span>): <span data-unresolved-link="" t="t">Builder</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Builds a vanilla-looking shared button whose action opens a fresh local screen.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Builds a vanilla-looking shared button whose action opens a fresh local screen.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">screen</dt>
+              <dd class="body-medium">
+               <p>fresh supported screen expression, evaluated per click</p>
+              </dd>
+              <dt class="body-small">text</dt>
+              <dd class="body-medium">
+               <p>visible label</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>the shared builder for normal layout, styling or ModularUI adaptation</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="popOutAction-fffff501">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#popOutAction-fffff501" t="n" class="documentableName ">popOutAction</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">AnyRef</span>): <span data-unresolved-link="" t="t">Runnable</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Makes only the pop-out callback for a completely custom GUI framework or button implementation.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Makes only the pop-out callback for a completely custom GUI framework or button implementation.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">screen</dt>
+              <dd class="body-medium">
+               <p>supported screen expression, evaluated on each callback invocation</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>client-thread Runnable; it does not take over drawing or input</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="popOutFunction-e00">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#popOutFunction-e00" t="n" class="documentableName ">popOutFunction</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">AnyRef</span>): () <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">Unit</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Creates a native Scala callback without opening or evaluating a screen yet.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Creates a native Scala callback without opening or evaluating a screen yet.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">screen</dt>
+              <dd class="body-medium">
+               <p>fresh screen expression, evaluated once per invocation</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>repeatable client-thread action; native errors propagate to its caller</p>
+              </dd>
+              <dt class="body-small">Note</dt>
+              <dd class="body-medium">
+               <div>
+                <div>
+                 <p>Keep popOutAction when a Java Runnable is required. This helper shares its exact behavior.</p>
+                </div>
+               </div>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="documentableElement" id="widget-dce">
+         <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
+          <div class="header monospace mono-medium">
+           <div class="signature">
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#widget-dce" t="n" class="documentableName ">widget</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">kind</span>: <span data-unresolved-link="" t="t">Kind</span>, <span t="k"></span><span data-unresolved-link="" t="n">id</span>: <span data-unresolved-link="" t="t">String</span>, <span t="k"></span><span data-unresolved-link="" t="n">x</span>: <span data-unresolved-link="" t="t">Int</span>, <span t="k"></span><span data-unresolved-link="" t="n">y</span>: <span data-unresolved-link="" t="t">Int</span>, <span t="k"></span><span data-unresolved-link="" t="n">width</span>: <span data-unresolved-link="" t="t">Int</span>, <span t="k"></span><span data-unresolved-link="" t="n">height</span>: <span data-unresolved-link="" t="t">Int</span>)(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">configure</span>: <span data-unresolved-link="" t="t">Builder</span> <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">Unit</span>): <span data-unresolved-link="" t="t">WidgetSpec</span>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Builds an immutable widget prototype shared with Java and every scripting facade.</p>
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Builds an immutable widget prototype shared with Java and every scripting facade.</p>
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">configure</dt>
+              <dd class="body-medium">
+               <p>values, binding, validation and callbacks</p>
+              </dd>
+              <dt class="body-small">height</dt>
+              <dd class="body-medium">
+               <p>positive height</p>
+              </dd>
+              <dt class="body-small">id</dt>
+              <dd class="body-medium">
+               <p>screen-local stable identity</p>
+              </dd>
+              <dt class="body-small">kind</dt>
+              <dd class="body-medium">
+               <p>control category</p>
+              </dd>
+              <dt class="body-small">width</dt>
+              <dd class="body-medium">
+               <p>positive width</p>
+              </dd>
+              <dt class="body-small">x</dt>
+              <dd class="body-medium">
+               <p>relative left edge</p>
+              </dd>
+              <dt class="body-small">y</dt>
+              <dd class="body-medium">
+               <p>relative top edge</p>
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">Returns</dt>
+              <dd class="body-medium">
+               <p>reusable declaration</p>
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+     </div>
+    </section>
+    <section id="Extensions">
+     <div data-togglable="Extensions" class="tab expand">
+      <div class="member-group-header">
+       <h3 data-togglable="Extensions" class="h400">Extensions</h3>
+      </div>
+      <section id="Extensions-2">
+       <div class="documentableList expand">
+        <div class="documentableList-expander">
+         <button class="icon-button show-content expand"></button>
+         <h4 class="groupHeader h200">Extensions</h4>
+        </div>
+        <div>
+         <span class="groupHeader"><span t="k">extension </span>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">builder</span>: <span data-unresolved-link="" t="t">Builder</span>)</span>
+         <div class="documentableElement" id="onClick-fffffd9a">
+          <div class="documentableElement-expander">
+           <button class="icon-button ar show-content"></button>
+           <div class="header monospace mono-medium">
+            <div class="signature">
+             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#onClick-fffffd9a" t="n" class="documentableName ">onClick</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">action</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">Unit</span>): <span data-unresolved-link="" t="t">Builder</span>
+            </div>
+           </div>
+          </div>
+          <div class="docs">
+           <span class="modifiers"></span>
+           <div>
+            <div class="originInfo"></div>
+            <div class="memberDocumentation">
+             <div class="documentableBrief doc">
+              <p>Connects a Scala action expression, evaluated once per accepted activation.</p>
+             </div>
+             <div class="cover">
+              <div class="doc">
+               <p>Connects a Scala action expression, evaluated once per accepted activation.</p>
+              </div>
+              <h2 class="h200">Value parameters</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">action</dt>
+               <dd class="body-medium">
+                <p>client-thread action expression</p>
+               </dd>
+              </dl>
+              <h2 class="h200">Attributes</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">Returns</dt>
+               <dd class="body-medium">
+                <p>this exact builder</p>
+               </dd>
+              </dl>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="documentableElement" id="styled-fffff7f9">
+          <div class="documentableElement-expander">
+           <button class="icon-button ar show-content"></button>
+           <div class="header monospace mono-medium">
+            <div class="signature">
+             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#styled-fffff7f9" t="n" class="documentableName ">styled</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">configure</span>: <span data-unresolved-link="" t="t">Builder</span> <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">Unit</span>): <span data-unresolved-link="" t="t">Builder</span>
+            </div>
+           </div>
+          </div>
+          <div class="docs">
+           <span class="modifiers"></span>
+           <div>
+            <div class="originInfo"></div>
+            <div class="memberDocumentation">
+             <div class="documentableBrief doc">
+              <p>Applies several layout-independent style choices and returns the same live builder.</p>
+             </div>
+             <div class="cover">
+              <div class="doc">
+               <p>Applies several layout-independent style choices and returns the same live builder.</p>
+              </div>
+              <h2 class="h200">Value parameters</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">configure</dt>
+               <dd class="body-medium">
+                <p>synchronous configuration callback</p>
+               </dd>
+              </dl>
+              <h2 class="h200">Attributes</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">Returns</dt>
+               <dd class="body-medium">
+                <p>this exact builder</p>
+               </dd>
+              </dl>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div>
+         <span class="groupHeader"><span t="k">extension </span>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">window</span>: <span data-unresolved-link="" t="t">Window</span>)</span>
+         <div class="documentableElement" id="background-fffffd48">
+          <div class="documentableElement-expander">
+           <button class="icon-button ar show-content"></button>
+           <div class="header monospace mono-medium">
+            <div class="signature">
+             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#background-fffffd48" t="n" class="documentableName ">background</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">draw</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">Unit</span>): <span data-unresolved-link="" t="t">Window</span>
+            </div>
+           </div>
+          </div>
+          <div class="docs">
+           <span class="modifiers"></span>
+           <div>
+            <div class="originInfo"></div>
+            <div class="memberDocumentation">
+             <div class="documentableBrief doc">
+              <p>Installs drawing behind the GUI, before its normal projection is installed.</p>
+             </div>
+             <div class="cover">
+              <div class="doc">
+               <p>Installs drawing behind the GUI, before its normal projection is installed.</p>
+              </div>
+              <h2 class="h200">Value parameters</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">draw</dt>
+               <dd class="body-medium">
+                <p>client-thread drawing expression; arrange its projection explicitly</p>
+               </dd>
+              </dl>
+              <h2 class="h200">Attributes</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">Returns</dt>
+               <dd class="body-medium">
+                <p>the same window</p>
+               </dd>
+              </dl>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="documentableElement" id="pushScreen-fffffd48">
+          <div class="documentableElement-expander">
+           <button class="icon-button ar show-content"></button>
+           <div class="header monospace mono-medium">
+            <div class="signature">
+             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#pushScreen-fffffd48" t="n" class="documentableName ">pushScreen</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">AnyRef</span>): <span data-unresolved-link="" t="t">Window</span>
+            </div>
+           </div>
+          </div>
+          <div class="docs">
+           <span class="modifiers"></span>
+           <div>
+            <div class="originInfo"></div>
+            <div class="memberDocumentation">
+             <div class="documentableBrief doc">
+              <p>Pushes one fresh child and retains its parent.</p>
+             </div>
+             <div class="cover">
+              <div class="doc">
+               <p>Pushes one fresh child and retains its parent.</p>
+              </div>
+              <h2 class="h200">Value parameters</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">screen</dt>
+               <dd class="body-medium">
+                <p>supported local screen expression, evaluated once now</p>
+               </dd>
+              </dl>
+              <h2 class="h200">Attributes</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">Returns</dt>
+               <dd class="body-medium">
+                <p>the same window</p>
+               </dd>
+              </dl>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="documentableElement" id="replaceScreen-70f">
+          <div class="documentableElement-expander">
+           <button class="icon-button ar show-content"></button>
+           <div class="header monospace mono-medium">
+            <div class="signature">
+             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Offscreen$.html#replaceScreen-70f" t="n" class="documentableName ">replaceScreen</a>[<span t="k"></span><span data-unresolved-link="" t="t">H</span><span t="k"> &lt;: </span><span data-unresolved-link="" t="t">HostUI</span>](<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">factory</span>: <span data-unresolved-link="" t="t">HostUIFactory</span>[<span data-unresolved-link="" t="t">H</span>])(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">screen</span>: <span t="k">=&gt;</span> <span data-unresolved-link="" t="t">AnyRef</span>): <span data-unresolved-link="" t="t">Window</span>
+            </div>
+           </div>
+          </div>
+          <div class="docs">
+           <span class="modifiers"></span>
+           <div>
+            <div class="originInfo"></div>
+            <div class="memberDocumentation">
+             <div class="documentableBrief doc">
+              <p>Replaces the stack with a caller-adapted root; ownership transfers to the window.</p>
+             </div>
+             <div class="cover">
+              <div class="doc">
+               <p>Replaces the stack with a caller-adapted root; ownership transfers to the window.</p>
+              </div>
+              <h2 class="h200">Type parameters</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">H</dt>
+               <dd class="body-medium">
+                <p>adapter type</p>
+               </dd>
+              </dl>
+              <h2 class="h200">Value parameters</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">factory</dt>
+               <dd class="body-medium">
+                <p>factory for the new screen</p>
+               </dd>
+               <dt class="body-small">screen</dt>
+               <dd class="body-medium">
+                <p>fresh root expression</p>
+               </dd>
+              </dl>
+              <h2 class="h200">Attributes</h2>
+              <dl class="attributes attributes-small">
+               <dt class="body-small">Returns</dt>
+               <dd class="body-medium">
+                <p>the same window</p>
+               </dd>
+              </dl>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+     </div>
+    </section>
+   </div>
+  </div>
+ </div>
+</section></div><div id="toc" class="body-small"><div id="toc-container"><span class="toc-title h200">In this article</span><nav class="toc-nav"><ul class="toc-list"><li><a href="#attributes">Attributes</a></li><li><a href="#members-list">Members list</a><ul><li><a href="#Value-members">Value members</a><ul><li><a href="#Concrete-methods">Concrete methods</a></li></ul></li><li><a href="#Extensions">Extensions</a><ul><li><a href="#Extensions">Extensions</a></li></ul></li></ul></li></ul></nav></div></div></div><div id="footer-2" class="body-small mobile-footer"><div class="left-container">Generated with</div><div class="right-container"><div class="text"></div></div><div class="text-mobile"></div></div></div></div></body></html>

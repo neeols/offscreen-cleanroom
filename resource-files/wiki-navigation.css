@@ -1,0 +1,103 @@
+/* Navigation controls for the Javadoc site. */
+/* Keep the native-reference launcher within the standard Javadoc navigation row. */
+#navbar-top-firstrow .av-reference-picker {
+  padding: 0 0 0 0.75rem;
+  text-transform: none;
+}
+.av-reference-picker select {
+  background: transparent;
+  color: var(--navbar-text-color, #fff);
+  border: 1px solid #ffffff80;
+  border-radius: 3px;
+  padding: 3px 7px;
+  font: inherit;
+  cursor: pointer;
+}
+.av-reference-picker select:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+.av-reference-picker option {
+  background: #fff;
+  color: #253441;
+}
+#navbar-top-firstrow .av-browse-item { padding: 0 0.6rem 0 0; }
+.av-browse-toggle {
+  border: 1px solid #ffffff80;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--navbar-text-color, #fff);
+  cursor: pointer;
+  font: inherit;
+  padding: 3px 8px;
+}
+#av-browsing-tree {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: var(--av-sidebar-width, 280px);
+  box-sizing: border-box;
+  z-index: 90;
+  padding: 1rem 0.9rem 1rem 0.75rem;
+  border-right: 1px solid #bdcdd5;
+  background: #f6f8fa;
+  color: #253441;
+  font: 14px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+#av-browsing-tree[hidden] { display: none; }
+#av-browsing-tree > strong { padding: 0 0.4rem 0.8rem; }
+.av-tree-content { overflow: auto; flex: 1; min-height: 0; }
+.av-tree-content ul { list-style: none; margin: 0; padding: 0 0 0 0.75rem; }
+.av-tree-content > ul { padding-left: 0; }
+.av-tree-content li { margin: 0.2rem 0; }
+.av-tree-content summary { cursor: pointer; padding: 0.3rem; font-weight: 600; }
+.av-tree-content a { display: block; padding: 0.3rem 0.4rem; border-radius: 4px; overflow-wrap: anywhere; color: #075e78; }
+.av-tree-content a:hover { background: #e5edf3; }
+.av-tree-content a[aria-current="page"] { background: #dce9f2; color: #17394e; font-weight: 650; }
+.av-sidebar-open .main-grid { margin-left: var(--av-sidebar-width, 280px); }
+.av-sidebar-resize { position: absolute; top: 0; right: -4px; bottom: 0; width: 8px; cursor: col-resize; touch-action: none; }
+.av-sidebar-resize:hover, .av-sidebar-resize:focus-visible { background: #07839a70; outline: none; }
+.av-sidebar-resizing { cursor: col-resize; user-select: none; }
+@media (max-width: 700px) { .av-sidebar-open .main-grid { margin-left: 0; } }
+
+/* The same project mark accompanies every native documentation header. */
+.av-header-logo {
+  position: absolute;
+  inset-inline-end: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+.av-header-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.av-header-logo:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+@media (max-width: 600px) {
+  .av-header-logo { inset-inline-end: 16px; }
+}
+
+/* Reserve header space so links and the collapsed menu never sit under the mark. */
+#navbar-top { box-sizing: border-box; padding-inline-end: 80px; }
+.av-overview-logo {
+  display: block;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  margin: 8px 0 16px;
+}
+@media (max-width: 600px) { #navbar-top { padding-inline-end: 64px; } }
+
+.av-header-logo { width: 64px; height: 64px; }
+.package-index-page .av-header-logo { display: none; }

@@ -1,0 +1,16 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.sbancuz.offscreen.api////PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/index.html
+$dokka.location:com.sbancuz.offscreen.api//background/com.sbancuz.offscreen.window.Window#kotlin.Function0[kotlin.Unit]?/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/background.html
+$dokka.location:com.sbancuz.offscreen.api//hostUI/#net.minecraft.client.gui.GuiScreen#kotlin.Function1[com.sbancuz.offscreen.api.HostUIBuilder,kotlin.Unit]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/host-u-i.html
+$dokka.location:com.sbancuz.offscreen.api//offscreenButton/#kotlin.String#kotlin.Function1[com.sbancuz.offscreen.api.OffscreenButtons.Builder,kotlin.Unit]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/offscreen-button.html
+$dokka.location:com.sbancuz.offscreen.api//openWidgets/#kotlin.String#kotlin.Int#kotlin.Int#vararg(com.sbancuz.offscreen.api.widgets.WidgetSpec)/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/open-widgets.html
+$dokka.location:com.sbancuz.offscreen.api//openWindow/#com.sbancuz.offscreen.api.HostUIFactory[TypeParam(bounds=[com.sbancuz.offscreen.api.HostUI])]#kotlin.Function0[kotlin.Any?]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/open-window.html
+$dokka.location:com.sbancuz.offscreen.api//openWindow/#kotlin.String#kotlin.Int#kotlin.Int#kotlin.Function0[kotlin.Any]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/open-window.html
+$dokka.location:com.sbancuz.offscreen.api//popOut/TypeParam(bounds=[net.minecraft.client.gui.GuiButton])#kotlin.Function0[kotlin.Any]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/pop-out.html
+$dokka.location:com.sbancuz.offscreen.api//popOutAction/#kotlin.Function0[kotlin.Any]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/pop-out-action.html
+$dokka.location:com.sbancuz.offscreen.api//popOutFunction/#kotlin.Function0[kotlin.Any]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/pop-out-function.html
+$dokka.location:com.sbancuz.offscreen.api//pushScreen/com.sbancuz.offscreen.window.Window#kotlin.Function0[kotlin.Any]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/push-screen.html
+$dokka.location:com.sbancuz.offscreen.api//replaceScreen/com.sbancuz.offscreen.window.Window#com.sbancuz.offscreen.api.HostUIFactory[TypeParam(bounds=[com.sbancuz.offscreen.api.HostUI])]#kotlin.Function0[kotlin.Any]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/replace-screen.html
+$dokka.location:com.sbancuz.offscreen.api//widget/#com.sbancuz.offscreen.api.widgets.WidgetSpec.Kind#kotlin.String#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Function1[com.sbancuz.offscreen.api.widgets.WidgetSpec.Builder,kotlin.Unit]/PointingToDeclaration/-offscreen -wiki/com.sbancuz.offscreen.api/widget.html
+com.sbancuz.offscreen.api

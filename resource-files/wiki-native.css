@@ -1,0 +1,63 @@
+/* A small return control inside the native Dokka and Scaladoc headers. */
+.av-overview-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  margin-right: 1rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  color: inherit;
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.av-overview-back:hover { text-decoration: underline; }
+.av-overview-back:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.av-overview-back > span { margin: 0; }
+/* Scaladoc's header container does not inherit the text color used by its project title. */
+#header .av-overview-back { color: var(--text-primary); }
+
+/* The same project mark accompanies every native documentation header. */
+.av-header-logo {
+  position: absolute;
+  inset-inline-end: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+.av-header-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.av-header-logo:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+@media (max-width: 600px) {
+  .av-header-logo { inset-inline-end: 16px; }
+}
+
+#navigation-wrapper { position: relative; }
+#navigation-wrapper, #header {
+  box-sizing: border-box;
+  padding-inline-end: 80px;
+}
+@media (max-width: 600px) {
+  #navigation-wrapper, #header { padding-inline-end: 64px; }
+}
+
+.av-api-shortcuts ul { margin: .6rem 0 0; padding-left: 0; list-style: none; }
+.av-api-shortcuts li { margin: .35rem 0; }
+
+.av-header-logo { width: 64px; height: 64px; }
+.package-index-page .av-header-logo { display: none; }
+
+.av-header-logo { width: 80px; height: 80px; }
+.package-index-page .av-header-logo { display: none; }

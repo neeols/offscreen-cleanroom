@@ -1,0 +1,62 @@
+/* A common light code palette, independent of each native reference's theme. */
+pre.av-syntax-block {
+  background: #f5f7fa;
+  color: #253441;
+  color-scheme: light;
+}
+code.av-syntax, code.av-syntax .token {
+  background: transparent;
+  font: inherit;
+  text-shadow: none;
+}
+/* Keep each token above a 4.5:1 contrast ratio against the code background. */
+code.av-syntax .comment,
+code.av-syntax .prolog,
+code.av-syntax .doctype,
+code.av-syntax .cdata { color: #526176; }
+code.av-syntax .keyword,
+code.av-syntax .atrule { color: #7e22a8; }
+code.av-syntax .string,
+code.av-syntax .char,
+code.av-syntax .triple-quoted-string,
+code.av-syntax .attr-value { color: #176037; }
+code.av-syntax .function { color: #1d4ed8; }
+code.av-syntax .class-name,
+code.av-syntax .builtin,
+code.av-syntax .namespace { color: #075985; }
+code.av-syntax .number,
+code.av-syntax .boolean,
+code.av-syntax .constant,
+code.av-syntax .symbol { color: #9a3412; }
+code.av-syntax .operator,
+code.av-syntax .annotation,
+code.av-syntax .property,
+code.av-syntax .regex,
+code.av-syntax .variable { color: #8b2252; }
+code.av-syntax .punctuation { color: #40516a; }
+code.av-syntax .important,
+code.av-syntax .bold { font-weight: 700; }
+code.av-syntax .italic { font-style: italic; }
+@media (forced-colors: active) {
+  code.av-syntax .token { color: CanvasText; }
+}
+
+/* Download controls also cover native reference snippets and implementation sources. */
+.wiki-download-toolbar { display:flex; justify-content:flex-end; padding:6px 10px; }
+.wiki-download { cursor:pointer; white-space:nowrap; }
+.wiki-download-block:has(> pre[hidden]) { display:none; }
+.av-code-toolbar .wiki-download { margin-left:6px; }
+
+/* Preserve native glyph pixels; narrow viewports scroll instead of fractionally resampling. */
+.av-guide figure:has(img[src$=".gif"]) { max-width:100%; overflow-x:auto; }
+.av-guide figure img[src$=".gif"] { max-width:none!important; height:auto; image-rendering:auto!important; }
+
+.av-code-toolbar .wiki-download { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; padding:6px; margin:0 6px 0 0; flex:0 0 32px; }
+
+/* Source stays intact for copying/downloading; cropping is presentation only. */
+.wiki-code-collapsible:not(.wiki-code-expanded) > pre { max-height:18rem!important; overflow:hidden!important; mask-image:linear-gradient(to bottom,#000 0%,#000 82%,transparent 100%); }
+.wiki-code-expanded > pre { max-height:none!important; overflow-x:auto; mask-image:none; }
+.wiki-code-expand { display:block; width:100%; min-height:38px; border:0; border-top:1px solid #d8e3ec; background:#f1f6fa; color:#234b68; cursor:pointer; font:inherit; font-size:13px; font-weight:600; }
+.wiki-code-expand:hover { background:#e5eef5; }
+.wiki-code-expand:focus-visible { outline:2px solid #2878aa; outline-offset:-3px; }
+.wiki-code-expand[hidden] { display:none; }

@@ -1,0 +1,45 @@
+.av-code-toolbar { flex-wrap: wrap; }
+.av-guide table :is(td, th) code a[href] {
+  text-decoration: none;
+}
+.av-guide table :is(td, th) code a[href]:focus-visible {
+  outline-offset: 2px;
+}
+.av-guide pre code a.wiki-api-link { color: inherit; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+.av-guide pre code a.wiki-api-link:hover, .av-guide pre code a.wiki-api-link:focus-visible { text-decoration-style: solid; outline-offset: 2px; }
+.wiki-related { border-top: 1px solid #ccd6df; margin-top: 2rem; }
+.wiki-preview { width: fit-content; max-width: 100%; min-width: 0; }
+.av-guide figure:has(.wiki-preview) { width: fit-content; max-width: 100%; }
+.wiki-preview-viewport { max-width: 100%; max-height: 440px; overflow: auto; }
+.wiki-preview canvas { display: block; max-width: none; max-height: none; image-rendering: pixelated; }
+.wiki-preview-dialog .wiki-preview { width: max-content; }
+.wiki-preview-dialog canvas { max-width: none; max-height: none; }
+.wiki-preview-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; padding: .65rem; background: var(--av-paper,white); }
+.wiki-preview-controls button, .wiki-preview-dialog > button { padding: .35rem .7rem; cursor: pointer; border: 1px solid #a8bccd; border-radius: 4px; background: #f5f7fa; color: #173f5c; }
+.wiki-preview-status { font-size: .85rem; }
+.wiki-preview-dialog { max-width: calc(100vw - 3rem); max-height: calc(100vh - 3rem); overflow: auto; padding: 1rem; border: 1px solid #a8bccd; }
+.wiki-preview-dialog::backdrop { background: #0009; }
+.wiki-preview-dialog > button { margin-bottom: .7rem; }
+
+.av-code-toolbar .av-copy { position: static; float: none; margin: 0; }
+
+.wiki-copy-fallback { display:block; width:100%; box-sizing:border-box; min-height:6rem; font:inherit; }
+
+.wiki-copy-menu { position: fixed; inset: auto; margin: 0; width: 184px; box-sizing: border-box; padding: .3rem; border: 1px solid #a8bccd; border-radius: 5px; background: var(--av-paper, #fff); color: #173f5c; box-shadow: 0 4px 16px #0002; z-index: 1000; }
+.wiki-copy-menu button { display: block; width: 100%; padding: .5rem .65rem; border: 0; border-radius: 3px; background: transparent; color: inherit; text-align: left; font: inherit; cursor: pointer; }
+.wiki-copy-menu button:hover, .wiki-copy-menu button:focus-visible { background: #e7eff7; outline: 2px solid #507b96; outline-offset: -2px; }
+.wiki-copy-menu button:disabled { color: #82909b; cursor: default; background: transparent; outline: none; }
+
+/* Wrap prose at spaces; reserve emergency breaks for content wider than its cell. */
+.av-guide table { display: table; table-layout: fixed; max-width: 100%; }
+.av-guide td, .av-guide th { min-width: 0; word-break: normal; overflow-wrap: break-word; hyphens: none; }
+.av-guide code { word-break: normal; overflow-wrap: anywhere; }
+.av-guide pre code { overflow-wrap: normal; }
+.av-guide td code, .av-guide th code, .av-guide td a { word-break: normal; overflow-wrap: anywhere; white-space: normal; }
+.av-guide code wbr, .av-guide td wbr, .av-guide th wbr { display: none; }
+.av-guide pre code wbr { display: initial; }
+.wiki-inline-unit { overflow-wrap: anywhere; }
+.av-guide .wiki-inline-keep { white-space: nowrap; overflow-wrap: normal; }
+.av-call-guide table:has(th:nth-child(3)):not(:has(th:nth-child(4))) th:first-child { width: 24%; }
+.av-call-guide table:has(th:nth-child(3)):not(:has(th:nth-child(4))) th:nth-child(2) { width: 24%; }
+@media (max-width: 600px) { .av-guide td, .av-guide th { padding: .6rem; } }
