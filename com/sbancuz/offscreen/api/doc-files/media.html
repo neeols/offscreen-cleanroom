@@ -15,9 +15,9 @@
 <script type="text/javascript" src="../../../../../script-files/offscreen.js"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-syntax.css">
 <script defer src="../../../../../script-files/prism-1.30.0.js"></script>
-<script defer src="../../../../../script-files/wiki-syntax.js"></script>
+<script defer src="../../../../../script-files/wiki-syntax.js?v=55fa2361aabe"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-recipes.css?v=830aa6aca6ac">
-<script defer src="../../../../../script-files/wiki-recipes.js?v=e343c168231c"></script>
+<script defer src="../../../../../script-files/wiki-recipes.js?v=7972fd1f690a"></script>
 </head>
 <body class="doc-file-page">
 <script type="text/javascript">const pathtoroot = "../../../../../";
@@ -54,7 +54,7 @@ loadScripts(document, 'script');</script>
 <span class="skip-nav" id="skip-navbar-top"></span></nav>
 </header>
 <div class="main-grid">
-<main role="main"><div class="av-guide" data-languages="java kotlin groovy scala zenscript"><h1 id="show-images-video-and-audio-heading">Show images, video and audio</h1><p class="av-lead">Display an image, play a video, or add audio to your window. Packaged Minecraft images can be drawn directly. For a file or stream, open a <code>MediaPlayer</code>, update it from client callbacks, and close it when its screen finishes.</p><nav aria-label="Media recipes"><a href="#media-texture">Image from your addon</a> · <a href="#media-image">Still image</a> · <a href="#media-gif">Animated GIF</a> · <a href="#media-playback">Video</a> · <a href="#media-custom-audio">Custom audio player</a></nav><div class="av-example-group" data-example="media-texture"><h2 id="media-texture">Display an image</h2><p>Put a 256 × 256 PNG at <code>src/main/resources/assets/<wbr>example/<wbr>textures/<wbr>gui/<wbr>logo.png</code>. The example reads the full 256 × 256 source image and draws it in a 64 × 64 rectangle in Minecraft GUI units. To display it in Java, Kotlin, Scala or GroovyScript, call the drawing method from your screen’s render callback on the client thread. In CraftTweaker, add the image to the screen declaration. Minecraft’s texture manager owns this cached texture, so do not delete it when the window closes. For a file chosen at runtime, use the still-image player below. Animated GIFs need the separate playback recipe.</p><pre data-language="java" tabindex="0" role="region" aria-label="Packaged image: java"><code class="language-java">import net.minecraft.client.Minecraft;
+<main role="main"><div class="av-guide" data-languages="java kotlin groovy scala zenscript"><h1 id="show-images-video-and-audio-heading">Show images, video and audio</h1><p class="av-lead">Display an image, play a video, or add audio to your window. Packaged Minecraft images can be drawn directly. For a file or stream, open a <code>MediaPlayer</code>, update it from client callbacks, and close it when its screen finishes.</p><nav aria-label="Media recipes"><a href="#media-texture">Image from your addon</a> · <a href="#media-image">Still image</a> · <a href="#media-gif">Animated GIF</a> · <a href="#media-playback">Video</a> · <a href="#media-custom-audio">Custom audio player</a></nav><div class="av-example-group" data-example="media-texture"><h2 id="media-texture">Display an image</h2><p>Put a 256 × 256 PNG at <code>src/main/resources/assets/<wbr>example/<wbr>textures/<wbr>gui/<wbr>logo.png</code>. The example reads the full 256 × 256 source image and draws it in a 64 × 64 rectangle in Minecraft GUI units. To display it in Java, Kotlin, Scala or GroovyScript, call the drawing method from your screen’s render callback on the client thread. In CraftTweaker, add the image to the screen declaration. Minecraft’s texture manager owns this cached texture, so do not delete it when the window closes. For a file chosen at runtime, use the still-image player below. Animated GIFs need the separate playback recipe.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Packaged image: java"><code class="language-java">import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 
@@ -68,7 +68,7 @@ final class PackagedImage {
         Gui.drawScaledCustomSizeModalRect(x, y, 0, 0, 256, 256, 64, 64, 256, 256);
     }
 }
-</code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Packaged image: kotlin"><code class="language-kotlin">import net.minecraft.client.Minecraft
+</code></pre><pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Packaged image: kotlin"><code class="language-kotlin">import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import net.minecraft.util.ResourceLocation
 
@@ -80,7 +80,7 @@ object PackagedImageKotlin {
         Gui.drawScaledCustomSizeModalRect(x, y, 0f, 0f, 256, 256, 64, 64, 256f, 256f)
     }
 }
-</code></pre><pre data-language="groovy" tabindex="0" role="region" aria-label="Packaged image: groovy"><code class="language-groovy">import net.minecraft.client.Minecraft;
+</code></pre><pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Packaged image: groovy"><code class="language-groovy">import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 
@@ -94,7 +94,7 @@ class PackagedImageGroovy {
         Gui.drawScaledCustomSizeModalRect(x, y, 0, 0, 256, 256, 64, 64, 256, 256);
     }
 }
-</code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Packaged image: scala"><code class="language-scala">import net.minecraft.client.Minecraft
+</code></pre><pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Packaged image: scala"><code class="language-scala">import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import net.minecraft.util.ResourceLocation
 
@@ -104,7 +104,7 @@ object PackagedImageScala:
   def draw(x: Int, y: Int): Unit =
     Minecraft.getMinecraft().getTextureManager().bindTexture(logo)
     Gui.drawScaledCustomSizeModalRect(x, y, 0, 0, 256, 256, 64, 64, 256, 256)
-</code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Packaged image: zenscript"><code class="language-zenscript">#side client
+</code></pre><pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Packaged image: zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Windows;
 import mods.offscreencleanroom.Window;
 
@@ -113,7 +113,7 @@ function openImageWindow() as Window {
     screen.image("example:textures/gui/logo.png", 24, 24, 64, 64);
     return Windows.open(screen);
 }
-</code></pre></div><h2 id="media-decoder">Choose a decoder</h2><p><code>MediaDecoders.builtin()</code> uses installed ImageIO readers for still images and Java Sound providers for audio. Video and animated images need a video decoder. <code>MediaDecoders.ffmpeg(path)</code> uses an explicitly configured FFmpeg executable for images, animated images, video and audio. Offscreen does not bundle or download that executable. Its supported formats depend on the codecs enabled in that build; see <a href="https://ffmpeg.org/ffmpeg-formats.html">FFmpeg's format reference</a>. Other decoders can implement <code>MediaDecoder</code> without changing the player API.</p><p>A filename extension is not a guarantee of a codec. Unsupported, corrupt or missing media produces <code>FAILED</code> with a retained cause. The player never silently claims that an unknown format was decoded. DRM-protected media and interactive formats such as HTML are not generic video streams.</p><div class="av-example-group" data-example="media-playback"><h2 id="media-playback">Play a video</h2><p>Client setup: retain a player for this screen instance. The decoding worker prepares it; <code>play()</code> starts the playback clock. Drawing returns false while loading or after failure, so your screen can show useful feedback. Call <code>update()</code> in a client tick/render callback even for audio-only players so end/loop handling runs. Window readiness and media readiness are separate.</p><pre data-language="java" tabindex="0" role="region" aria-label="Media playback — java"><code class="language-java">import java.nio.file.Path;
+</code></pre></div><h2 id="media-decoder">Choose a decoder</h2><p><code>MediaDecoders.builtin()</code> uses installed ImageIO readers for still images and Java Sound providers for audio. Video and animated images need a video decoder. <code>MediaDecoders.ffmpeg(path)</code> uses an explicitly configured FFmpeg executable for images, animated images, video and audio. Offscreen does not bundle or download that executable. Its supported formats depend on the codecs enabled in that build; see <a href="https://ffmpeg.org/ffmpeg-formats.html">FFmpeg's format reference</a>. Other decoders can implement <code>MediaDecoder</code> without changing the player API.</p><p>A filename extension is not a guarantee of a codec. Unsupported, corrupt or missing media produces <code>FAILED</code> with a retained cause. The player never silently claims that an unknown format was decoded. DRM-protected media and interactive formats such as HTML are not generic video streams.</p><div class="av-example-group" data-example="media-playback"><h2 id="media-playback">Play a video</h2><p>Client setup: retain a player for this screen instance. The decoding worker prepares it; <code>play()</code> starts the playback clock. Drawing returns false while loading or after failure, so your screen can show useful feedback. Call <code>update()</code> in a client tick/render callback even for audio-only players so end/loop handling runs. Window readiness and media readiness are separate.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Media playback — java"><code class="language-java">import java.nio.file.Path;
 import com.sbancuz.offscreen.api.client.media.*;
 import com.sbancuz.offscreen.window.Window;
 
@@ -149,7 +149,7 @@ final class MediaRecipe {
         video.close();
     }
 }
-</code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Media playback — kotlin"><code class="language-kotlin">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Media playback — kotlin"><code class="language-kotlin">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.window.Window
 
@@ -173,7 +173,7 @@ class MediaKotlin(window: Window, ffmpeg: Path, clip: Path) {
     fun status(): MediaPlayer.Status = video.status()
     fun dispose() { video.close() }
 }
-</code></pre><pre data-language="groovy" tabindex="0" role="region" aria-label="Media playback — groovy"><code class="language-groovy">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Media playback — groovy"><code class="language-groovy">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.window.Window
 
@@ -194,7 +194,7 @@ class MediaGroovy {
     MediaPlayer.Status status() { video.status() }
     void dispose() { video.close() }
 }
-</code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Media playback — scala"><code class="language-scala">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Media playback — scala"><code class="language-scala">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.window.Window
 
@@ -209,7 +209,7 @@ final class MediaScala(window: Window, ffmpeg: Path, clip: Path):
   def jumpTo(seconds: Double): Unit = video.seek(seconds)
   def status(): MediaPlayer.Status = video.status()
   def dispose(): Unit = video.close()
-</code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Media playback — zenscript"><code class="language-zenscript">#side client
+</code></pre><pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Media playback — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Media;
 import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.MediaPlayer;
@@ -242,7 +242,7 @@ function inspectVideo(video as MediaPlayer) {
 function disposeVideo(video as MediaPlayer) {
     video.close();
 }
-</code></pre></div><div class="av-example-group" data-example="media-image"><h2 id="media-image">Display an image from a file</h2><p>Keep one player per screen. ImageIO decodes the image in the background; draw it in your screen’s render callback. A false draw result means the texture is not available yet: show a loading label, or the retained error if loading failed. Close it from screen teardown. This recipe uses the built-in decoder and needs no FFmpeg executable.</p><pre data-language="java" tabindex="0" role="region" aria-label="Display an image from a file: java"><code class="language-java">import java.nio.file.Path;
+</code></pre></div><div class="av-example-group" data-example="media-image"><h2 id="media-image">Display an image from a file</h2><p>Keep one player per screen. ImageIO decodes the image in the background; draw it in your screen’s render callback. A false draw result means the texture is not available yet: show a loading label, or the retained error if loading failed. Close it from screen teardown. This recipe uses the built-in decoder and needs no FFmpeg executable.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Display an image from a file: java"><code class="language-java">import java.nio.file.Path;
 import com.sbancuz.offscreen.api.client.media.*;
 import com.sbancuz.offscreen.window.Window;
 
@@ -268,7 +268,7 @@ final class StillImage {
         image.close();
     }
 }
-</code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Display an image from a file: kotlin"><code class="language-kotlin">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Display an image from a file: kotlin"><code class="language-kotlin">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.window.Window
 
@@ -285,7 +285,7 @@ class StillImageKotlin(window: Window, clip: Path) {
     fun status(): MediaPlayer.Status = image.status()
     fun dispose() { image.close() }
 }
-</code></pre><pre data-language="groovy" tabindex="0" role="region" aria-label="Display an image from a file: groovy"><code class="language-groovy">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Display an image from a file: groovy"><code class="language-groovy">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.window.Window
 
@@ -300,7 +300,7 @@ class StillImageGroovy {
     MediaPlayer.Status status() { image.status() }
     void dispose() { image.close() }
 }
-</code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Display an image from a file: scala"><code class="language-scala">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Display an image from a file: scala"><code class="language-scala">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.window.Window
 
@@ -311,7 +311,7 @@ final class StillImageScala(window: Window, clip: Path):
   def draw(width: Int, height: Int): Boolean = image.draw(0, 0, width, height, 1f)
   def status(): MediaPlayer.Status = image.status()
   def dispose(): Unit = image.close()
-</code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Display an image from a file: zenscript"><code class="language-zenscript">#side client
+</code></pre><pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Display an image from a file: zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Media;
 import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.MediaPlayer;
@@ -333,7 +333,7 @@ function inspectImage(image as MediaPlayer) {
 function disposeImage(image as MediaPlayer) {
     image.close();
 }
-</code></pre></div><div class="av-example-group" data-example="media-gif"><h2 id="media-gif">Play an animated GIF</h2><p>Treat the GIF as VIDEO so its frame timestamps are played, rather than reading only its first still frame. This uses an existing FFmpeg executable, disables audio and loops. Draw from the client render callback; close the player when the screen is disposed. Pause and seek apply to this player independently of other windows.</p><pre data-language="java" tabindex="0" role="region" aria-label="Play an animated GIF: java"><code class="language-java">import java.nio.file.Path;
+</code></pre></div><div class="av-example-group" data-example="media-gif"><h2 id="media-gif">Play an animated GIF</h2><p>Treat the GIF as VIDEO so its frame timestamps are played, rather than reading only its first still frame. This uses an existing FFmpeg executable, disables audio and loops. Draw from the client render callback; close the player when the screen is disposed. Pause and seek apply to this player independently of other windows.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Play an animated GIF: java"><code class="language-java">import java.nio.file.Path;
 import com.sbancuz.offscreen.api.client.media.*;
 import com.sbancuz.offscreen.window.Window;
 
@@ -378,7 +378,7 @@ final class AnimatedGif {
         animation.close();
     }
 }
-</code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Play an animated GIF: kotlin"><code class="language-kotlin">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Play an animated GIF: kotlin"><code class="language-kotlin">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.window.Window
 
@@ -405,7 +405,7 @@ class AnimatedGifKotlin(window: Window, ffmpeg: Path, clip: Path) {
     fun status(): MediaPlayer.Status = animation.status()
     fun dispose() { animation.close() }
 }
-</code></pre><pre data-language="groovy" tabindex="0" role="region" aria-label="Play an animated GIF: groovy"><code class="language-groovy">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Play an animated GIF: groovy"><code class="language-groovy">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.window.Window
 
@@ -430,7 +430,7 @@ class AnimatedGifGroovy {
     MediaPlayer.Status status() { animation.status() }
     void dispose() { animation.close() }
 }
-</code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Play an animated GIF: scala"><code class="language-scala">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Play an animated GIF: scala"><code class="language-scala">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.window.Window
 
@@ -451,7 +451,7 @@ final class AnimatedGifScala(window: Window, ffmpeg: Path, clip: Path):
   def jumpTo(seconds: Double): Unit = animation.seek(seconds)
   def status(): MediaPlayer.Status = animation.status()
   def dispose(): Unit = animation.close()
-</code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Play an animated GIF: zenscript"><code class="language-zenscript">#side client
+</code></pre><pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Play an animated GIF: zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Media;
 import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.MediaPlayer;
@@ -484,7 +484,7 @@ function inspectAnimation(animation as MediaPlayer) {
 function disposeAnimation(animation as MediaPlayer) {
     animation.close();
 }
-</code></pre></div><div class="av-example-group" data-example="media-custom-audio"><h2 id="media-custom-audio">Create a custom audio player</h2><p>Build a compact audio interface with play/pause, ten-second seeking, mute and a volume bar. The bar controls volume, not playback progress; the decoder does not provide a reliable duration for every source. This layout needs at least 300 × 100 logical pixels. Java, Kotlin, Scala and Groovy install a GuiScreen in the window you pass to the constructor; VanillaUI connects its drawing and mouse input to that window. CraftTweaker declares the same drawing and input callbacks on its screen. Keep the returned window and close it during teardown. The player is closed both by screen disposal and its owning window, safely. Check the retained error when “Audio unavailable” is shown. The screen runs on the client thread; audio decoding and output run in the background.</p><pre data-language="java" tabindex="0" role="region" aria-label="Minimal audio player: java"><code class="language-java">import java.nio.file.Path;
+</code></pre></div><div class="av-example-group" data-example="media-custom-audio"><h2 id="media-custom-audio">Create a custom audio player</h2><p>Build a compact audio interface with play/pause, ten-second seeking, mute and a volume bar. The bar controls volume, not playback progress; the decoder does not provide a reliable duration for every source. This layout needs at least 300 × 100 logical pixels. Java, Kotlin, Scala and Groovy install a GuiScreen in the window you pass to the constructor; VanillaUI connects its drawing and mouse input to that window. CraftTweaker declares the same drawing and input callbacks on its screen. Keep the returned window and close it during teardown. The player is closed both by screen disposal and its owning window, safely. Check the retained error when “Audio unavailable” is shown. The screen runs on the client thread; audio decoding and output run in the background.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Minimal audio player: java"><code class="language-java">import java.nio.file.Path;
 import com.sbancuz.offscreen.api.client.media.*;
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI;
 import com.sbancuz.offscreen.window.Window;
@@ -555,7 +555,7 @@ final class MinimalAudio extends GuiScreen {
         return false;
     }
 }
-</code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Minimal audio player: kotlin"><code class="language-kotlin">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Minimal audio player: kotlin"><code class="language-kotlin">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 import com.sbancuz.offscreen.window.Window
@@ -616,7 +616,7 @@ class MinimalAudioKotlin(window: Window, ffmpeg: Path, clip: Path) : GuiScreen()
     override fun onGuiClosed() { audio.close() }
     override fun doesGuiPauseGame() = false
 }
-</code></pre><pre data-language="groovy" tabindex="0" role="region" aria-label="Minimal audio player: groovy"><code class="language-groovy">import java.nio.file.Path;
+</code></pre><pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Minimal audio player: groovy"><code class="language-groovy">import java.nio.file.Path;
 import com.sbancuz.offscreen.api.client.media.*;
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI;
 import com.sbancuz.offscreen.window.Window;
@@ -685,7 +685,7 @@ class MinimalAudioGroovy extends GuiScreen {
         return false;
     }
 }
-</code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Minimal audio player: scala"><code class="language-scala">import java.nio.file.Path
+</code></pre><pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Minimal audio player: scala"><code class="language-scala">import java.nio.file.Path
 import com.sbancuz.offscreen.api.client.media.*
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 import com.sbancuz.offscreen.window.Window
@@ -738,7 +738,7 @@ final class MinimalAudioScala(window: Window,
 
   override def onGuiClosed(): Unit = audio.close()
   override def doesGuiPauseGame(): Boolean = false
-</code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Minimal audio player: zenscript"><code class="language-zenscript">#side client
+</code></pre><pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Minimal audio player: zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Windows;
 import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.Media;

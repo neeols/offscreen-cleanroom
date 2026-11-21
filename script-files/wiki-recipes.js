@@ -34,7 +34,8 @@
     const staticPre = new WeakMap();
     const allPre = [...guide.querySelectorAll("pre")];
     for (const recipe of recipes)
-      if (recipe.preIndex != null && allPre[recipe.preIndex])
+      if (recipe.preIndex != null && allPre[recipe.preIndex] &&
+          !allPre.some(pre => pre.dataset.wikiRecipe === recipe.id))
         allPre[recipe.preIndex].dataset.wikiRecipe = recipe.id;
     for (const pre of allPre) {
       if (pre.closest(".av-code-wrap")) continue;

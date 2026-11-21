@@ -1,3 +1,66 @@
+/* Keep client-generated recipe variants as readable as authored examples. */
+(() => {
+  window.WikiReadableCode = (source, language) => {
+    if (!['java', 'kotlin', 'groovy', 'scala', 'zenscript', 'json'].includes(language)) return source;
+    const protectedText = new Uint8Array(source.length);
+    const literals = /"""[\s\S]*?"""|'''[\s\S]*?'''|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\/\/[^\n]*|\/\*[\s\S]*?\*\//g;
+    for (const match of source.matchAll(literals)) protectedText.fill(1, match.index, match.index + match[0].length);
+    const edits = new Map(), expanded = [], chainIndents = new Map();
+    let parens = 0, brackets = 0, lineStart = 0;
+    for (let i = 0; i < source.length; i++) {
+      const char = source[i];
+      if (char === '\n') lineStart = i + 1;
+      if (protectedText[i]) continue;
+      if (char === '(') parens++;
+      if (char === ')') parens--;
+      if (char === '[') brackets++;
+      if (char === ']') brackets--;
+      let lineEnd = source.indexOf('\n', i);
+      if (lineEnd < 0) lineEnd = source.length;
+      const line = source.slice(lineStart, lineEnd), indent = line.match(/^[ \t]*/)[0];
+      const last = expanded.at(-1), activeIndent = last != null ? last + '    ' : indent;
+      let after = i + 1;
+      while (after < lineEnd && /[ \t]/.test(source[after])) after++;
+      if (char === ';' && language !== 'scala' && parens === 0 && brackets === 0 && after < lineEnd && !source.startsWith('//', after) && source[after] !== '}') edits.set(i + 1, [after, '\n' + activeIndent]);
+      if (char === ';' && parens === 0) chainIndents.clear();
+      if (char === '{') {
+        const expand = language !== 'scala' && after < lineEnd && (line.includes(';') || line.length > 88);
+        expanded.push(expand ? activeIndent : null);
+        if (expand) edits.set(i + 1, [after, '\n' + activeIndent + '    ']);
+      } else if (char === '}' && expanded.length) {
+        const blockIndent = expanded.pop();
+        if (blockIndent != null && source.slice(lineStart, i).trim()) {
+          let start = i;
+          while (start > lineStart && /[ \t]/.test(source[start - 1])) start--;
+          edits.set(start, [i, '\n' + blockIndent]);
+        }
+      }
+      if (char === '.' && /^[A-Za-z_$][\w$]*\s*\(/.test(source.slice(i + 1))) {
+        let before = i - 1;
+        while (before >= lineStart && /[ \t]/.test(source[before])) before--;
+        if (before >= lineStart && ')}]'.includes(source[before]) && line.length > 88) {
+          if (!chainIndents.has(parens)) chainIndents.set(parens, line.trimStart().startsWith('.') ? indent : indent + '    ');
+          edits.set(before + 1, [i, '\n' + chainIndents.get(parens)]);
+        } else if (!source.slice(lineStart, i).trim()) {
+          if (!chainIndents.has(parens)) chainIndents.set(parens, indent);
+          if (chainIndents.get(parens) !== indent) edits.set(lineStart, [i, chainIndents.get(parens)]);
+        }
+      }
+      if (char === ',' && parens > 0 && line.length > 88 && after < lineEnd && !source.startsWith('//', after)) edits.set(i + 1, [after, '\n' + indent + '    ']);
+    }
+    let result = '';
+    for (let i = 0; i < source.length;) {
+      if (edits.has(i)) {
+        const [end, replacement] = edits.get(i);
+        result += replacement;
+        if (end === i) result += source[i++];
+        else i = end;
+      } else result += source[i++];
+    }
+    return result;
+  };
+})();
+
 /* Shared, offline syntax coloring for the Wiki's copyable examples. */
 (() => {
   "use strict";
@@ -112,6 +175,10 @@
         )
           return;
         const inline = !code.closest("pre");
+        if (!inline && !code.parentElement.dataset.wikiReadable) {
+          code.textContent = window.WikiReadableCode(code.textContent, aliases[language] || language);
+          code.parentElement.dataset.wikiReadable = 'true';
+        }
         const activeGrammar =
           inline && ["java", "kotlin", "scala", "groovy"].includes(language)
             ? {

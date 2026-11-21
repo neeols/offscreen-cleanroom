@@ -15,9 +15,9 @@
 <script type="text/javascript" src="../../../../../script-files/offscreen.js"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-syntax.css">
 <script defer src="../../../../../script-files/prism-1.30.0.js"></script>
-<script defer src="../../../../../script-files/wiki-syntax.js"></script>
+<script defer src="../../../../../script-files/wiki-syntax.js?v=55fa2361aabe"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-recipes.css?v=830aa6aca6ac">
-<script defer src="../../../../../script-files/wiki-recipes.js?v=e343c168231c"></script>
+<script defer src="../../../../../script-files/wiki-recipes.js?v=7972fd1f690a"></script>
 </head>
 <body class="doc-file-page">
 <script type="text/javascript">const pathtoroot = "../../../../../";
@@ -56,7 +56,7 @@ loadScripts(document, 'script');</script>
 <div class="main-grid">
 <main role="main"><div class="av-guide" data-languages="java kotlin scala groovy zenscript"><h1 id="application-examples-heading">Application examples</h1><p class="av-lead">Choose a complete example window, select your addon’s language, and download its source file. Each example includes its controls, drawing, input, and cleanup. Start with the settings window for Apply and Cancel, or use the file browser when work must load in the background.</p><h2 id="applications-setup">Use an example</h2><p>Choose a language, download its single source file, and add it to your Minecraft 1.12.2 Cleanroom addon. Each file contains the complete window behavior, drawing, input handling and cleanup. Java, Kotlin, Scala and Groovy call the shared screen API directly. Only ZenScript requires CraftTweaker; it uses the registered script names. All variants require OffscreenCleanroom. Enable the chosen JVM language in your addon build; the server example also requires ModularUI.</p><p>Call <code>open()</code> from a client key or button handler after joining a world. Call <code>close()</code> from your client disconnect or unload hook. Declaring the callbacks opens nothing. The server-action file additionally provides <code>register()</code> for common initialization on both sides; the ZenScript file calls it during script loading.</p><p>The library connects each screen to native-window drawing and input through its vanilla adapter. Local drawing, input and update callbacks run on the client thread. A returned handle owns a window but may precede its first layout; <code>isReady()</code> (or <code>ready</code> in ZenScript) reports readiness. Each file closes only its own handles. Server action callbacks run on the server thread and must finish using their borrowed context before returning.</p>
 <section class="av-example-group" data-example="application-01"><h2 id="application-01">Settings: Apply, Cancel and Reset</h2><p>Edit a private draft, reject an empty name, restore defaults without saving, and apply changes to a UTF-8 text file. Cancel discards the draft. Reopen the window to load the saved value. This small local-file example writes on the client thread; use a worker for large or remote configuration files.</p><figure><img src="application-examples/application-01.gif" alt="Settings: Apply, Cancel and Reset running in a native window" style="max-width:100%;height:auto;image-rendering:pixelated"><figcaption>Settings: Apply, Cancel and Reset</figcaption></figure>
-<pre data-language="java" data-filename="SettingsExample.java" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in java"><code class="language-java">package examples.single.java;
+<pre data-wiki-readable="true" data-language="java" data-filename="SettingsExample.java" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in java"><code class="language-java">package examples.single.java;
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -221,7 +221,7 @@ public final class SettingsExample {
     
 }
 </code></pre>
-<pre data-language="kotlin" data-filename="SettingsExample.kt" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in kotlin"><code class="language-kotlin">package examples.single.kotlin
+<pre data-wiki-readable="true" data-language="kotlin" data-filename="SettingsExample.kt" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in kotlin"><code class="language-kotlin">package examples.single.kotlin
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -391,7 +391,7 @@ object SettingsExample {
     
 }
 </code></pre>
-<pre data-language="scala" data-filename="SettingsExample.scala" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in scala"><code class="language-scala">package examples.single.scala
+<pre data-wiki-readable="true" data-language="scala" data-filename="SettingsExample.scala" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in scala"><code class="language-scala">package examples.single.scala
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -555,7 +555,7 @@ object SettingsExample {
     
 }
 </code></pre>
-<pre data-language="groovy" data-filename="SettingsExample.groovy" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in groovy"><code class="language-groovy">package examples.single.groovy
+<pre data-wiki-readable="true" data-language="groovy" data-filename="SettingsExample.groovy" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in groovy"><code class="language-groovy">package examples.single.groovy
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -728,7 +728,7 @@ final class SettingsExample {
     
 }
 </code></pre>
-<pre data-language="zenscript" data-filename="SettingsExample.zs" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" data-filename="SettingsExample.zs" tabindex="0" role="region" aria-label="Settings: Apply, Cancel and Reset in zenscript"><code class="language-zenscript">#side client
 // Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
 // Call open() from a client key/button handler after joining a world; declarations open nothing.
@@ -900,7 +900,7 @@ function close() as void {
 </code></pre>
 </section>
 <section class="av-example-group" data-example="application-02"><h2 id="application-02">Searchable, scrollable list</h2><p>Type into the search field, select a result and scroll through the remaining rows. Filtering retains the selected value, even if it is temporarily hidden. An empty result set displays a message instead of leaving stale rows visible.</p><figure><img src="application-examples/application-02.gif" alt="Searchable, scrollable list running in a native window" style="max-width:100%;height:auto;image-rendering:pixelated"><figcaption>Searchable, scrollable list</figcaption></figure>
-<pre data-language="java" data-filename="CatalogExample.java" tabindex="0" role="region" aria-label="Searchable, scrollable list in java"><code class="language-java">package examples.single.java;
+<pre data-wiki-readable="true" data-language="java" data-filename="CatalogExample.java" tabindex="0" role="region" aria-label="Searchable, scrollable list in java"><code class="language-java">package examples.single.java;
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -1080,7 +1080,7 @@ public final class CatalogExample {
     
 }
 </code></pre>
-<pre data-language="kotlin" data-filename="CatalogExample.kt" tabindex="0" role="region" aria-label="Searchable, scrollable list in kotlin"><code class="language-kotlin">package examples.single.kotlin
+<pre data-wiki-readable="true" data-language="kotlin" data-filename="CatalogExample.kt" tabindex="0" role="region" aria-label="Searchable, scrollable list in kotlin"><code class="language-kotlin">package examples.single.kotlin
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -1296,7 +1296,7 @@ object CatalogExample {
     
 }
 </code></pre>
-<pre data-language="scala" data-filename="CatalogExample.scala" tabindex="0" role="region" aria-label="Searchable, scrollable list in scala"><code class="language-scala">package examples.single.scala
+<pre data-wiki-readable="true" data-language="scala" data-filename="CatalogExample.scala" tabindex="0" role="region" aria-label="Searchable, scrollable list in scala"><code class="language-scala">package examples.single.scala
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -1516,7 +1516,7 @@ object CatalogExample {
     
 }
 </code></pre>
-<pre data-language="groovy" data-filename="CatalogExample.groovy" tabindex="0" role="region" aria-label="Searchable, scrollable list in groovy"><code class="language-groovy">package examples.single.groovy
+<pre data-wiki-readable="true" data-language="groovy" data-filename="CatalogExample.groovy" tabindex="0" role="region" aria-label="Searchable, scrollable list in groovy"><code class="language-groovy">package examples.single.groovy
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -1703,7 +1703,7 @@ final class CatalogExample {
     
 }
 </code></pre>
-<pre data-language="zenscript" data-filename="CatalogExample.zs" tabindex="0" role="region" aria-label="Searchable, scrollable list in zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" data-filename="CatalogExample.zs" tabindex="0" role="region" aria-label="Searchable, scrollable list in zenscript"><code class="language-zenscript">#side client
 // Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
 // Call open() from a client key/button handler after joining a world; declarations open nothing.
@@ -1884,7 +1884,7 @@ function close() as void {
 </code></pre>
 </section>
 <section class="av-example-group" data-example="application-03"><h2 id="application-03">Resizable dashboard</h2><p>Resize the desktop window. Cards change between one, two and three columns using Minecraft GUI units. The layout recalculates from the screen dimensions rather than assuming desktop pixels.</p><figure><img src="application-examples/application-03.gif" alt="Resizable dashboard running in a native window" style="max-width:100%;height:auto;image-rendering:pixelated"><figcaption>Resizable dashboard</figcaption></figure>
-<pre data-language="java" data-filename="DashboardExample.java" tabindex="0" role="region" aria-label="Resizable dashboard in java"><code class="language-java">package examples.single.java;
+<pre data-wiki-readable="true" data-language="java" data-filename="DashboardExample.java" tabindex="0" role="region" aria-label="Resizable dashboard in java"><code class="language-java">package examples.single.java;
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -1984,7 +1984,7 @@ public final class DashboardExample {
     
 }
 </code></pre>
-<pre data-language="kotlin" data-filename="DashboardExample.kt" tabindex="0" role="region" aria-label="Resizable dashboard in kotlin"><code class="language-kotlin">package examples.single.kotlin
+<pre data-wiki-readable="true" data-language="kotlin" data-filename="DashboardExample.kt" tabindex="0" role="region" aria-label="Resizable dashboard in kotlin"><code class="language-kotlin">package examples.single.kotlin
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -2080,7 +2080,7 @@ object DashboardExample {
     
 }
 </code></pre>
-<pre data-language="scala" data-filename="DashboardExample.scala" tabindex="0" role="region" aria-label="Resizable dashboard in scala"><code class="language-scala">package examples.single.scala
+<pre data-wiki-readable="true" data-language="scala" data-filename="DashboardExample.scala" tabindex="0" role="region" aria-label="Resizable dashboard in scala"><code class="language-scala">package examples.single.scala
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -2178,7 +2178,7 @@ object DashboardExample {
     
 }
 </code></pre>
-<pre data-language="groovy" data-filename="DashboardExample.groovy" tabindex="0" role="region" aria-label="Resizable dashboard in groovy"><code class="language-groovy">package examples.single.groovy
+<pre data-wiki-readable="true" data-language="groovy" data-filename="DashboardExample.groovy" tabindex="0" role="region" aria-label="Resizable dashboard in groovy"><code class="language-groovy">package examples.single.groovy
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -2281,7 +2281,7 @@ final class DashboardExample {
     
 }
 </code></pre>
-<pre data-language="zenscript" data-filename="DashboardExample.zs" tabindex="0" role="region" aria-label="Resizable dashboard in zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" data-filename="DashboardExample.zs" tabindex="0" role="region" aria-label="Resizable dashboard in zenscript"><code class="language-zenscript">#side client
 // Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
 // Call open() from a client key/button handler after joining a world; declarations open nothing.
@@ -2383,7 +2383,7 @@ function close() as void {
 </code></pre>
 </section>
 <section class="av-example-group" data-example="application-04"><h2 id="application-04">Live heap-usage graph</h2><p>The graph samples used JVM heap every five client ticks and retains the newest 120 samples. Its vertical scale stays fixed at the JVM heap limit, so garbage collection does not resize earlier bars. The cards show used MiB, the heap limit and the retained sample count.</p><figure><img src="application-examples/application-04.gif" alt="Live heap-usage graph running in a native window" style="max-width:100%;height:auto;image-rendering:pixelated"><figcaption>Live heap-usage graph</figcaption></figure>
-<pre data-language="java" data-filename="MonitorExample.java" tabindex="0" role="region" aria-label="Live heap-usage graph in java"><code class="language-java">package examples.single.java;
+<pre data-wiki-readable="true" data-language="java" data-filename="MonitorExample.java" tabindex="0" role="region" aria-label="Live heap-usage graph in java"><code class="language-java">package examples.single.java;
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -2529,7 +2529,7 @@ public final class MonitorExample {
     
 }
 </code></pre>
-<pre data-language="kotlin" data-filename="MonitorExample.kt" tabindex="0" role="region" aria-label="Live heap-usage graph in kotlin"><code class="language-kotlin">package examples.single.kotlin
+<pre data-wiki-readable="true" data-language="kotlin" data-filename="MonitorExample.kt" tabindex="0" role="region" aria-label="Live heap-usage graph in kotlin"><code class="language-kotlin">package examples.single.kotlin
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -2674,7 +2674,7 @@ object MonitorExample {
     
 }
 </code></pre>
-<pre data-language="scala" data-filename="MonitorExample.scala" tabindex="0" role="region" aria-label="Live heap-usage graph in scala"><code class="language-scala">package examples.single.scala
+<pre data-wiki-readable="true" data-language="scala" data-filename="MonitorExample.scala" tabindex="0" role="region" aria-label="Live heap-usage graph in scala"><code class="language-scala">package examples.single.scala
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -2821,7 +2821,7 @@ object MonitorExample {
     
 }
 </code></pre>
-<pre data-language="groovy" data-filename="MonitorExample.groovy" tabindex="0" role="region" aria-label="Live heap-usage graph in groovy"><code class="language-groovy">package examples.single.groovy
+<pre data-wiki-readable="true" data-language="groovy" data-filename="MonitorExample.groovy" tabindex="0" role="region" aria-label="Live heap-usage graph in groovy"><code class="language-groovy">package examples.single.groovy
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -2973,7 +2973,7 @@ final class MonitorExample {
     
 }
 </code></pre>
-<pre data-language="zenscript" data-filename="MonitorExample.zs" tabindex="0" role="region" aria-label="Live heap-usage graph in zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" data-filename="MonitorExample.zs" tabindex="0" role="region" aria-label="Live heap-usage graph in zenscript"><code class="language-zenscript">#side client
 // Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
 // Call open() from a client key/button handler after joining a world; declarations open nothing.
@@ -3116,7 +3116,7 @@ function close() as void {
 </code></pre>
 </section>
 <section class="av-example-group" data-example="application-05"><h2 id="application-05">Image viewer with zoom and pan</h2><p>Use the wheel to zoom around the cursor, drag with the left button to pan, and choose Fit image to reset. The image is clipped to the viewport. The texture manager owns the packaged image; this screen restores the GL scissor state and does not delete a shared texture.</p><figure><img src="application-examples/application-05.gif" alt="Image viewer with zoom and pan running in a native window" style="max-width:100%;height:auto;image-rendering:pixelated"><figcaption>Image viewer with zoom and pan</figcaption></figure>
-<pre data-language="java" data-filename="ImageViewerExample.java" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in java"><code class="language-java">package examples.single.java;
+<pre data-wiki-readable="true" data-language="java" data-filename="ImageViewerExample.java" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in java"><code class="language-java">package examples.single.java;
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -3339,7 +3339,7 @@ public final class ImageViewerExample {
     
 }
 </code></pre>
-<pre data-language="kotlin" data-filename="ImageViewerExample.kt" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in kotlin"><code class="language-kotlin">package examples.single.kotlin
+<pre data-wiki-readable="true" data-language="kotlin" data-filename="ImageViewerExample.kt" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in kotlin"><code class="language-kotlin">package examples.single.kotlin
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -3568,7 +3568,7 @@ object ImageViewerExample {
     
 }
 </code></pre>
-<pre data-language="scala" data-filename="ImageViewerExample.scala" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in scala"><code class="language-scala">package examples.single.scala
+<pre data-wiki-readable="true" data-language="scala" data-filename="ImageViewerExample.scala" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in scala"><code class="language-scala">package examples.single.scala
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -3791,7 +3791,7 @@ object ImageViewerExample {
     
 }
 </code></pre>
-<pre data-language="groovy" data-filename="ImageViewerExample.groovy" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in groovy"><code class="language-groovy">package examples.single.groovy
+<pre data-wiki-readable="true" data-language="groovy" data-filename="ImageViewerExample.groovy" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in groovy"><code class="language-groovy">package examples.single.groovy
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -4031,7 +4031,7 @@ final class ImageViewerExample {
     
 }
 </code></pre>
-<pre data-language="zenscript" data-filename="ImageViewerExample.zs" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" data-filename="ImageViewerExample.zs" tabindex="0" role="region" aria-label="Image viewer with zoom and pan in zenscript"><code class="language-zenscript">#side client
 // Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
 // Call open() from a client key/button handler after joining a world; declarations open nothing.
@@ -4263,7 +4263,7 @@ function close() as void {
 </code></pre>
 </section>
 <section class="av-example-group" data-example="application-06"><h2 id="application-06">One tools window at a time</h2><p>Call open several times on the same controller: it reuses the live handle. Close the desktop window and call open again to create a replacement. Teardown closes only this controller’s window; it never uses global closeAll or treats a shared title as an ownership token.</p><figure><img src="application-examples/application-06.gif" alt="One tools window at a time running in a native window" style="max-width:100%;height:auto;image-rendering:pixelated"><figcaption>One tools window at a time</figcaption></figure>
-<pre data-language="java" data-filename="ToolsExample.java" tabindex="0" role="region" aria-label="One tools window at a time in java"><code class="language-java">package examples.single.java;
+<pre data-wiki-readable="true" data-language="java" data-filename="ToolsExample.java" tabindex="0" role="region" aria-label="One tools window at a time in java"><code class="language-java">package examples.single.java;
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -4367,7 +4367,7 @@ public final class ToolsExample {
     
 }
 </code></pre>
-<pre data-language="kotlin" data-filename="ToolsExample.kt" tabindex="0" role="region" aria-label="One tools window at a time in kotlin"><code class="language-kotlin">package examples.single.kotlin
+<pre data-wiki-readable="true" data-language="kotlin" data-filename="ToolsExample.kt" tabindex="0" role="region" aria-label="One tools window at a time in kotlin"><code class="language-kotlin">package examples.single.kotlin
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -4473,7 +4473,7 @@ object ToolsExample {
     
 }
 </code></pre>
-<pre data-language="scala" data-filename="ToolsExample.scala" tabindex="0" role="region" aria-label="One tools window at a time in scala"><code class="language-scala">package examples.single.scala
+<pre data-wiki-readable="true" data-language="scala" data-filename="ToolsExample.scala" tabindex="0" role="region" aria-label="One tools window at a time in scala"><code class="language-scala">package examples.single.scala
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -4577,7 +4577,7 @@ object ToolsExample {
     
 }
 </code></pre>
-<pre data-language="groovy" data-filename="ToolsExample.groovy" tabindex="0" role="region" aria-label="One tools window at a time in groovy"><code class="language-groovy">package examples.single.groovy
+<pre data-wiki-readable="true" data-language="groovy" data-filename="ToolsExample.groovy" tabindex="0" role="region" aria-label="One tools window at a time in groovy"><code class="language-groovy">package examples.single.groovy
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -4686,7 +4686,7 @@ final class ToolsExample {
     
 }
 </code></pre>
-<pre data-language="zenscript" data-filename="ToolsExample.zs" tabindex="0" role="region" aria-label="One tools window at a time in zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" data-filename="ToolsExample.zs" tabindex="0" role="region" aria-label="One tools window at a time in zenscript"><code class="language-zenscript">#side client
 // Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
 // Call open() from a client key/button handler after joining a world; declarations open nothing.
@@ -4798,7 +4798,7 @@ function close() as void {
 </code></pre>
 </section>
 <section class="av-example-group" data-example="application-07"><h2 id="application-07">Background-loading file browser</h2><p>Load up to 200 file names without blocking drawing. The library owns a bounded worker pool; this example owns one cancellable request. A client tick adopts the finished result. Reload cancels the old request, failures remain visible, and closing the window cancels unfinished work.</p><figure><img src="application-examples/application-07.gif" alt="Background-loading file browser running in a native window" style="max-width:100%;height:auto;image-rendering:pixelated"><figcaption>Background-loading file browser</figcaption></figure>
-<pre data-language="java" data-filename="FileBrowserExample.java" tabindex="0" role="region" aria-label="Background-loading file browser in java"><code class="language-java">package examples.single.java;
+<pre data-wiki-readable="true" data-language="java" data-filename="FileBrowserExample.java" tabindex="0" role="region" aria-label="Background-loading file browser in java"><code class="language-java">package examples.single.java;
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -4977,7 +4977,7 @@ public final class FileBrowserExample {
     
 }
 </code></pre>
-<pre data-language="kotlin" data-filename="FileBrowserExample.kt" tabindex="0" role="region" aria-label="Background-loading file browser in kotlin"><code class="language-kotlin">package examples.single.kotlin
+<pre data-wiki-readable="true" data-language="kotlin" data-filename="FileBrowserExample.kt" tabindex="0" role="region" aria-label="Background-loading file browser in kotlin"><code class="language-kotlin">package examples.single.kotlin
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -5155,7 +5155,7 @@ object FileBrowserExample {
     
 }
 </code></pre>
-<pre data-language="scala" data-filename="FileBrowserExample.scala" tabindex="0" role="region" aria-label="Background-loading file browser in scala"><code class="language-scala">package examples.single.scala
+<pre data-wiki-readable="true" data-language="scala" data-filename="FileBrowserExample.scala" tabindex="0" role="region" aria-label="Background-loading file browser in scala"><code class="language-scala">package examples.single.scala
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -5333,7 +5333,7 @@ object FileBrowserExample {
     
 }
 </code></pre>
-<pre data-language="groovy" data-filename="FileBrowserExample.groovy" tabindex="0" role="region" aria-label="Background-loading file browser in groovy"><code class="language-groovy">package examples.single.groovy
+<pre data-wiki-readable="true" data-language="groovy" data-filename="FileBrowserExample.groovy" tabindex="0" role="region" aria-label="Background-loading file browser in groovy"><code class="language-groovy">package examples.single.groovy
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -5520,7 +5520,7 @@ final class FileBrowserExample {
     
 }
 </code></pre>
-<pre data-language="zenscript" data-filename="FileBrowserExample.zs" tabindex="0" role="region" aria-label="Background-loading file browser in zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" data-filename="FileBrowserExample.zs" tabindex="0" role="region" aria-label="Background-loading file browser in zenscript"><code class="language-zenscript">#side client
 // Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
 // Call open() from a client key/button handler after joining a world; declarations open nothing.
@@ -5705,7 +5705,7 @@ function close() as void {
 </code></pre>
 </section>
 <section class="av-example-group" data-example="application-08"><h2 id="application-08">Two connected windows</h2><p>The list and preview share one selection model, while the search query and scroll position stay in the list screen. Closing either window leaves its sibling usable. Calling open again restores only the missing window. Teardown closes both owned handles.</p><figure><img src="application-examples/application-08.gif" alt="Two connected windows running in a native window" style="max-width:100%;height:auto;image-rendering:pixelated"><figcaption>Two connected windows</figcaption></figure>
-<pre data-language="java" data-filename="ConnectedWindowsExample.java" tabindex="0" role="region" aria-label="Two connected windows in java"><code class="language-java">package examples.single.java;
+<pre data-wiki-readable="true" data-language="java" data-filename="ConnectedWindowsExample.java" tabindex="0" role="region" aria-label="Two connected windows in java"><code class="language-java">package examples.single.java;
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -5910,7 +5910,7 @@ public final class ConnectedWindowsExample {
     
 }
 </code></pre>
-<pre data-language="kotlin" data-filename="ConnectedWindowsExample.kt" tabindex="0" role="region" aria-label="Two connected windows in kotlin"><code class="language-kotlin">package examples.single.kotlin
+<pre data-wiki-readable="true" data-language="kotlin" data-filename="ConnectedWindowsExample.kt" tabindex="0" role="region" aria-label="Two connected windows in kotlin"><code class="language-kotlin">package examples.single.kotlin
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -6151,7 +6151,7 @@ object ConnectedWindowsExample {
     
 }
 </code></pre>
-<pre data-language="scala" data-filename="ConnectedWindowsExample.scala" tabindex="0" role="region" aria-label="Two connected windows in scala"><code class="language-scala">package examples.single.scala
+<pre data-wiki-readable="true" data-language="scala" data-filename="ConnectedWindowsExample.scala" tabindex="0" role="region" aria-label="Two connected windows in scala"><code class="language-scala">package examples.single.scala
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -6396,7 +6396,7 @@ object ConnectedWindowsExample {
     
 }
 </code></pre>
-<pre data-language="groovy" data-filename="ConnectedWindowsExample.groovy" tabindex="0" role="region" aria-label="Two connected windows in groovy"><code class="language-groovy">package examples.single.groovy
+<pre data-wiki-readable="true" data-language="groovy" data-filename="ConnectedWindowsExample.groovy" tabindex="0" role="region" aria-label="Two connected windows in groovy"><code class="language-groovy">package examples.single.groovy
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -6610,7 +6610,7 @@ final class ConnectedWindowsExample {
     
 }
 </code></pre>
-<pre data-language="zenscript" data-filename="ConnectedWindowsExample.zs" tabindex="0" role="region" aria-label="Two connected windows in zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" data-filename="ConnectedWindowsExample.zs" tabindex="0" role="region" aria-label="Two connected windows in zenscript"><code class="language-zenscript">#side client
 // Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
 // Call open() from a client key/button handler after joining a world; declarations open nothing.
@@ -6818,7 +6818,7 @@ function close() as void {
 </code></pre>
 </section>
 <section class="av-example-group" data-example="application-09"><h2 id="application-09">Confirm a server action</h2><p>Review a local Continue/Cancel prompt, then confirm and apply the action in a synchronized panel. The server requires creative mode, consumes confirmation after one use, and owns the displayed counter. Register the panel on both sides before opening it. The counter lasts for the session.</p><figure><img src="application-examples/application-09.gif" alt="Confirm a server action running in a native window" style="max-width:100%;height:auto;image-rendering:pixelated"><figcaption>Confirm a server action</figcaption></figure>
-<pre data-language="java" data-filename="ServerActionExample.java" tabindex="0" role="region" aria-label="Confirm a server action in java"><code class="language-java">package examples.single.java;
+<pre data-wiki-readable="true" data-language="java" data-filename="ServerActionExample.java" tabindex="0" role="region" aria-label="Confirm a server action in java"><code class="language-java">package examples.single.java;
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -7000,7 +7000,7 @@ public final class ServerActionExample {
     
 }
 </code></pre>
-<pre data-language="kotlin" data-filename="ServerActionExample.kt" tabindex="0" role="region" aria-label="Confirm a server action in kotlin"><code class="language-kotlin">package examples.single.kotlin
+<pre data-wiki-readable="true" data-language="kotlin" data-filename="ServerActionExample.kt" tabindex="0" role="region" aria-label="Confirm a server action in kotlin"><code class="language-kotlin">package examples.single.kotlin
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -7186,7 +7186,7 @@ object ServerActionExample {
     
 }
 </code></pre>
-<pre data-language="scala" data-filename="ServerActionExample.scala" tabindex="0" role="region" aria-label="Confirm a server action in scala"><code class="language-scala">package examples.single.scala
+<pre data-wiki-readable="true" data-language="scala" data-filename="ServerActionExample.scala" tabindex="0" role="region" aria-label="Confirm a server action in scala"><code class="language-scala">package examples.single.scala
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -7368,7 +7368,7 @@ object ServerActionExample {
     
 }
 </code></pre>
-<pre data-language="groovy" data-filename="ServerActionExample.groovy" tabindex="0" role="region" aria-label="Confirm a server action in groovy"><code class="language-groovy">package examples.single.groovy
+<pre data-wiki-readable="true" data-language="groovy" data-filename="ServerActionExample.groovy" tabindex="0" role="region" aria-label="Confirm a server action in groovy"><code class="language-groovy">package examples.single.groovy
 
 // Requires OffscreenCleanroom on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
@@ -7560,7 +7560,7 @@ final class ServerActionExample {
     
 }
 </code></pre>
-<pre data-language="zenscript" data-filename="ServerActionExample.zs" tabindex="0" role="region" aria-label="Confirm a server action in zenscript"><code class="language-zenscript">// Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
+<pre data-wiki-readable="true" data-language="zenscript" data-filename="ServerActionExample.zs" tabindex="0" role="region" aria-label="Confirm a server action in zenscript"><code class="language-zenscript">// Requires OffscreenCleanroom and CraftTweaker on Minecraft 1.12.2 Cleanroom.
 // Add this file to your addon with its language runtime enabled.
 // Call open() from a client key/button handler after joining a world; declarations open nothing.
 // Call close() from your client-thread disconnect/unload hook.

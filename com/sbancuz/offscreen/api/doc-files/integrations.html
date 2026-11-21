@@ -15,9 +15,9 @@
 <script type="text/javascript" src="../../../../../script-files/offscreen.js"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-syntax.css">
 <script defer src="../../../../../script-files/prism-1.30.0.js"></script>
-<script defer src="../../../../../script-files/wiki-syntax.js"></script>
+<script defer src="../../../../../script-files/wiki-syntax.js?v=55fa2361aabe"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-recipes.css?v=830aa6aca6ac">
-<script defer src="../../../../../script-files/wiki-recipes.js?v=e343c168231c"></script>
+<script defer src="../../../../../script-files/wiki-recipes.js?v=7972fd1f690a"></script>
 </head>
 <body class="doc-file-page">
 <script type="text/javascript">const pathtoroot = "../../../../../";
@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 </tbody></table>
 <h3 id="integrations-register">Register once during common initialization</h3>
 <p>Put the factory in a common class: a class available to both the client and the server. Call its registration method from your addon's common initialization handler. Both sides must use the same factory name and panel builder. Creating the factory does not open a window.</p>
-<pre data-filename="ModScreens.java" tabindex="0" role="region" aria-label="Factory registration"><code class="language-java">import com.cleanroommc.modularui.screen.ModularPanel;
+<pre data-wiki-readable="true" data-wiki-recipe="code-0" data-filename="ModScreens.java" tabindex="0" role="region" aria-label="Factory registration"><code class="language-java">import com.cleanroommc.modularui.screen.ModularPanel;
 import com.sbancuz.offscreen.integration.mui2.OffscreenSimpleFactory;
 
 public final class ModScreens {
@@ -136,7 +136,7 @@ public final class ModScreens {
 
 <h2 id="integrations-open">Open the panel from client input</h2>
 <p>Once registration has finished, call <code>ModScreens.toolsFactory.openOffscreen()</code> from a client button or key handler. A world and player must already be available. Keep its return value in the client controller that owns this tool.</p>
-<pre tabindex="0" role="region" aria-label="Client window opening"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
+<pre data-wiki-readable="true" data-wiki-recipe="code-1" tabindex="0" role="region" aria-label="Client window opening"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
 import com.sbancuz.offscreen.window.Window;
 
 // Fields and methods inside your client controller.
@@ -165,7 +165,7 @@ void openTools() {
 
 <h2 id="integrations-ownership">Close the tool and its session</h2>
 <p>Call this method from the tool's close action and your client disconnect or unload hook:</p>
-<pre tabindex="0" role="region" aria-label="Client window cleanup"><code class="language-java">void closeTools() {
+<pre data-wiki-readable="true" data-wiki-recipe="code-2" tabindex="0" role="region" aria-label="Client window cleanup"><code class="language-java">void closeTools() {
     OffscreenAPI.close(toolsWindow);
     toolsWindow = null;
 }

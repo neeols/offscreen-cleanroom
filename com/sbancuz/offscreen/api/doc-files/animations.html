@@ -15,9 +15,9 @@
 <script type="text/javascript" src="../../../../../script-files/offscreen.js"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-syntax.css">
 <script defer src="../../../../../script-files/prism-1.30.0.js"></script>
-<script defer src="../../../../../script-files/wiki-syntax.js"></script>
+<script defer src="../../../../../script-files/wiki-syntax.js?v=55fa2361aabe"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-recipes.css?v=830aa6aca6ac">
-<script defer src="../../../../../script-files/wiki-recipes.js?v=e343c168231c"></script>
+<script defer src="../../../../../script-files/wiki-recipes.js?v=7972fd1f690a"></script>
 </head>
 <body class="doc-file-page">
 <script type="text/javascript">const pathtoroot = "../../../../../";
@@ -61,7 +61,7 @@ loadScripts(document, 'script');</script>
 <table><caption>Animation targets</caption><thead><tr><th scope="col">Target</th><th scope="col">Properties</th><th scope="col">Coordinates</th></tr></thead><tbody><tr><td>Desktop window</td><td>Position, size, opacity and content tint</td><td>Position is on the desktop; width and height use logical window coordinates.</td></tr><tr><td>Built-in widget</td><td>Position, size, opacity and tint</td><td>Position and size use GUI units relative to the widget’s parent.</td></tr><tr><td>Animated element</td><td>The above properties, plus rotation and scale</td><td>Position and size use GUI units; rotation uses degrees. Draw its contents in local coordinates starting at zero.</td></tr></tbody></table><p>To rotate an icon or a group of controls, use an animated element. The operating system’s native window border cannot rotate. <code>Channel.EFFECT_PROGRESS</code> is a number your own effect can read; changing it has no visible effect until your renderer uses it.</p>
 <h2 id="animation-rules">Timing and ownership</h2><p>Create timelines with the calls below. Durations use real seconds from a clock that only moves forward; they are not frame counts. Timeline values can be built in common code, but playing a window animation, handling its completion and touching graphics must happen on Minecraft’s client thread.</p><table><caption>Build a timeline</caption><thead><tr><th scope="col">Call</th><th scope="col">Arguments</th><th scope="col">Behavior</th></tr></thead><tbody><tr><td><code><a href="../animation/Timeline.html">Timeline</a>.<a href="../animation/Timeline.html#to(com.sbancuz.offscreen.api.animation.Channel,double,double,java.util.function.DoubleUnaryOperator)">to</a>(channel, end, seconds, easing)</code></td><td>Property, destination, duration and curve</td><td>Read the starting value when the clip begins, then move toward the destination.</td></tr><tr><td><code><a href="../animation/Timeline.html">Timeline</a>.<a href="../animation/Timeline.html#fromTo(com.sbancuz.offscreen.api.animation.Channel,double,double,double,java.util.function.DoubleUnaryOperator)">fromTo</a>(channel, start, end, seconds, easing)</code></td><td>Property, explicit start and end, duration and curve</td><td>Set the chosen start value first. Useful when an entrance must begin invisible.</td></tr><tr><td><code><a href="../animation/Timeline.html">Timeline</a>.<a href="../animation/Timeline.html#waitFor(double)">waitFor</a>(seconds)</code></td><td>Delay in seconds</td><td>Pause this sequence before its next step, without changing a property.</td></tr><tr><td><code>first.<a href="../animation/Timeline.html#then(com.sbancuz.offscreen.api.animation.Timeline)">then</a>(next)</code></td><td>The next timeline</td><td>Run one step after another.</td></tr><tr><td><code><a href="../animation/Timeline.html">Timeline</a>.<a href="../animation/Timeline.html#parallel(com.sbancuz.offscreen.api.animation.Timeline...)">parallel</a>(clips...)</code></td><td>Timelines using separate properties</td><td>Run the clips together. ZenScript uses with for this kind of composition.</td></tr><tr><td><code>timeline.<a href="../animation/Timeline.html#repeat(int)">repeat</a>(count)</code></td><td>A finite count from 1 to 16384</td><td>Repeat the instructions with fresh starting values each time. The expanded timeline must also fit the size limit.</td></tr></tbody></table><p>The easing curve controls how quickly the value changes within a clip. Choose <code>Easing.SINE.inOut()</code> for a smooth start and finish, <code>in()</code> for a slow start, or <code>out()</code> for a slow finish. Other families include Linear, Quad, Cubic, Quart, Quint, Expo, Circ, Back, Elastic and Bounce. Back, Elastic and Bounce can add overshoot or bouncing.</p>
 <p>Use <code>Easing.curve("exponential", "ease-out")</code> to choose a curve by name, or supply a <code>DoubleUnaryOperator</code> for your own curve. ZenScript supplies custom curves through <code>Animations.curve</code>. Return finite numbers from custom curves; an invalid sample fails the track.</p><div class="av-example-group" data-example="window-choreography"><h2 id="window-choreography">Present, expand and dock an inspector</h2><p>Once the window has drawn its first frame, call <code>window.animations().play(name, timeline)</code>. The name identifies a track in this window. Starting another track with the same name replaces it. Tracks with different names still replace one another if they try to change the same property.</p><table><caption>Position, size and appearance helpers</caption><thead><tr><th scope="col">Call</th><th scope="col">Arguments</th><th scope="col">Result</th></tr></thead><tbody><tr><td><code><a href="../animation/Motions.html">Motions</a>.<a href="../animation/Motions.html#moveTo(double,double,double,java.util.function.DoubleUnaryOperator)">moveTo</a>(x, y, seconds, easing)</code></td><td>Desktop destination, duration and curve</td><td>Move the window to that position.</td></tr><tr><td><code><a href="../animation/Motions.html">Motions</a>.<a href="../animation/Motions.html#resizeTo(double,double,double,java.util.function.DoubleUnaryOperator)">resizeTo</a>(width, height, seconds, easing)</code></td><td>Logical window dimensions, duration and curve</td><td>Resize the window; its screen is laid out again as its size changes.</td></tr><tr><td><code><a href="../animation/Motions.html">Motions</a>.<a href="../animation/Motions.html#fadeTo(double,double,java.util.function.DoubleUnaryOperator)">fadeTo</a>(opacity, seconds, easing)</code></td><td>Opacity from 0 to 1, duration and curve</td><td>Fade toward the requested opacity.</td></tr><tr><td><code><a href="../animation/Motions.html">Motions</a>.<a href="../animation/Motions.html#colorTo(int,double,java.util.function.DoubleUnaryOperator)">colorTo</a>(rgb, seconds, easing)</code></td><td>Packed RGB tint, duration and curve</td><td>Tint the window content. White leaves its original colors visible.</td></tr><tr><td><code>window.<a href="../../window/Window.html#displayBounds()">displayBounds</a>()</code></td><td>No arguments</td><td>Read the display rectangle used to calculate the positions in the recipe.</td></tr></tbody></table><p>The recipe below reveals an inspector, expands it, waits, docks it at the side and returns it to the center. Each parallel group changes different properties. The waits provide reading time between moves.</p>
-<p>Keep the returned <code>Animator.Playback</code> handle to control that run:</p><table><caption>Playback controls</caption><thead><tr><th scope="col">Call</th><th scope="col">Behavior</th></tr></thead><tbody><tr><td><code><a href="../animation/Animator.Playback.html#pause()">pause</a>()</code></td><td>Stop progression. Paused time is not added to the animation when it resumes.</td></tr><tr><td><code><a href="../animation/Animator.Playback.html#resume()">resume</a>()</code></td><td>Continue a paused run from its current position.</td></tr><tr><td><code><a href="../animation/Animator.Playback.html#cancel()">cancel</a>() / <a href="../animation/Animator.Playback.html#close()">close</a>()</code></td><td>Stop future steps and release resources owned by the run. The current visual values stay where they are; cancellation does not move the window back.</td></tr><tr><td><code><a href="../animation/Animator.Playback.html#whenFinished(java.util.function.Consumer)">whenFinished</a>(callback)</code></td><td>Receive this playback once it finishes, is cancelled or fails. A callback added after completion runs immediately.</td></tr><tr><td><code><a href="../animation/Animator.Playback.html#failure()">failure</a>() / <a href="../animation/Animator.Playback.html#observerFailures()">observerFailures</a>()</code></td><td>Read a track failure or errors thrown by its completion callbacks.</td></tr></tbody></table><p>For an entrance that must take effect before the window is shown, use <code>OffscreenAPI.openAnimated</code> for a local screen or <code>OffscreenSimpleFactory.openAnimated</code> for a server panel. These apply the entrance’s starting state before showing the new window. On a synchronized open, the entrance may animate the waiting screen; use <code>isReady</code> to check whether the server panel has arrived.</p><pre data-language="java" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — java"><code class="language-java">import com.sbancuz.offscreen.api.animation.*;
+<p>Keep the returned <code>Animator.Playback</code> handle to control that run:</p><table><caption>Playback controls</caption><thead><tr><th scope="col">Call</th><th scope="col">Behavior</th></tr></thead><tbody><tr><td><code><a href="../animation/Animator.Playback.html#pause()">pause</a>()</code></td><td>Stop progression. Paused time is not added to the animation when it resumes.</td></tr><tr><td><code><a href="../animation/Animator.Playback.html#resume()">resume</a>()</code></td><td>Continue a paused run from its current position.</td></tr><tr><td><code><a href="../animation/Animator.Playback.html#cancel()">cancel</a>() / <a href="../animation/Animator.Playback.html#close()">close</a>()</code></td><td>Stop future steps and release resources owned by the run. The current visual values stay where they are; cancellation does not move the window back.</td></tr><tr><td><code><a href="../animation/Animator.Playback.html#whenFinished(java.util.function.Consumer)">whenFinished</a>(callback)</code></td><td>Receive this playback once it finishes, is cancelled or fails. A callback added after completion runs immediately.</td></tr><tr><td><code><a href="../animation/Animator.Playback.html#failure()">failure</a>() / <a href="../animation/Animator.Playback.html#observerFailures()">observerFailures</a>()</code></td><td>Read a track failure or errors thrown by its completion callbacks.</td></tr></tbody></table><p>For an entrance that must take effect before the window is shown, use <code>OffscreenAPI.openAnimated</code> for a local screen or <code>OffscreenSimpleFactory.openAnimated</code> for a server panel. These apply the entrance’s starting state before showing the new window. On a synchronized open, the entrance may animate the waiting screen; use <code>isReady</code> to check whether the server panel has arrived.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — java"><code class="language-java">import com.sbancuz.offscreen.api.animation.*;
 import com.sbancuz.offscreen.window.Window;
 
 final class ChoreographyRecipe {
@@ -130,7 +130,7 @@ final class ChoreographyRecipe {
         handle.cancel();
     }
 }
-</code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.animation.*
+</code></pre><pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.animation.*
 import com.sbancuz.offscreen.window.Window
 
 object ChoreographyKotlin {
@@ -196,7 +196,7 @@ object ChoreographyKotlin {
     }
     fun stop(handle: Animator.Playback) { handle.cancel() }
 }
-</code></pre><pre data-language="groovy" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.animation.*
+</code></pre><pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.animation.*
 import com.sbancuz.offscreen.window.Window
 
 Animator.Playback presentInspector(Window window) {
@@ -258,7 +258,7 @@ Animator.Playback presentInspector(Window window) {
 }
 // Client unload: keep the handle and cancel it before releasing script resources.
 void stopPresentation(Animator.Playback handle) { handle.cancel() }
-</code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — scala"><code class="language-scala">import com.sbancuz.offscreen.api.animation.*
+</code></pre><pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — scala"><code class="language-scala">import com.sbancuz.offscreen.api.animation.*
 import com.sbancuz.offscreen.window.Window
 
 object ChoreographyScala:
@@ -318,7 +318,7 @@ object ChoreographyScala:
     window.animations().play("inspector", presentation).whenFinished(result =&gt;
       if result.failure() != null then result.failure().printStackTrace())
   def stop(handle: Animator#Playback): Unit = handle.cancel()
-</code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — zenscript"><code class="language-zenscript">#side client
+</code></pre><pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Present, expand and dock an inspector — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Animations;
 import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.AnimationHandle;
@@ -394,7 +394,7 @@ function stopPresentation(handle as AnimationHandle) {
 }
 </code></pre></div>
 <div class="av-example-group" data-example="element-animation"><h2 id="element-animation">Animate each element independently</h2><p>Call <code>window.element(x, y, width, height)</code> for a label, icon or group of drawing commands that needs its own movement. Store the returned <code>AnimatedElement</code> in the screen controller. Creating it does not make it draw itself.</p><table><caption>Element calls</caption><thead><tr><th scope="col">Call</th><th scope="col">Arguments</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code><a href="../../window/Window.html#element(double,double,double,double)">element</a>(x, y, width, height)</code></td><td>GUI position and positive size</td><td>Create the region whose contents will move together.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#animations()">animations</a>().<a href="../animation/Animator.html#play(java.lang.String,com.sbancuz.offscreen.api.animation.Timeline)">play</a>(name, timeline)</code></td><td>Track name and timeline</td><td>Animate this element independently of the desktop window.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#render(double,double,float,java.util.function.Consumer)">render</a>(mouseX, mouseY, partialTicks, draw)</code></td><td>Pointer position, frame timing and drawing callback</td><td>Draw from the screen’s render callback. Draw inside the element using local coordinates.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#contains(double,double)">contains</a>(mouseX, mouseY)</code></td><td>Pointer position in the parent’s coordinates</td><td>Check whether the pointer hits the visible element after its movement, rotation and scale.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#localPoint(double,double)">localPoint</a>(mouseX, mouseY)</code></td><td>Pointer position in the parent’s coordinates</td><td>Convert the pointer to element-local coordinates for a control inside the region.</td></tr><tr><td><code>element.<a href="../client/AnimatedElement.html#close()">close</a>()</code></td><td>No arguments</td><td>Release the element when the screen is disposed.</td></tr></tbody></table><p>Forward input to your own controls after the hit check; an animated element does not create buttons or dispatch clicks for you. A fully transparent element does not receive a hit. The window releases its owned elements when it closes, but closing an element at screen disposal also handles navigation that removes the screen while keeping the window open.</p>
-<p>Built-in widgets already expose their own <code>animations()</code> controller; ZenScript calls it <code>animate</code>. Their hit regions follow their animated position and size, so they do not need a separate element just to move.</p><pre data-language="java" tabindex="0" role="region" aria-label="Animate each element independently — java"><code class="language-java">import com.sbancuz.offscreen.api.animation.*;
+<p>Built-in widgets already expose their own <code>animations()</code> controller; ZenScript calls it <code>animate</code>. Their hit regions follow their animated position and size, so they do not need a separate element just to move.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Animate each element independently — java"><code class="language-java">import com.sbancuz.offscreen.api.animation.*;
 import com.sbancuz.offscreen.api.client.AnimatedElement;
 import com.sbancuz.offscreen.window.Window;
 import net.minecraft.client.gui.Gui;
@@ -430,7 +430,7 @@ final class ElementRecipe {
         label.close();
     }
 }
-</code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Animate each element independently — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.animation.*
+</code></pre><pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Animate each element independently — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.animation.*
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.gui.Gui
 
@@ -465,7 +465,7 @@ class ElementKotlin(window: Window) {
     fun hit(x: Int, y: Int) = label.contains(x.toDouble(), y.toDouble())
     fun dispose() { label.close() }
 }
-</code></pre><pre data-language="groovy" tabindex="0" role="region" aria-label="Animate each element independently — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.animation.*
+</code></pre><pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Animate each element independently — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.animation.*
 import com.sbancuz.offscreen.api.client.AnimatedElement
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.gui.Gui
@@ -500,7 +500,7 @@ class ElementGroovy {
     boolean hit(int x, int y) { label.contains(x, y) }
     void dispose() { label.close() }
 }
-</code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Animate each element independently — scala"><code class="language-scala">import com.sbancuz.offscreen.api.animation.*
+</code></pre><pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Animate each element independently — scala"><code class="language-scala">import com.sbancuz.offscreen.api.animation.*
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.gui.Gui
 
@@ -519,7 +519,7 @@ final class ElementScala(window: Window):
     ()
   def hit(x: Int, y: Int): Boolean = label.contains(x, y)
   def dispose(): Unit = label.close()
-</code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Animate each element independently — zenscript"><code class="language-zenscript">#side client
+</code></pre><pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Animate each element independently — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Animations;
 import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.AnimatedElement;
@@ -551,7 +551,7 @@ function disposeLayer(label as AnimatedElement) {
 </code></pre></div>
 <div class="av-example-group" data-example="caption-font"><h2 id="caption-font">Use a formatted font for the title and controls</h2><p>To draw the title and window controls with your own font, first open the window with a custom title bar. Then call <code>window.captionRenderer(renderer)</code> and keep the returned <code>CaptionHandle</code>. This changes the custom bar’s text; the operating system’s taskbar title remains plain.</p><table><caption>Caption setup</caption><thead><tr><th scope="col">Call</th><th scope="col">Arguments</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>window.<a href="../../window/Window.html#captionTitle(java.lang.String)">captionTitle</a>(text)</code></td><td>Full title string, including your font’s formatting codes</td><td>Set the title displayed by the custom bar.</td></tr><tr><td><code>window.<a href="../../window/Window.html#captionLabels(java.lang.String,java.lang.String,java.lang.String)">captionLabels</a>(minimize, middle, close)</code></td><td>The three control labels</td><td>Choose the glyphs drawn for the window controls.</td></tr><tr><td><code><a href="../client/CaptionRenderer.html">CaptionRenderer</a>.<a href="../client/CaptionRenderer.html#of(java.util.function.ToIntFunction,java.util.function.IntSupplier,com.sbancuz.offscreen.api.client.CaptionRenderer.Draw)">of</a>(measure, height, draw)</code></td><td>Width function, height function and drawing function</td><td>Connect a font provider to the custom bar.</td></tr><tr><td><code>window.<a href="../../window/Window.html#captionRenderer(com.sbancuz.offscreen.api.client.CaptionRenderer)">captionRenderer</a>(renderer)</code></td><td>Your completed renderer</td><td>Install it and receive the handle used to remove it.</td></tr></tbody></table><p>The measuring function returns the width of the supplied text, and the height function returns the font height. The draw callback receives a role, the unchanged text, its position and a base color. Use the role to tell title text from a control label when your font needs different treatment.</p>
 <p>Use the same formatting rules for measuring and drawing. Otherwise the bar may reserve the wrong amount of space or clip a label. If your provider chooses its own text colors, keep them readable against the configured bar tint; a transparent bar cannot know the desktop colors behind it.</p>
-<p>The code borrows Minecraft’s font renderer. Replace all three functions together when using another provider, and close only the returned caption handle during teardown. Do not close a global font renderer borrowed from Minecraft or another mod.</p><pre data-language="java" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — java"><code class="language-java">import com.sbancuz.offscreen.api.client.CaptionHandle;
+<p>The code borrows Minecraft’s font renderer. Replace all three functions together when using another provider, and close only the returned caption handle during teardown. Do not close a global font renderer borrowed from Minecraft or another mod.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — java"><code class="language-java">import com.sbancuz.offscreen.api.client.CaptionHandle;
 import com.sbancuz.offscreen.api.client.CaptionRenderer;
 import com.sbancuz.offscreen.window.Window;
 import net.minecraft.client.Minecraft;
@@ -575,7 +575,7 @@ final class CaptionRecipe {
         handle.close();
     }
 }
-</code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.client.CaptionHandle
+</code></pre><pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.client.CaptionHandle
 import com.sbancuz.offscreen.api.client.CaptionRenderer
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.Minecraft
@@ -593,7 +593,7 @@ object CaptionKotlin {
     }
     fun remove(handle: CaptionHandle) { handle.close() }
 }
-</code></pre><pre data-language="groovy" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.client.CaptionHandle
+</code></pre><pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.client.CaptionHandle
 import com.sbancuz.offscreen.api.client.CaptionRenderer
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.Minecraft
@@ -609,7 +609,7 @@ CaptionHandle installCaption(Window window) {
         }))
 }
 void removeCaption(CaptionHandle handle) { handle.close() }
-</code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — scala"><code class="language-scala">import com.sbancuz.offscreen.api.client.{CaptionHandle, CaptionRenderer}
+</code></pre><pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — scala"><code class="language-scala">import com.sbancuz.offscreen.api.client.{CaptionHandle, CaptionRenderer}
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.Minecraft
 
@@ -625,7 +625,7 @@ object CaptionScala:
         ()
       }))
   def remove(handle: CaptionHandle): Unit = handle.close()
-</code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — zenscript"><code class="language-zenscript">#side client
+</code></pre><pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Use a formatted font for the title and controls — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Windows;
 import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.CaptionHandle;
@@ -647,7 +647,7 @@ function removeCaption(handle as CaptionHandle) {
 </code></pre></div>
 <div class="av-example-group" data-example="render-attachments"><h2 id="render-attachments">Attach a shader or in-game renderer</h2><p>To run your own renderer at a chosen point, call <code>window.renderAttachments().add(stage, draw, cleanup)</code>. Pass the rendering stage, a drawing callback and a cleanup function for resources your renderer owns. Keep the returned receipt if you may remove the renderer before its window closes.</p><table><caption>Choose a rendering stage</caption><thead><tr><th scope="col">Stage</th><th scope="col">Where it draws</th><th scope="col">Available setup</th></tr></thead><tbody><tr><td><code><a href="../client/RenderAttachments.Stage.html#BACKGROUND">BACKGROUND</a></code></td><td>Inside the desktop window, before its screen content</td><td>The window’s drawing area has been cleared.</td></tr><tr><td><code><a href="../client/RenderAttachments.Stage.html#FOREGROUND">FOREGROUND</a></code></td><td>Inside the desktop window, after the content and caption</td><td>Window postprocessing has not run yet.</td></tr><tr><td><code><a href="../client/RenderAttachments.Stage.html#WORLD">WORLD</a></code></td><td>In Minecraft’s world</td><td>The current camera and world projection are active.</td></tr><tr><td><code><a href="../client/RenderAttachments.Stage.html#HUD">HUD</a></code></td><td>Over Minecraft’s game view</td><td>The game’s GUI projection is active.</td></tr></tbody></table><p>The callback receives a <code>RenderAttachments.Context</code> for this draw only. A nonzero <code>texture()</code> value gives access to the supplied texture during that callback. Do not store the context or texture ID for use in a later frame; both are borrowed from the current draw.</p>
 <p>Offscreen supplies the place to draw, not the shader or effect. Your addon creates its shader programs and other graphics resources and releases them in the cleanup callback. For an effect driven by animation, read <code>window.animationValue(Channel.EFFECT_PROGRESS)</code> from your renderer. This value remains available during a frozen exit.</p>
-<p>All render callbacks and their cleanup run on the client thread. Close the receipt when the attachment is no longer needed; closing the owning window also removes attachments. Removing an old receipt affects only its own registration.</p><pre data-language="java" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — java"><code class="language-java">import java.util.function.Consumer;
+<p>All render callbacks and their cleanup run on the client thread. Close the receipt when the attachment is no longer needed; closing the owning window also removes attachments. Removing an old receipt affects only its own registration.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — java"><code class="language-java">import java.util.function.Consumer;
 import com.sbancuz.offscreen.api.client.RenderAttachments;
 import com.sbancuz.offscreen.window.Window;
 
@@ -662,7 +662,7 @@ final class RenderHookRecipe {
         handle.close();
     }
 }
-</code></pre><pre data-language="kotlin" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.client.RenderAttachments
+</code></pre><pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.client.RenderAttachments
 import com.sbancuz.offscreen.window.Window
 
 object RenderHookKotlin {
@@ -673,7 +673,7 @@ object RenderHookKotlin {
         }, addonCleanup)
     fun remove(handle: RenderAttachments.Receipt) { handle.close() }
 }
-</code></pre><pre data-language="groovy" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — groovy"><code class="language-groovy">import java.util.function.Consumer
+</code></pre><pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — groovy"><code class="language-groovy">import java.util.function.Consumer
 import com.sbancuz.offscreen.api.client.RenderAttachments
 import com.sbancuz.offscreen.window.Window
 
@@ -684,7 +684,7 @@ RenderAttachments.Receipt attachRenderer(Window window,
     }, addonCleanup)
 }
 void removeRenderer(RenderAttachments.Receipt handle) { handle.close() }
-</code></pre><pre data-language="scala" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — scala"><code class="language-scala">import com.sbancuz.offscreen.api.client.RenderAttachments
+</code></pre><pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — scala"><code class="language-scala">import com.sbancuz.offscreen.api.client.RenderAttachments
 import com.sbancuz.offscreen.window.Window
 
 object RenderHookScala:
@@ -694,7 +694,7 @@ object RenderHookScala:
       if frame.texture() != 0 then addonDraw(frame)
     }, () =&gt; addonCleanup())
   def remove(handle: RenderAttachments#Receipt): Unit = handle.close()
-</code></pre><pre data-language="zenscript" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — zenscript"><code class="language-zenscript">#side client
+</code></pre><pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Attach a shader or in-game renderer — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Window;
 import mods.offscreencleanroom.RenderAction;
 import mods.offscreencleanroom.RenderHandle;

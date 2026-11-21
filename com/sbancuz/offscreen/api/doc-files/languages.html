@@ -15,9 +15,9 @@
 <script type="text/javascript" src="../../../../../script-files/offscreen.js"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-syntax.css">
 <script defer src="../../../../../script-files/prism-1.30.0.js"></script>
-<script defer src="../../../../../script-files/wiki-syntax.js"></script>
+<script defer src="../../../../../script-files/wiki-syntax.js?v=55fa2361aabe"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-recipes.css?v=830aa6aca6ac">
-<script defer src="../../../../../script-files/wiki-recipes.js?v=e343c168231c"></script>
+<script defer src="../../../../../script-files/wiki-recipes.js?v=7972fd1f690a"></script>
 </head>
 <body class="doc-file-page">
 <script type="text/javascript">const pathtoroot = "../../../../../";
@@ -65,7 +65,7 @@ loadScripts(document, 'script');</script>
 <div class="av-example-group" data-example="local-screen">
 <h2 id="languages-recipe-local-screen">Create a local screen</h2>
 <p>This defines screen content without opening a desktop window. The native examples extend Minecraft’s GuiScreen; the ZenScript version describes the same static content.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Create a local screen — java"><code class="language-java">import net.minecraft.client.gui.GuiScreen;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Create a local screen — java"><code class="language-java">import net.minecraft.client.gui.GuiScreen;
 public final class HelloScreen extends GuiScreen {
     @Override public void drawScreen(int x, int y, float partialTicks) {
         drawRect(0, 0, width, height, 0xFF17232D);
@@ -74,7 +74,7 @@ public final class HelloScreen extends GuiScreen {
     }
 }</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Create a local screen — kotlin"><code class="language-kotlin">import net.minecraft.client.gui.GuiScreen
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Create a local screen — kotlin"><code class="language-kotlin">import net.minecraft.client.gui.GuiScreen
 class HelloScreen : GuiScreen() {
     override fun drawScreen(x: Int, y: Int, partialTicks: Float) {
         drawRect(0, 0, width, height, 0xFF17232D.toInt())
@@ -83,7 +83,7 @@ class HelloScreen : GuiScreen() {
     }
 }</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Create a local screen — groovy"><code class="language-groovy">import net.minecraft.client.gui.GuiScreen
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Create a local screen — groovy"><code class="language-groovy">import net.minecraft.client.gui.GuiScreen
 class HelloScreen extends GuiScreen {
     @Override void drawScreen(int x, int y, float partialTicks) {
         drawRect(0, 0, width, height, 0xFF17232D as int)
@@ -92,14 +92,14 @@ class HelloScreen extends GuiScreen {
     }
 }</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Create a local screen — scala"><code class="language-scala">import net.minecraft.client.gui.GuiScreen
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Create a local screen — scala"><code class="language-scala">import net.minecraft.client.gui.GuiScreen
 class HelloScreen extends GuiScreen:
   override def drawScreen(x: Int, y: Int, partialTicks: Float): Unit =
     net.minecraft.client.gui.Gui.drawRect(0, 0, width, height, 0xFF17232D)
     drawCenteredString(fontRenderer, "Hello", width / 2, 24, 0xFFFFFF)
     super.drawScreen(x, y, partialTicks)</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Create a local screen — zenscript"><code class="language-zenscript">import mods.offscreencleanroom.Windows;
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Create a local screen — zenscript"><code class="language-zenscript">import mods.offscreencleanroom.Windows;
 val hello = Windows.screen("Hello", 640, 480).background(-15260883);
 hello.text("Hello", 24, 24, -1);</code>
 </pre>
@@ -110,7 +110,7 @@ hello.text("Hello", 24, 24, -1);</code>
 <h2 id="languages-recipe-open-control">Open a window, change its title, and close it</h2>
 <p>With the screen defined, open it from a client action and retain its window handle.</p>
 <p>The opening code shows the screen in a desktop window, then sets its title and dimensions. Run it from a client button or key action and save the returned window. The final close call is a separate, later action: call it when the user finishes or when your controller is shutting down.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
 var window = OffscreenAPI.open(HelloScreen::new);
 if (OffscreenAPI.isOpen(window)) {
     window.setTitle("Tools");
@@ -120,26 +120,26 @@ if (OffscreenAPI.isOpen(window)) {
 // Later, from the client thread:
 OffscreenAPI.close(window);</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
 val window = openWindow("Tools", 960, 640) { HelloScreen() }
 window.setClearColor(0xFF17232D.toInt())
 // Later, from the client thread:
 OffscreenAPI.close(window)</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — groovy"><code class="language-groovy">def windows = mods.offscreencleanroom.windows
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — groovy"><code class="language-groovy">def windows = mods.offscreencleanroom.windows
 def window = windows.open({ new HelloScreen() }, 'Tools', 960, 640)
 windows.configure(window) { current -&gt; current.setClearColor(0xFF17232D as int) }
 // Later; reload also closes only this registry's windows:
 windows.close(window)</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
 import com.sbancuz.offscreen.api.OffscreenAPI
 val window = open("Tools", 960, 640)(new HelloScreen)
 window.setClearColor(0xFF17232D)
 // Later, from the client thread:
 OffscreenAPI.close(window)</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — zenscript"><code class="language-zenscript">// Inside a client GUI/input callback, after declaring hello:
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — zenscript"><code class="language-zenscript">// Inside a client GUI/input callback, after declaring hello:
 val window = hello.open();
 window.title("Tools");
 window.resize(960, 640);
@@ -154,14 +154,14 @@ window.close();</code>
 <h2 id="languages-recipe-screen-stack">Open a child screen or replace the current screens</h2>
 <p>Once a window is open, navigation can reuse it instead of opening another desktop window.</p>
 <p>Push opens a child screen in the same desktop window while keeping its parent available. Back closes that child and reveals the parent. Replacing the root discards all previous screens. Each newly opened screen needs a fresh connecting adapter; do not reuse one that a window has already disposed.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI;
 OffscreenAPI.push(window, HelloScreen::new);
 boolean returned = OffscreenAPI.pop(window);
 window.setUI(new VanillaUI(new HelloScreen()));
 int depth = OffscreenAPI.getScreenDepth(window);</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 window.pushScreen { HelloScreen() }
 val returned = OffscreenAPI.pop(window)
@@ -172,13 +172,13 @@ window.replaceScreen(HostUIFactory {
 }
 val depth = window.screenDepth</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — groovy"><code class="language-groovy">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — groovy"><code class="language-groovy">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 windows.push(window, { new HelloScreen() })
 def returned = windows.back(window)
 windows.replace(window, { new HelloScreen() }, { screen -&gt; new VanillaUI(screen) })
 def depth = window.getScreenDepth()</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
 import com.sbancuz.offscreen.api.OffscreenAPI
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 window.pushScreen(new HelloScreen)
@@ -186,7 +186,7 @@ val returned = OffscreenAPI.pop(window)
 window.replaceScreen(screen =&gt; new VanillaUI(screen.asInstanceOf[HelloScreen]))(new HelloScreen)
 val depth = window.getScreenDepth()</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — zenscript"><code class="language-zenscript">val child = Windows.screen("Details", 480, 320);
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — zenscript"><code class="language-zenscript">val child = Windows.screen("Details", 480, 320);
 window.push(child);
 val returned = window.back();
 window.replace(Windows.screen("New root", 640, 480));
@@ -199,7 +199,7 @@ val depth = window.depth;</code>
 <h2 id="languages-recipe-dynamic-screen">Draw dynamic content and update logic</h2>
 <p>The same window can display changing data. Update that data during ticks and draw the current values each frame.</p>
 <p>This example changes screen content as time passes and draws it in a desktop window. The update function runs on client ticks, while drawing runs at the window’s configured frame rate. A low background-window FPS slows drawing, not client updates or server ticks.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — java"><code class="language-java">public final class CounterScreen extends net.minecraft.client.gui.GuiScreen {
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — java"><code class="language-java">public final class CounterScreen extends net.minecraft.client.gui.GuiScreen {
     private int ticks;
     @Override public void updateScreen() {
         ticks++;
@@ -211,7 +211,7 @@ val depth = window.depth;</code>
     @Override public void onGuiClosed() { /* Release only this screen's resources. */ }
 }</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — kotlin"><code class="language-kotlin">class CounterScreen : net.minecraft.client.gui.GuiScreen() {
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — kotlin"><code class="language-kotlin">class CounterScreen : net.minecraft.client.gui.GuiScreen() {
     private var ticks = 0
     override fun updateScreen() { ticks++ }
     override fun drawScreen(x: Int, y: Int, partial: Float) {
@@ -221,7 +221,7 @@ val depth = window.depth;</code>
     override fun onGuiClosed() { /* Release this screen's resources. */ }
 }</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — groovy"><code class="language-groovy">class CounterScreen extends net.minecraft.client.gui.GuiScreen {
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — groovy"><code class="language-groovy">class CounterScreen extends net.minecraft.client.gui.GuiScreen {
     int ticks
     @Override void updateScreen() { ticks++ }
     @Override void drawScreen(int x, int y, float partial) {
@@ -231,7 +231,7 @@ val depth = window.depth;</code>
     @Override void onGuiClosed() { /* Release this screen's resources. */ }
 }</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — scala"><code class="language-scala">class CounterScreen extends net.minecraft.client.gui.GuiScreen:
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — scala"><code class="language-scala">class CounterScreen extends net.minecraft.client.gui.GuiScreen:
   private var ticks = 0
   override def updateScreen(): Unit = ticks += 1
   override def drawScreen(x: Int, y: Int, partial: Float): Unit =
@@ -239,7 +239,7 @@ val depth = window.depth;</code>
     super.drawScreen(x, y, partial)
   override def onGuiClosed(): Unit = () // Release this screen's resources.</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — zenscript"><code class="language-zenscript">var ticks as int = 0;
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Draw dynamic content and update logic — zenscript"><code class="language-zenscript">var ticks as int = 0;
 hello.on("tick", function(event) {
     ticks += 1; return false;
 });
@@ -259,7 +259,7 @@ hello.on("close", function(event) {
 <h2 id="languages-recipe-input-adapter">Receive text, key-up and pointer input</h2>
 <p>Interactive content also needs input. Add handlers for typing, keys and pointer events alongside drawing.</p>
 <p>Use these functions to react to typed text, released keys, mouse movement, and scrolling before the screen handles them normally. The script example handles text and scroll events itself while leaving normal button clicks available. Typed text can contain several characters; physical key codes are for shortcuts and navigation.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — java"><code class="language-java">import com.sbancuz.offscreen.integration.vanilla.VanillaUI;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — java"><code class="language-java">import com.sbancuz.offscreen.integration.vanilla.VanillaUI;
 import com.sbancuz.offscreen.window.input.KeyEvent;
 var adapter = new VanillaUI(new HelloScreen()) {
     @Override public void onTextInput(String text) {
@@ -276,7 +276,7 @@ var adapter = new VanillaUI(new HelloScreen()) {
     }
 };</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 import com.sbancuz.offscreen.window.input.KeyEvent
 val adapter = object : VanillaUI(HelloScreen()) {
     override fun onTextInput(text: String) { println(text) }
@@ -287,7 +287,7 @@ val adapter = object : VanillaUI(HelloScreen()) {
     override fun onMouseScroll(x: Int, y: Int, step: Int) { println(step) }
 }</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — groovy"><code class="language-groovy">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — groovy"><code class="language-groovy">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 import com.sbancuz.offscreen.window.input.KeyEvent
 class InputAdapter extends VanillaUI {
     InputAdapter(HelloScreen screen) { super(screen) }
@@ -299,7 +299,7 @@ class InputAdapter extends VanillaUI {
     @Override void onMouseScroll(int x, int y, int step) { println(step) }
 }</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — scala"><code class="language-scala">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — scala"><code class="language-scala">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 import com.sbancuz.offscreen.window.input.KeyEvent
 val adapter = new VanillaUI(new HelloScreen):
   override def onTextInput(text: String): Unit = println(text)
@@ -308,7 +308,7 @@ val adapter = new VanillaUI(new HelloScreen):
     super.onKeyPressed(key)
   override def onMouseScroll(x: Int, y: Int, step: Int): Unit = println(step)</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — zenscript"><code class="language-zenscript">hello.on("text", function(event) {
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Receive text, key-up and pointer input — zenscript"><code class="language-zenscript">hello.on("text", function(event) {
     print(event.text); return true;
 });
 hello.on("key", function(event) {
@@ -329,11 +329,11 @@ hello.on("drag", function(event) {
 <h2 id="languages-recipe-custom-framework">Connect a custom screen to a desktop window</h2>
 <p>If your addon already has a screen framework, connect its drawing and input methods to the window.</p>
 <p>Use this when Offscreen does not recognize your screen type. Supply a function that connects one fresh screen to drawing, input, resizing and cleanup through <code>HostUI</code>. The function is called an adapter factory. The returned window takes responsibility for disposing that adapter after successful installation.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — java"><code class="language-java">var window = com.sbancuz.offscreen.api.OffscreenAPI.open(
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — java"><code class="language-java">var window = com.sbancuz.offscreen.api.OffscreenAPI.open(
     HelloScreen::new,
     screen -&gt; new com.sbancuz.offscreen.integration.vanilla.VanillaUI((HelloScreen) screen));</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 val window = openWindow(HostUIFactory {
     screen -&gt; VanillaUI(screen as HelloScreen)
@@ -341,15 +341,15 @@ val window = openWindow(HostUIFactory {
     HelloScreen()
 }</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — groovy"><code class="language-groovy">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — groovy"><code class="language-groovy">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 def window = windows.openAdapted({ new HelloScreen() },
     { screen -&gt; new VanillaUI(screen) }, 'Adapted tools', 960, 640)</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 val window = adapted(screen =&gt; new VanillaUI(screen.asInstanceOf[HelloScreen]))(new HelloScreen)</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — zenscript"><code class="language-zenscript">// ZenScript uses its callback-backed adapter rather than importing arbitrary Java GUI types.
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Connect a custom screen to a desktop window — zenscript"><code class="language-zenscript">// ZenScript uses its callback-backed adapter rather than importing arbitrary Java GUI types.
 val screen = Windows.screen("Adapted tools", 960, 640);
 screen.on("draw",
     function(event) {
@@ -372,27 +372,27 @@ val window = screen.open();</code>
 <h2 id="languages-recipe-synchronized-factory">Open a screen whose controls update the server</h2>
 <p>For controls that change server-owned data, use a synchronized panel rather than a local screen.</p>
 <p>The counter panel in this example sends button actions to the server and displays the returned value. First register an <code>OffscreenSimpleFactory</code> with the same name, handlers and registration order on both client and server. Keep that object for opening the panel later; in these snippets it is named <code>factory</code>. ZenScript finds it by its registered name.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — java"><code class="language-java">var window = factory.openOffscreen();
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — java"><code class="language-java">var window = factory.openOffscreen();
 if (com.sbancuz.offscreen.api.OffscreenAPI.isOpen(window)) window.setTitle("Synchronized tools");
 // Later:
 com.sbancuz.offscreen.api.OffscreenAPI.close(window);</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — kotlin"><code class="language-kotlin">val window = factory.openOffscreen()
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — kotlin"><code class="language-kotlin">val window = factory.openOffscreen()
 if (com.sbancuz.offscreen.api.OffscreenAPI.isOpen(window)) window?.setTitle("Synchronized tools")
 // Later:
 com.sbancuz.offscreen.api.OffscreenAPI.close(window)</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — groovy"><code class="language-groovy">def window = factory.openOffscreen()
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — groovy"><code class="language-groovy">def window = factory.openOffscreen()
 if (com.sbancuz.offscreen.api.OffscreenAPI.isOpen(window)) window.setTitle('Synchronized tools')
 // A direct Java factory call is owned by your controller, not the windows facade:
 com.sbancuz.offscreen.api.OffscreenAPI.close(window)</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — scala"><code class="language-scala">val window = factory.openOffscreen()
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — scala"><code class="language-scala">val window = factory.openOffscreen()
 if com.sbancuz.offscreen.api.OffscreenAPI.isOpen(window) then window.setTitle("Synchronized tools")
 // Later:
 com.sbancuz.offscreen.api.OffscreenAPI.close(window)</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — zenscript"><code class="language-zenscript">// Use an actual OffscreenSimpleFactory name registered by your addon on both sides.
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Open a screen whose controls update the server — zenscript"><code class="language-zenscript">// Use an actual OffscreenSimpleFactory name registered by your addon on both sides.
 val window = Windows.openSynchronized("my_addon_tools");
 if (window != null) window.title("Synchronized tools");
 // Later, close through this handle to release its server session:
@@ -409,7 +409,7 @@ if (window != null) window.close();</code>
 <p>Once the basic setup is in place, these helpers fit the same API into native language callbacks and result types.</p>
 <h3 id="native-results">Use Kotlin and Scala functions to open a window</h3>
 <p>Use <code>popOutFunction</code> when a callback API expects a Scala <code>() =&gt; Unit</code> or Kotlin <code>() -&gt; Unit</code>. Keep <code>popOutAction</code> for Java <code>Runnable</code> callbacks. Both keep screen construction lazy and create a fresh screen on each invocation.</p>
-<pre><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
+<pre data-wiki-readable="true" data-wiki-recipe="code-35"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
 // Before: val action: Runnable = popOutAction(new MyScreen)
 val action: () =&gt; Unit = popOutFunction(new MyScreen)
 // Before: adapted(factory)(screen) may return null.

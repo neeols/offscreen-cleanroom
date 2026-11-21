@@ -15,9 +15,9 @@
 <script type="text/javascript" src="../../../../../script-files/offscreen.js"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-syntax.css">
 <script defer src="../../../../../script-files/prism-1.30.0.js"></script>
-<script defer src="../../../../../script-files/wiki-syntax.js"></script>
+<script defer src="../../../../../script-files/wiki-syntax.js?v=55fa2361aabe"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-recipes.css?v=830aa6aca6ac">
-<script defer src="../../../../../script-files/wiki-recipes.js?v=e343c168231c"></script>
+<script defer src="../../../../../script-files/wiki-recipes.js?v=7972fd1f690a"></script>
 </head>
 <body class="doc-file-page">
 <script type="text/javascript">const pathtoroot = "../../../../../";
@@ -89,7 +89,7 @@ loadScripts(document, 'script');</script>
 <p>The name field also has a <code>changed</code> callback. When its text changes, the library passes the live widget to that function. Calling <code>widget.state()</code> gives the window store belonging to that widget, so the callback updates the right window.</p>
 <p>Inside that callback, <code>state.initial("changes", 0)</code> creates the counter if it is missing. If it already exists as an integer, its value is kept. The next line reads it, adds one and writes it back with <code>state.integer("changes", nextValue)</code>. This counter is stored in memory; the sample does not draw it as a label. Use a different key if you also want to store text, because one key cannot hold both types.</p>
 <p>To use the Java class, keep one <code>WindowWidgetsRecipe</code> object in your client controller and call its <code>open()</code> method from a button or key action. Call it once to create the pair. Calling it again creates another pair rather than bringing the first pair forward, so close the current pair before replacing it. Later, call the same object’s <code>close()</code> method from your client disconnect or tool-close action.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — java"><code class="language-java">import java.util.List;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — java"><code class="language-java">import java.util.List;
 import com.sbancuz.offscreen.api.OffscreenAPI;
 import com.sbancuz.offscreen.api.widgets.WidgetSpec;
 import com.sbancuz.offscreen.api.widgets.WidgetScreen;
@@ -134,7 +134,7 @@ final class WindowWidgetsRecipe {
         OffscreenAPI.close(second);
     }
 }</code></pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
 import com.sbancuz.offscreen.api.widgets.WidgetSpec
 import com.sbancuz.offscreen.api.widgets.WidgetSpec.Kind.*
 import com.sbancuz.offscreen.window.Window
@@ -201,7 +201,7 @@ class WindowWidgetsRecipeK {
         OffscreenAPI.close(second)
     }
 }</code></pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.widgets.WidgetSpec
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.widgets.WidgetSpec
 import static com.sbancuz.offscreen.api.widgets.WidgetSpec.Kind.*
 
 // Client initialization in GroovyScript. No window is allocated while this declaration is loaded.
@@ -262,7 +262,7 @@ def openTools = {
     windows.openWidgets('Tools B', 640, 400, controls)
 }
 // Teardown: GroovyScript reload invalidates callbacks and closes only this registry's owned windows.</code></pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — scala"><code class="language-scala">import java.util.List as JList
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — scala"><code class="language-scala">import java.util.List as JList
 import com.sbancuz.offscreen.api.OffscreenAPI
 import com.sbancuz.offscreen.api.widgets.WidgetSpec
 import com.sbancuz.offscreen.api.widgets.WidgetSpec.Kind.*
@@ -323,7 +323,7 @@ final class WindowWidgetsRecipeS:
   def close(): Unit =
     OffscreenAPI.close(first)
     OffscreenAPI.close(second)</code></pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Give each window its own counter and text fields — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Windows;
 
 // Client initialization: defaults are copied into each newly opened window.
@@ -368,7 +368,7 @@ function openTools(tools as mods.offscreencleanroom.Screen) as void {
 <p>For input callbacks that return a boolean, return true when your code has handled the event. Return false to leave the normal input handling available. These callbacks run on Minecraft's client thread; declaring them does not call them or open a window.</p>
 <p>With those functions attached, call <code>build()</code> to finish the adapter. The Java <code>open()</code> method then passes two functions to <code>OffscreenAPI.open</code>: <code>Scratch::new</code> creates a fresh screen, and the second function builds the adapter for it. Offscreen calls both during opening and keeps the result in the returned window.</p>
 <p>Keep an <code>AdapterRecipe</code> object in your client controller. Call its <code>open()</code> from client input and its <code>close()</code> during teardown. After installation, the window calls the adapter’s disposal function when that screen is removed. Put screen-owned listeners and graphics cleanup there; in this small sample, disposal only clears the screen’s text.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — java"><code class="language-java">import com.sbancuz.offscreen.api.HostUI;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — java"><code class="language-java">import com.sbancuz.offscreen.api.HostUI;
 import com.sbancuz.offscreen.api.HostUIBuilder;
 import com.sbancuz.offscreen.api.OffscreenAPI;
 import com.sbancuz.offscreen.scope.Scope;
@@ -413,7 +413,7 @@ final class AdapterRecipe {
         OffscreenAPI.close(window);
     }
 }</code></pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
 import com.sbancuz.offscreen.scope.Scope
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.gui.GuiScreen
@@ -461,7 +461,7 @@ class AdapterRecipeK {
     // Client teardown.
     fun close() { OffscreenAPI.close(window) }
 }</code></pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.HostUIBuilder
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.HostUIBuilder
 import com.sbancuz.offscreen.scope.Scope
 import net.minecraft.client.gui.GuiScreen
 
@@ -498,7 +498,7 @@ def installAdapter = {
 def openTools = { windows.open({ new ScratchRecipeG() }, 'Scratch', 640, 400) }
 // Teardown: reload removes only this registration receipt, invalidates its old callbacks,
 // and disposes this windows registry's owned windows. Other addons' windows remain their own responsibility.</code></pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — scala"><code class="language-scala">import com.sbancuz.offscreen.api.{HostUI, HostUIFactory, OffscreenAPI}
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — scala"><code class="language-scala">import com.sbancuz.offscreen.api.{HostUI, HostUIFactory, OffscreenAPI}
 import com.sbancuz.offscreen.scaladsl.Offscreen.hostUI
 import com.sbancuz.offscreen.scope.Scope
 import com.sbancuz.offscreen.window.Window
@@ -533,7 +533,7 @@ final class AdapterRecipeS:
         (value: Object) =&gt; adapter(value.asInstanceOf[Scratch]))
   // Client teardown.
   def close(): Unit = OffscreenAPI.close(window)</code></pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Handle drawing and input for a custom screen — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Windows;
 
 // Client initialization. Host scopes are supplied automatically by this facade.
@@ -602,7 +602,7 @@ scratch.on("close", function(event) {
 </tbody></table>
 <p>The Increment button refers to the action named <code>increment</code>. Its server callback adds one to the session’s <code>count</code>, stopping at 100. The callback receives a temporary context for reading and changing those session values. Use it inside the callback only; saving that context in a field does not keep it valid.</p>
 <p>Finally, <code>register()</code> returns an <code>OffscreenSimpleFactory</code>. Store it during common initialization on both sides. After joining a world, call that factory’s <code>openOffscreen()</code> from client input and keep the returned window. For the full opening and closing sequence, follow <a href="integrations.html#integrations-open">ModularUI and HEI</a>.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — java"><code class="language-java">import java.util.function.Function;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — java"><code class="language-java">import java.util.function.Function;
 import java.util.function.Predicate;
 import com.sbancuz.offscreen.integration.mui2.SyncedPanel;
 import com.sbancuz.offscreen.integration.mui2.OffscreenSimpleFactory;
@@ -639,7 +639,7 @@ final class SyncedPanelRecipe {
     // Client action, after joining a world: factory.openOffscreen().
     // Retain its window; client teardown uses OffscreenAPI.close(window).
 }</code></pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — kotlin"><code class="language-kotlin">import java.util.function.Function
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — kotlin"><code class="language-kotlin">import java.util.function.Function
 import java.util.function.Predicate
 import com.sbancuz.offscreen.integration.mui2.SyncedPanel
 import com.sbancuz.offscreen.integration.mui2.OffscreenSimpleFactory
@@ -688,7 +688,7 @@ object SyncedPanelRecipeK {
     }
     // Client action: factory.openOffscreen(); retain the window until client teardown.
 }</code></pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — groovy"><code class="language-groovy">import java.util.function.Function
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — groovy"><code class="language-groovy">import java.util.function.Function
 import java.util.function.Predicate
 import com.sbancuz.offscreen.integration.mui2.SyncedPanel
 import com.sbancuz.offscreen.integration.mui2.OffscreenSimpleFactory
@@ -724,7 +724,7 @@ class SyncedPanelRecipeG {
     }
     // Client action: factory.openOffscreen(); retain the result and close it during client teardown.
 }</code></pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — scala"><code class="language-scala">import java.util.function.{Function, Predicate}
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — scala"><code class="language-scala">import java.util.function.{Function, Predicate}
 import com.sbancuz.offscreen.integration.mui2.{SyncedPanel, OffscreenSimpleFactory}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraftforge.items.IItemHandler
@@ -756,7 +756,7 @@ object SyncedPanelRecipeS:
       .fluidSlot("tank", "example:machine", 0, 170, 70)
       .playerInventory(10, 140).register()
   // Client action: factory.openOffscreen(); close the retained window during client teardown.</code></pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — zenscript"><code class="language-zenscript">import mods.offscreencleanroom.Windows;
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Connect item and fluid slots to existing server storage — zenscript"><code class="language-zenscript">import mods.offscreencleanroom.Windows;
 
 // Common startup, identical on client and server. An addon must register example:machine first.
 // Its server resolver and permission check choose the actual inventory/tank; scripts pass only the name.
@@ -785,7 +785,7 @@ val factoryName = panel.register();
 <p>One final step matters when you open the server panel: the returned window may appear before its contents are ready. It can show a waiting message or an error while still being open. Keep its handle and check its status from a later client tick.</p>
 <p>Use <code>isOpen</code> when deciding whether the window still exists. Use <code>isReady</code> before code that needs the installed screen’s layout. To show progress or explain a failure, read <code>getStatus</code> and report its message when the status changes. The code below demonstrates that check; call <code>report(window)</code> with the handle you saved from opening.</p>
 <p>Return from your input handler rather than waiting for readiness in a loop. Minecraft needs its client thread free to receive the server reply and finish layout.</p><table><caption>Window status calls</caption><thead><tr><th scope="col">Call</th><th scope="col">What it tells you</th></tr></thead><tbody><tr><td><code><a href="../OffscreenAPI.html#isOpen(com.sbancuz.offscreen.window.Window)">isOpen</a>(window)</code></td><td>Whether the native window still exists.</td></tr><tr><td><code><a href="../OffscreenAPI.html#isReady(com.sbancuz.offscreen.window.Window)">isReady</a>(window)</code></td><td>Whether screen layout has completed and synchronized bindings are healthy.</td></tr><tr><td><code><a href="../OffscreenAPI.html#getStatus(com.sbancuz.offscreen.window.Window)">getStatus</a>(window)</code></td><td>A status snapshot with a state and message, useful when reporting a change or failure.</td></tr><tr><td><code><a href="../OffscreenAPI.html#close(com.sbancuz.offscreen.window.Window)">close</a>(window)</code></td><td>End this window's session and release its resources when your controller finishes.</td></tr></tbody></table>
-<p>Java, Kotlin, Scala and Groovy read the same status snapshot. The ZenScript handle exposes <code>open</code>, <code>ready</code>, <code>status</code>, <code>failureReason</code> and <code>statusMessage</code>. Empty failure strings mean no failure. On the local error screen, Retry starts a fresh request and Close ends the attempt; a late reply from the previous request cannot make it ready.</p><pre data-language="java" tabindex="0" role="region" aria-label="Screen readiness — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
+<p>Java, Kotlin, Scala and Groovy read the same status snapshot. The ZenScript handle exposes <code>open</code>, <code>ready</code>, <code>status</code>, <code>failureReason</code> and <code>statusMessage</code>. Empty failure strings mean no failure. On the local error screen, Retry starts a fresh request and Close ends the attempt; a late reply from the previous request cannot make it ready.</p><pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Screen readiness — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
 import com.sbancuz.offscreen.window.Window;
 
 final class ReadinessExample {
@@ -800,7 +800,7 @@ final class ReadinessExample {
     }
     // Teardown: OffscreenAPI.close(window). The error screen also offers Close/Retry.
 }</code></pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Screen readiness — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.OffscreenAPI
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Screen readiness — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.OffscreenAPI
 import com.sbancuz.offscreen.window.Window
 
 // Client action/tick: inspect a retained handle on status changes, without blocking.
@@ -811,7 +811,7 @@ fun reportReadiness(window: Window?) {
     println("Screen is ready")
 }
 // Client teardown: OffscreenAPI.close(window). Close/Retry are also in the error screen.</code></pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Screen readiness — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.OffscreenAPI
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Screen readiness — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.OffscreenAPI
 
 // Client action/tick: pass the native Window returned by the synchronized factory.
 // Retain it in your client controller; report on changes rather than every frame.
@@ -822,7 +822,7 @@ def reportReadiness(window) {
     println('Screen is ready')
 }
 // Client teardown/reload: OffscreenAPI.close(window). A factory handle is controller-owned.</code></pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Screen readiness — scala"><code class="language-scala">import com.sbancuz.offscreen.api.OffscreenAPI
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Screen readiness — scala"><code class="language-scala">import com.sbancuz.offscreen.api.OffscreenAPI
 import com.sbancuz.offscreen.window.Window
 
 // Client action/tick: inspect the retained handle on status changes; never block.
@@ -831,7 +831,7 @@ def reportReadiness(window: Window): Unit =
     println(s"${status.state()}: ${status.message()}")
     if OffscreenAPI.isReady(window) then println("Screen is ready")
 // Client teardown: OffscreenAPI.close(window). The error screen also has Close/Retry.</code></pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Screen readiness — zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Screen readiness — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Window;
 
 // Client action: pass the handle returned by Windows.openSynchronized or your panel.

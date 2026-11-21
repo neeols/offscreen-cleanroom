@@ -15,9 +15,9 @@
 <script type="text/javascript" src="../../../../../script-files/offscreen.js"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-syntax.css">
 <script defer src="../../../../../script-files/prism-1.30.0.js"></script>
-<script defer src="../../../../../script-files/wiki-syntax.js"></script>
+<script defer src="../../../../../script-files/wiki-syntax.js?v=55fa2361aabe"></script>
 <link rel="stylesheet" href="../../../../../resource-files/wiki-recipes.css?v=830aa6aca6ac">
-<script defer src="../../../../../script-files/wiki-recipes.js?v=e343c168231c"></script>
+<script defer src="../../../../../script-files/wiki-recipes.js?v=7972fd1f690a"></script>
 </head>
 <body class="doc-file-page">
 <script type="text/javascript">const pathtoroot = "../../../../../";
@@ -68,7 +68,7 @@ loadScripts(document, 'script');</script>
 <h2 id="start-screen">Create a screen</h2>
 <p>First, create a class that extends <code>GuiScreen</code>. Offscreen will call its drawing and input methods on the client thread. In this example, <code>drawScreen</code> fills the window with a dark background and draws a message in the center.</p>
 <p>You can copy the class below, or <a href="HelloScreen.java">download the complete HelloScreen.java example</a>, which also includes an <code>open()</code> helper. Adjust the package declaration for your addon.</p>
-<pre tabindex="0" role="region" aria-label="HelloScreen drawing example"><code class="language-java">import net.minecraft.client.gui.GuiScreen;
+<pre data-wiki-readable="true" data-wiki-recipe="code-0" tabindex="0" role="region" aria-label="HelloScreen drawing example"><code class="language-java">import net.minecraft.client.gui.GuiScreen;
 
 public final class HelloScreen extends GuiScreen {
     @Override
@@ -87,7 +87,7 @@ Minecraft's GUI scale and the monitor's display density affect the conversion. O
 <h2 id="start-open">Open the window</h2>
 <p>To open the screen, call <code>OffscreenAPI.open(HelloScreen::new)</code> from your client action. The argument is a function that creates a fresh screen. <code>open</code> calls that function immediately and returns a <code>Window</code> handle.</p>
 <p>Save that handle in your client controller. You will use the same handle to set the title, change the size and close the window. If you downloaded the complete example, its <code>HelloScreen.open()</code> helper performs the opening step for you.</p>
-<pre tabindex="0" role="region" aria-label="Open a local window"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
+<pre data-wiki-readable="true" data-wiki-recipe="code-1" tabindex="0" role="region" aria-label="Open a local window"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
 import com.sbancuz.offscreen.window.Window;
 
 // Keep this reference in your client controller if you want to close it later.
@@ -115,20 +115,20 @@ if (OffscreenAPI.isOpen(window)) {
 
 <h2 id="start-navigation">Navigation and closing</h2>
 <p>When you want to show another page in the same desktop window, call <code>OffscreenAPI.push(window, screenFactory)</code>. Pass the saved window handle and a function that creates the child screen. Check that the window is still open first, because the user may have closed it since your previous action.</p>
-<pre tabindex="0" role="region" aria-label="Push a child screen"><code class="language-java">if (OffscreenAPI.isOpen(window)) {
+<pre data-wiki-readable="true" data-wiki-recipe="code-2" tabindex="0" role="region" aria-label="Push a child screen"><code class="language-java">if (OffscreenAPI.isOpen(window)) {
     OffscreenAPI.push(window, HelloScreen::new);
 }
 </code>
 </pre>
 <p>The example uses another <code>HelloScreen</code>, so both pages look alike. Substitute your own screen class for a different page. To return to the previous page, call <code>pop</code> with the same window handle:</p>
-<pre tabindex="0" role="region" aria-label="Return to the parent screen"><code class="language-java">boolean wentBack = OffscreenAPI.pop(window);
+<pre data-wiki-readable="true" data-wiki-recipe="code-3" tabindex="0" role="region" aria-label="Return to the parent screen"><code class="language-java">boolean wentBack = OffscreenAPI.pop(window);
 </code>
 </pre>
 <p>Popping disposes the child adapter and reveals the retained parent. Do not reuse the popped child's
 adapter or dispose the parent yourself. The first screen is the root. Calling <code>pop</code> on it
 returns false and leaves it in place.</p>
 <p>To finish using the window, you must release the handle your addon owns. Put the following call in your client controller’s teardown or disconnect handler, or in the action that closes this tool. Run it when the tool is finished; placing it immediately after <code>open</code> would close the new window at once.</p>
-<pre tabindex="0" role="region" aria-label="Close a window"><code class="language-java">OffscreenAPI.close(window);
+<pre data-wiki-readable="true" data-wiki-recipe="code-4" tabindex="0" role="region" aria-label="Close a window"><code class="language-java">OffscreenAPI.close(window);
 </code>
 </pre>
 <p><code>close(window)</code> releases the screens still in that window’s stack and destroys its native resources. It also ends an attached synchronized session. You can safely pass <code>null</code> or an already closed handle. Close only the handles your addon owns.</p>
@@ -147,7 +147,7 @@ returns false and leaves it in place.</p>
 </tbody></table>
 <p>Both opacity controls are independent and accept finite values from zero to one. Custom-bar transparency needs the creation-time <code>openCustom</code> path: an ordinary opaque native window cannot acquire per-pixel alpha later without recreation. The examples request custom chrome up front and then set whole-window opacity separately. Opacity does not remove the configured hit-test regions or request click-through; pointer delivery through fully transparent pixels depends on the native window system.</p>
 <p>For a synchronized panel, use <code>factory.openOffscreen(chrome)</code>; CraftTweaker uses <code>Windows.openSynchronizedCustom(factoryName, chrome)</code>. The same server permissions and container limits apply. To restore native chrome later, use <code>OffscreenAPI.setChrome(window, null)</code> or <code>window.nativeTitleBar()</code> in CraftTweaker. Hiding Close does not disable Alt+F4, OS commands, or the public close API.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Window appearance — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Window appearance — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
 import com.sbancuz.offscreen.api.WindowChrome;
 import com.sbancuz.offscreen.window.Window;
 import net.minecraft.client.gui.GuiScreen;
@@ -180,7 +180,7 @@ final class AppearanceExample {
     }
     // Client teardown: OffscreenAPI.close(window).
 }</code></pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Window appearance — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.OffscreenAPI
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Window appearance — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.OffscreenAPI
 import com.sbancuz.offscreen.api.WindowChrome
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.gui.GuiScreen
@@ -209,7 +209,7 @@ fun openStyledWindow(): Window {
     }
 }
 // Client teardown: OffscreenAPI.close(window). Ordinary open keeps native OS chrome.</code></pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Window appearance — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.OffscreenAPI
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Window appearance — groovy"><code class="language-groovy">import com.sbancuz.offscreen.api.OffscreenAPI
 import com.sbancuz.offscreen.api.WindowChrome
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.util.ResourceLocation
@@ -235,7 +235,7 @@ def openStyledWindow() {
     }
 }
 // Client teardown/reload: OffscreenAPI.close(window). Ordinary open keeps native OS chrome.</code></pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Window appearance — scala"><code class="language-scala">import com.sbancuz.offscreen.api.{OffscreenAPI, WindowChrome}
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Window appearance — scala"><code class="language-scala">import com.sbancuz.offscreen.api.{OffscreenAPI, WindowChrome}
 import com.sbancuz.offscreen.window.Window
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.util.ResourceLocation
@@ -259,7 +259,7 @@ def openStyledWindow(): Window =
             OffscreenAPI.close(window)
             throw failure
 // Client teardown: OffscreenAPI.close(window). Ordinary open keeps native OS chrome.</code></pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Window appearance — zenscript"><code class="language-zenscript">#side client
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Window appearance — zenscript"><code class="language-zenscript">#side client
 import mods.offscreencleanroom.Windows;
 import mods.offscreencleanroom.Window;
 
@@ -292,7 +292,7 @@ screens when installed; it does not make arbitrary unsynchronized containers saf
 <div class="av-example-group" data-example="local-screen">
 <h2 id="start-recipe-local-screen">Create a local screen</h2>
 <p>This defines screen content without opening a desktop window. The native examples extend Minecraft’s GuiScreen; the ZenScript version describes the same static content.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Create a local screen — java"><code class="language-java">import net.minecraft.client.gui.GuiScreen;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Create a local screen — java"><code class="language-java">import net.minecraft.client.gui.GuiScreen;
 public final class HelloScreen extends GuiScreen {
     @Override public void drawScreen(int x, int y, float partialTicks) {
         drawRect(0, 0, width, height, 0xFF17232D);
@@ -301,7 +301,7 @@ public final class HelloScreen extends GuiScreen {
     }
 }</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Create a local screen — kotlin"><code class="language-kotlin">import net.minecraft.client.gui.GuiScreen
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Create a local screen — kotlin"><code class="language-kotlin">import net.minecraft.client.gui.GuiScreen
 class HelloScreen : GuiScreen() {
     override fun drawScreen(x: Int, y: Int, partialTicks: Float) {
         drawRect(0, 0, width, height, 0xFF17232D.toInt())
@@ -310,7 +310,7 @@ class HelloScreen : GuiScreen() {
     }
 }</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Create a local screen — groovy"><code class="language-groovy">import net.minecraft.client.gui.GuiScreen
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Create a local screen — groovy"><code class="language-groovy">import net.minecraft.client.gui.GuiScreen
 class HelloScreen extends GuiScreen {
     @Override void drawScreen(int x, int y, float partialTicks) {
         drawRect(0, 0, width, height, 0xFF17232D as int)
@@ -319,14 +319,14 @@ class HelloScreen extends GuiScreen {
     }
 }</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Create a local screen — scala"><code class="language-scala">import net.minecraft.client.gui.GuiScreen
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Create a local screen — scala"><code class="language-scala">import net.minecraft.client.gui.GuiScreen
 class HelloScreen extends GuiScreen:
   override def drawScreen(x: Int, y: Int, partialTicks: Float): Unit =
     net.minecraft.client.gui.Gui.drawRect(0, 0, width, height, 0xFF17232D)
     drawCenteredString(fontRenderer, "Hello", width / 2, 24, 0xFFFFFF)
     super.drawScreen(x, y, partialTicks)</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Create a local screen — zenscript"><code class="language-zenscript">import mods.offscreencleanroom.Windows;
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Create a local screen — zenscript"><code class="language-zenscript">import mods.offscreencleanroom.Windows;
 val hello = Windows.screen("Hello", 640, 480).background(-15260883);
 hello.text("Hello", 24, 24, -1);</code>
 </pre>
@@ -335,7 +335,7 @@ hello.text("Hello", 24, 24, -1);</code>
 <div class="av-example-group" data-example="open-control">
 <h2 id="start-recipe-open-control">Open a window, change its title, and close it</h2>
 <p>The opening code shows the screen in a desktop window, then sets its title and dimensions. Run it from a client button or key action and save the returned window. The final close call is a separate, later action: call it when the user finishes or when your controller is shutting down.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
 var window = OffscreenAPI.open(HelloScreen::new);
 if (OffscreenAPI.isOpen(window)) {
     window.setTitle("Tools");
@@ -345,26 +345,26 @@ if (OffscreenAPI.isOpen(window)) {
 // Later, from the client thread:
 OffscreenAPI.close(window);</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
 val window = openWindow("Tools", 960, 640) { HelloScreen() }
 window.setClearColor(0xFF17232D.toInt())
 // Later, from the client thread:
 OffscreenAPI.close(window)</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — groovy"><code class="language-groovy">def windows = mods.offscreencleanroom.windows
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — groovy"><code class="language-groovy">def windows = mods.offscreencleanroom.windows
 def window = windows.open({ new HelloScreen() }, 'Tools', 960, 640)
 windows.configure(window) { current -&gt; current.setClearColor(0xFF17232D as int) }
 // Later; reload also closes only this registry's windows:
 windows.close(window)</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
 import com.sbancuz.offscreen.api.OffscreenAPI
 val window = open("Tools", 960, 640)(new HelloScreen)
 window.setClearColor(0xFF17232D)
 // Later, from the client thread:
 OffscreenAPI.close(window)</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — zenscript"><code class="language-zenscript">// Inside a client GUI/input callback, after declaring hello:
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Open a window, change its title, and close it — zenscript"><code class="language-zenscript">// Inside a client GUI/input callback, after declaring hello:
 val window = hello.open();
 window.title("Tools");
 window.resize(960, 640);
@@ -377,14 +377,14 @@ window.close();</code>
 <div class="av-example-group" data-example="screen-stack">
 <h2 id="start-recipe-screen-stack">Open a child screen or replace the current screens</h2>
 <p>Push opens a child screen in the same desktop window while keeping its parent available. Back closes that child and reveals the parent. Replacing the root discards all previous screens. Each newly opened screen needs a fresh connecting adapter; do not reuse one that a window has already disposed.</p>
-<pre data-language="java" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
+<pre data-wiki-readable="true" data-language="java" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — java"><code class="language-java">import com.sbancuz.offscreen.api.OffscreenAPI;
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI;
 OffscreenAPI.push(window, HelloScreen::new);
 boolean returned = OffscreenAPI.pop(window);
 window.setUI(new VanillaUI(new HelloScreen()));
 int depth = OffscreenAPI.getScreenDepth(window);</code>
 </pre>
-<pre data-language="kotlin" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
+<pre data-wiki-readable="true" data-language="kotlin" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — kotlin"><code class="language-kotlin">import com.sbancuz.offscreen.api.*
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 window.pushScreen { HelloScreen() }
 val returned = OffscreenAPI.pop(window)
@@ -395,13 +395,13 @@ window.replaceScreen(HostUIFactory {
 }
 val depth = window.screenDepth</code>
 </pre>
-<pre data-language="groovy" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — groovy"><code class="language-groovy">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
+<pre data-wiki-readable="true" data-language="groovy" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — groovy"><code class="language-groovy">import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 windows.push(window, { new HelloScreen() })
 def returned = windows.back(window)
 windows.replace(window, { new HelloScreen() }, { screen -&gt; new VanillaUI(screen) })
 def depth = window.getScreenDepth()</code>
 </pre>
-<pre data-language="scala" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
+<pre data-wiki-readable="true" data-language="scala" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — scala"><code class="language-scala">import com.sbancuz.offscreen.scaladsl.Offscreen.*
 import com.sbancuz.offscreen.api.OffscreenAPI
 import com.sbancuz.offscreen.integration.vanilla.VanillaUI
 window.pushScreen(new HelloScreen)
@@ -409,7 +409,7 @@ val returned = OffscreenAPI.pop(window)
 window.replaceScreen(screen =&gt; new VanillaUI(screen.asInstanceOf[HelloScreen]))(new HelloScreen)
 val depth = window.getScreenDepth()</code>
 </pre>
-<pre data-language="zenscript" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — zenscript"><code class="language-zenscript">val child = Windows.screen("Details", 480, 320);
+<pre data-wiki-readable="true" data-language="zenscript" tabindex="0" role="region" aria-label="Open a child screen or replace the current screens — zenscript"><code class="language-zenscript">val child = Windows.screen("Details", 480, 320);
 window.push(child);
 val returned = window.back();
 window.replace(Windows.screen("New root", 640, 480));
